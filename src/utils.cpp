@@ -19,11 +19,11 @@ void drawText(float x, float y, std::string text) {
 }
 
 void display_callback(){
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glColor3f(0.0f, 0.0f, 1.0f);
 
 	// Desenha o teapot com a cor corrente (wire-frame)
-	glutWireTeapot(50.0f);
+	glutSolidTeapot(50.0f);
 
 	// lev.draw();
 	// lev.update();
@@ -81,7 +81,9 @@ void EspecificaParametrosVisualizacao(void)
 	glLoadIdentity();
 
 	// Especifica posição do observador e do alvo
-	gluLookAt(0,80,200, 0,0,0, 0,1,0);
+	gluLookAt(  0, 100, 200,
+                0,   0,   0,
+                0,   1,   0);
 }
 
 // Função callback chamada quando o tamanho da janela é alterado 
