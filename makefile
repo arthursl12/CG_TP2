@@ -11,7 +11,7 @@ LIBS := -lglut -lGL -lGLU
 INC := -I include
 
 
-MODULES = utils gObject
+MODULES = utils linalg world gObject
 SOURCES = $(addsuffix .cpp,$(MODULES))
 OBJECTS = $(patsubst %.cpp, %.o, $(SOURCES))
 TESTS = $(addprefix test_,$(SOURCES))

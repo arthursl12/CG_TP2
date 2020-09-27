@@ -8,9 +8,10 @@
 #include <iterator>
 
 #include "gObject.h"
+#include "world.h"
 #include "utils.h"
 
-// extern Level lev;
+extern World world;
 extern GLfloat angle, fAspect;
 
 void drawText(float x, float y, std::string text) {
@@ -23,7 +24,7 @@ void display_callback(){
 	glColor3f(0.0f, 0.0f, 1.0f);
 
 	// Desenha o teapot com a cor corrente (wire-frame)
-	glutSolidTeapot(50.0f);
+	world.draw();
 
 	// lev.draw();
 	// lev.update();
@@ -48,6 +49,25 @@ void keyboard_callback(unsigned char key, int, int){
 			// }
 		}
 	}
+}
+
+void keyboard_special_callback(int key, int x, int y){
+    switch (key){
+    case GLUT_KEY_UP:
+		// std::cout << "UP" << std::endl;
+        world.moveObservador(1, 0, 0);
+        EspecificaParametrosVisualizacao();
+		glutPostRedisplay();
+        break;
+	case GLUT_KEY_DOWN:
+		// std::cout << "UP" << std::endl;
+        world.moveObservador(-1, 0, 0);
+        EspecificaParametrosVisualizacao();
+		glutPostRedisplay();
+        break;
+    default:
+        break;
+    }
 }
 
 void motion_callback(int x, int y){
@@ -80,10 +100,7 @@ void EspecificaParametrosVisualizacao(void)
 	// Inicializa sistema de coordenadas do modelo
 	glLoadIdentity();
 
-	// Especifica posição do observador e do alvo
-	gluLookAt(  0, 100, 200,
-                0,   0,   0,
-                0,   1,   0);
+    world.view();
 }
 
 // Função callback chamada quando o tamanho da janela é alterado 

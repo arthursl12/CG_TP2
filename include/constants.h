@@ -6,6 +6,8 @@
 #define WINDOW_H 800
 #define WINDOW_W 900
 
+#define PASSO 5
+
 #define T_COL 10
 #define MAX_COL 12
 #define MIN_COL 7

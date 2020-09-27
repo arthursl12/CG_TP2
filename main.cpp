@@ -5,9 +5,11 @@
 #include <ctime>
 #include <cstdlib>
 
+#include "world.h"
 #include "constants.h"
 #include "utils.h"
 
+World world;
 GLfloat angle, fAspect;
 
 void init(){
@@ -62,6 +64,7 @@ int main(int argc, char **argv){
 	glutReshapeFunc(reshape_callback);
 	glutTimerFunc(0,timer_callback,0);
 	glutKeyboardFunc(keyboard_callback);
+    glutSpecialFunc(keyboard_special_callback);
 	glutMouseFunc(mouse_callback);
 	glutPassiveMotionFunc(motion_callback);
 	glutMotionFunc(motion_callback);

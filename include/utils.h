@@ -13,6 +13,7 @@ void EspecificaParametrosVisualizacao(void);
 void reshape_callback(int,int);
 void timer_callback(int);
 void keyboard_callback(unsigned char, int, int);
+void keyboard_special_callback(int key, int x, int y);
 void motion_callback(int x, int y);
 void mouse_callback(int button, int state, int x, int y);
 
