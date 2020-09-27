@@ -40,6 +40,8 @@ void keyboard_callback(unsigned char key, int, int){
 			// lev = Level(lev);
 			glClearColor(0.0f, 0.0f, 0.0f, 1.0f );
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			world.reset();
+			EspecificaParametrosVisualizacao();
 			glutPostRedisplay();
 			break;
 		}
@@ -54,17 +56,35 @@ void keyboard_callback(unsigned char key, int, int){
 void keyboard_special_callback(int key, int x, int y){
     switch (key){
     case GLUT_KEY_UP:
-		// std::cout << "UP" << std::endl;
-        world.moveObservador(1, 0, 0);
+        world.moveObservador( 1, 0, 0);
         EspecificaParametrosVisualizacao();
 		glutPostRedisplay();
         break;
 	case GLUT_KEY_DOWN:
-		// std::cout << "UP" << std::endl;
         world.moveObservador(-1, 0, 0);
         EspecificaParametrosVisualizacao();
 		glutPostRedisplay();
         break;
+	case GLUT_KEY_RIGHT:
+		world.moveObservador( 0, 1, 0);
+        EspecificaParametrosVisualizacao();
+		glutPostRedisplay();
+		break;
+	case GLUT_KEY_LEFT:
+		world.moveObservador( 0,-1, 0);
+        EspecificaParametrosVisualizacao();
+		glutPostRedisplay();
+		break;
+	case GLUT_KEY_SHIFT_R:
+		world.moveObservador( 0, 0, 1);
+        EspecificaParametrosVisualizacao();
+		glutPostRedisplay();
+		break;
+	case GLUT_KEY_CTRL_R:
+		world.moveObservador( 0, 0,-1);
+        EspecificaParametrosVisualizacao();
+		glutPostRedisplay();
+		break;
     default:
         break;
     }
@@ -93,7 +113,7 @@ void EspecificaParametrosVisualizacao(void)
 	glLoadIdentity();
 
 	// Especifica a projeção perspectiva
-	gluPerspective(angle,fAspect,0.1,500);
+	gluPerspective(angle,fAspect,0.1,300000.0f);
 
 	// Especifica sistema de coordenadas do modelo
 	glMatrixMode(GL_MODELVIEW);
