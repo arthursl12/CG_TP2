@@ -14,8 +14,45 @@ World::World(const World& old){
 }
 
 void World::draw(){
-    glutSolidTeapot(50.0f);
-    glutWireCube(80.0f);
+    glColor3f(1,1,1);
+    // glutSolidTeapot(50.0f);
+    // glutWireCube(80.0f);
+
+    glColor3f(1,1,0);
+    glBegin(GL_TRIANGLES); 
+        // Seta +Y
+        glNormal3f(0.0, 1.0, 0.0); 
+        glVertex3f(-5,0,0);
+        glVertex3f(0,100,0);
+        glVertex3f(5,0,0);
+    glEnd();
+
+    glColor3f(1,0,0);
+    glBegin(GL_TRIANGLES); 
+        // Seta +Z
+        glNormal3f(0.0, 1.0, 0.0); 
+        glVertex3f(-5,0,0);
+        glVertex3f(0,0,100);
+        glVertex3f(5,0,0);
+    glEnd();
+
+    glColor3f(0,0,1);
+    glBegin(GL_TRIANGLES); 
+        // Seta +X
+        glNormal3f(0.0, 1.0, 0.0); 
+        glVertex3f(0,0,-5);
+        glVertex3f(100,0,0);
+        glVertex3f(0,0,5);
+    glEnd();
+
+    glColor3f(1,1,1);
+    glBegin(GL_QUADS); 
+        glNormal3f(0.0, 1.0, 0.0); 
+        glVertex3f(0,-1,0);
+        glVertex3f(100,-1,0);
+        glVertex3f(100,-1,100);
+        glVertex3f(0,-1,100);
+    glEnd();
 
 }
 
