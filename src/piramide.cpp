@@ -13,7 +13,7 @@ Piramide::Piramide(vec3 _pos, vec3 _vert, GLfloat _ax, GLfloat _ay, GLfloat _az,
 void Piramide::draw(){
     glPushMatrix();
         // "Restaura" a rotação do quadrado
-        // glTranslatef( pos.x, pos.y, pos.z);
+        glTranslatef( pos.x, pos.y, pos.z);
         glRotatef(quad.ax,1,0,0); 
         glRotatef(quad.ay,0,1,0); 
         glRotatef(quad.az,0,0,1);
@@ -45,12 +45,6 @@ void Piramide::draw(){
                 normal.normalizar();
                 normais.push_back(normal);
                 arestas.push_back(aresta);
-                std::cout << " V1: " << v1 << std::endl;
-                std::cout << "-V1: " << -v1 << std::endl;
-                std::cout << " V2: " << v2 << std::endl;
-                std::cout << "  N: " << normal << std::endl;
-                std::cout << "  A: " << aresta << std::endl;
-                std::cout << std::endl;
                 
                 glNormal3f(normal.x, normal.y, normal.z);
                 glVertex3f(vertice.x, vertice.y, vertice.z);
@@ -58,31 +52,9 @@ void Piramide::draw(){
                 glVertex3f(v2.x, v2.y, v2.z);
             glEnd();
         }
-        for (vec3 vec : normais){
-            drawVector(vec, vertice);
-        }
-        for (int i = 0; i < 4; i++){
-            drawVector(arestas[i], vertices[i]);
-        }
-        drawVector(vertice, vec3(0,0,0));
         
-        
-        // glRotatef(quad.ax,1,0,0); 
-        // glRotatef(quad.ay,0,1,0); 
-        // glRotatef(quad.az,0,0,1);
-        // glTranslatef(-pos.x,-pos.y,-pos.z);
-        
-        // glColor3f(1,0,0.5f);
-        // glBegin(GL_QUADS); 
-        //     glNormal3f(0,0,1);
-        //     lado = quad.lado;
-        //     glVertex3f(pos.x - lado/2, pos.y - lado/2, pos.z);
-        //     glVertex3f(pos.x + lado/2, pos.y - lado/2, pos.z);
-        //     glVertex3f(pos.x + lado/2, pos.y + lado/2, pos.z);
-        //     glVertex3f(pos.x - lado/2, pos.y + lado/2, pos.z);
-        // glEnd();
     glPopMatrix();
-    // quad.draw();
+    quad.draw();
 }
 
 void Piramide::update(){ }
