@@ -17,12 +17,14 @@ class vec3{
         vec3();
         vec3(const vec3& old);
         void normalizar();
+        GLfloat norma();
 
         friend std::ostream& operator<<(std::ostream &out, const vec3& vec);
         vec3& operator= (const vec3& vec);
         vec3 operator+(const vec3& vec);
         vec3 operator+=(const vec3& vec);
         vec3 operator-(const vec3& vec);
+        vec3 operator-();
         vec3 operator-=(const vec3& vec);
         vec3 operator*(const vec3& vec);
         vec3 operator*(const GLfloat escalar);

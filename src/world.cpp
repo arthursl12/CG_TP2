@@ -3,7 +3,7 @@
 #include <iostream>
 
 #include "world.h"
-#include "quadrado.h"
+#include "piramide.h"
 
 World::World(){
     this->reset();
@@ -61,8 +61,8 @@ void World::draw(){
     // glutSolidTeapot(50.0f);
     // glutWireCube(80.0f);
     drawGeradores();
-    Quadrado q1(vec3(15,15,80), 45, 0, 0, 15);
-    q1.draw();
+    Piramide p1(vec3(0,0,0), vec3(15,15,80), 0, 0, 0, 15);
+    p1.draw();
 }
 
 void World::view(){

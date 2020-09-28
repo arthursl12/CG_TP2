@@ -41,6 +41,11 @@ vec3 vec3::operator-(const vec3& vec){
     return vec3(newX, newY, newZ);
 }
 
+vec3 vec3::operator-(){
+    vec3 newVec = vec3(-x, -y, -z);
+    return newVec;
+}
+
 vec3 vec3::operator-=(const vec3& vec){
     x -= vec.x;
     y -= vec.y;
@@ -49,11 +54,15 @@ vec3 vec3::operator-=(const vec3& vec){
 }
 
 void vec3::normalizar(){
-    GLfloat norma = sqrt(pow(x,2) + pow(y,2) + pow(z,2));
-    x = x/norma;
-    y = y/norma;
-    z = z/norma;
+    x = x/norma();
+    y = y/norma();
+    z = z/norma();
 }
+
+GLfloat vec3::norma(){
+    return sqrt(pow(x,2) + pow(y,2) + pow(z,2));
+}
+
 
 std::ostream& operator<<(std::ostream &out, const vec3& vec){
     out << "(" << vec.x << ", " << vec.y << ", " << vec.z << ")";

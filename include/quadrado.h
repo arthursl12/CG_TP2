@@ -5,8 +5,9 @@
 #include "linalg.h"
 
 class Quadrado : public GameObject{
+    friend class Piramide;
     public:
-        Quadrado(vec3 _pos, GLfloat ax, GLfloat ay, GLfloat az, GLfloat _lado);
+        Quadrado(vec3 _pos, GLfloat _ax, GLfloat _ay, GLfloat _az, GLfloat _lado);
         void draw();
         void update();
     private:
