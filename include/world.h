@@ -6,11 +6,6 @@
 
 
 class World{
-    private:
-        vec3 observador;
-        vec3 alvo;
-        vec3 normalObsvd;
-
     public:
         World();
         World(const World& old);
@@ -20,6 +15,13 @@ class World{
 
         void moveObservador(int frente, int direita, int cima);
         void reset();
+
+    private:
+        vec3 observador;
+        vec3 alvo;
+        vec3 normalObsvd;
+
+        void drawGeradores();
 };
 
 #endif /* WORLD_H */

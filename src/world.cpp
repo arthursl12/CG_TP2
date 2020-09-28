@@ -1,7 +1,9 @@
 #include "GL/glut.h"
+#include "GL/gl.h"
 #include <iostream>
 
 #include "world.h"
+#include "quadrado.h"
 
 World::World(){
     this->reset();
@@ -13,11 +15,7 @@ World::World(const World& old){
     this->normalObsvd = old.normalObsvd;
 }
 
-void World::draw(){
-    glColor3f(1,1,1);
-    // glutSolidTeapot(50.0f);
-    // glutWireCube(80.0f);
-
+void World::drawGeradores(){
     glColor3f(1,1,0);
     glBegin(GL_TRIANGLES); 
         // Seta +Y
@@ -28,6 +26,8 @@ void World::draw(){
     glEnd();
 
     glColor3f(1,0,0);
+    glPushMatrix();
+    glTranslatef(-5,-5,-5);
     glBegin(GL_TRIANGLES); 
         // Seta +Z
         glNormal3f(0.0, 1.0, 0.0); 
@@ -35,6 +35,7 @@ void World::draw(){
         glVertex3f(0,0,100);
         glVertex3f(5,0,0);
     glEnd();
+    glPopMatrix();
 
     glColor3f(0,0,1);
     glBegin(GL_TRIANGLES); 
@@ -53,7 +54,15 @@ void World::draw(){
         glVertex3f(100,-1,100);
         glVertex3f(0,-1,100);
     glEnd();
+}
 
+void World::draw(){
+    glColor3f(1,1,1);
+    // glutSolidTeapot(50.0f);
+    // glutWireCube(80.0f);
+    drawGeradores();
+    Quadrado q1(vec3(15,15,80), 45, 0, 0, 15);
+    q1.draw();
 }
 
 void World::view(){
@@ -80,13 +89,13 @@ void World::moveObservador(int frente, int direita, int cima){
         vec3 vetorDireita = vetorFrente * normalObsvd;
         vetorDireita.normalizar();
         observador += vetorDireita * PASSO;
-        alvo += vetorDireita * PASSO;
+        // alvo += vetorDireita * PASSO;
         std::cout << "VD: " << vetorDireita << std::endl;
     }else if (direita < 0){
         vec3 vetorEsquerda = normalObsvd * vetorFrente;
         vetorEsquerda.normalizar();
         observador += vetorEsquerda * PASSO;
-        alvo += vetorEsquerda * PASSO;
+        // alvo += vetorEsquerda * PASSO;
         std::cout << "VE: " << vetorEsquerda << std::endl;
     }
 

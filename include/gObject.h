@@ -1,17 +1,17 @@
 #ifndef GAME_OBJECT_H
 #define GAME_OBJECT_H
 
+#include "linalg.h"
 #include <string>
 
 class GameObject {
-    friend class Ball; 
     public:
         virtual void draw() = 0;
-        virtual bool collides(GameObject& obj);
+        virtual void update() = 0;
         std::string getNome();
     protected:
-        float x, y;
-        float height, width;
+        vec3 pos;
+        float height, width, depth;
         std::string nome;
 };
 
