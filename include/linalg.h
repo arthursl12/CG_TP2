@@ -1,3 +1,15 @@
+/**
+ * Biblioteca de Álgebra Linear.
+ *
+ * Utiliza uma classe vec3 para representar um vetor tridimensional e suas
+ * operações básicas
+ *
+ * @param (vec3)
+ *      _x  : coordenada x do vetor
+ *      _y  : coordenada y do vetor
+ *      _z  : coordenada z do vetor
+ * 
+ */
 #ifndef LINALG_H
 #define LINALG_H
 

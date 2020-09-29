@@ -1,7 +1,7 @@
 /**
  * Classe Pirâmide.
  *
- * Gere um ente geométrico de uma pirâmide de base quadrilátera
+ * Gere um ente geométrico de uma pirâmide de base retangular
  *
  * @param 
  *      _pos  : coordenada do centro da base
@@ -9,8 +9,8 @@
  *      _ax   : rotação da base em torno do eixo x
  *      _ay   : rotação da base em torno do eixo y
  *      _az   : rotação da base em torno do eixo z
- *      _lado : lado do quadrilátero da base
- *  
+ *      _lado1: lado1 do retângulo da base
+ *      _lado2: lado2 do retângulo da base
  */
 #ifndef PIRAMIDE_H
 #define PIRAMIDE_H
@@ -27,7 +27,6 @@ class Piramide : public GameObject{
     private:
         vec3 vertice;
         Retangulo quad;
-
 };
 
 #endif

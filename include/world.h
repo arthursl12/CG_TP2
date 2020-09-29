@@ -1,3 +1,12 @@
+/**
+ * Classe World.
+ *
+ * Gerencia todos os objetos e sua existência na cena
+ *
+ * @param 
+ *      
+ */
+
 #ifndef WORLD_H
 #define WORLD_H
 

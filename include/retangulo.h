@@ -1,3 +1,16 @@
+/**
+ * Classe Retângulo.
+ *
+ * Gere um ente geométrico retângulo
+ *
+ * @param 
+ *      _pos  : coordenada do centro do retângulo
+ *      _ax   : rotação em torno do eixo x
+ *      _ay   : rotação em torno do eixo y
+ *      _az   : rotação em torno do eixo z
+ *      _lado1: lado1 do retângulo
+ *      _lado2: lado2 do retângulo
+ */
 #ifndef RETANGULO_H
 #define RETANGULO_H
 
