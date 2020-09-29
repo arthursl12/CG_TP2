@@ -34,7 +34,6 @@ void Piramide::draw(){
 
 
         for (int i = 0; i < 4; i++){
-            glColor3f(1,0,0.5);
             glBegin(GL_TRIANGLES);
                 vec3 v1 = vertices[i];
                 vec3 v2 = vertices[i+1];
@@ -57,7 +56,6 @@ void Piramide::draw(){
         }
         
     glPopMatrix();
-    quad.draw();
 }
 
 void Piramide::update(){ }
