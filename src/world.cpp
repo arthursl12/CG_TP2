@@ -61,7 +61,7 @@ void World::draw(){
     // glutSolidTeapot(50.0f);
     // glutWireCube(80.0f);
     drawGeradores();
-    Piramide p1(vec3(0,15,0), vec3(0,0,15), 0, 45, 0, 15);
+    Piramide p1(vec3(0,15,0), vec3(0,0,15), 0, 45, 0, 15, 30);
     p1.draw();
 }
 

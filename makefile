@@ -11,7 +11,7 @@ LIBS := -lglut -lGL -lGLU
 INC := -I include
 
 
-MODULES = utils linalg world gObject piramide quadrado
+MODULES = utils linalg world gObject piramide retangulo
 SOURCES = $(addsuffix .cpp,$(MODULES))
 OBJECTS = $(patsubst %.cpp, %.o, $(SOURCES))
 TESTS = $(addprefix test_,$(SOURCES))

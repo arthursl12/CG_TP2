@@ -3,8 +3,8 @@
 #include "piramide.h"
 
 
-Piramide::Piramide(vec3 _pos, vec3 _vert, GLfloat _ax, GLfloat _ay, GLfloat _az, GLfloat _lado):
-    quad(_pos, _ax, _ay, _az, _lado)
+Piramide::Piramide(vec3 _pos, vec3 _vert, GLfloat _ax, GLfloat _ay, GLfloat _az, GLfloat _lado1, GLfloat _lado2):
+    quad(_pos, _ax, _ay, _az, _lado1, _lado2)
 {
     pos = _pos;
     vertice = _vert;
@@ -21,11 +21,12 @@ void Piramide::draw(){
 
         vec3 vertTransl = pos + vertice; 
 
-        GLfloat lado = quad.lado;
-        vec3 vq1(pos.x - lado/2, pos.y - lado/2, pos.z);
-        vec3 vq2(pos.x + lado/2, pos.y - lado/2, pos.z);
-        vec3 vq3(pos.x + lado/2, pos.y + lado/2, pos.z);
-        vec3 vq4(pos.x - lado/2, pos.y + lado/2, pos.z);
+        GLfloat lado1 = quad.lado1;
+        GLfloat lado2 = quad.lado2;
+        vec3 vq1(pos.x - lado1/2, pos.y - lado2/2, pos.z);
+        vec3 vq2(pos.x + lado1/2, pos.y - lado2/2, pos.z);
+        vec3 vq3(pos.x + lado1/2, pos.y + lado2/2, pos.z);
+        vec3 vq4(pos.x - lado1/2, pos.y + lado2/2, pos.z);
         std::vector<vec3> vertices{vq1, vq2, vq3, vq4};
         std::vector<vec3> normais;
         std::vector<vec3> arestas;
