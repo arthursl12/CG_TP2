@@ -11,9 +11,11 @@ class Bando : public GameObject{
         Bando(vec3 _posleader);
         void draw();
         void update();
+
+        void addBoid();
     private:
-        std::shared_ptr<Boid> lider;
-        std::vector<std::shared_ptr<Boid>> bando;
+        std::shared_ptr<BoidLider> lider;
+        std::vector<std::shared_ptr<BoidComum>> bando;
 };
 
 #endif

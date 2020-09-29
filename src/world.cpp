@@ -62,6 +62,7 @@ void World::draw(){
     // glutWireCube(80.0f);
     drawGeradores();
     Bando b(vec3(15,15,15));
+    b.addBoid();
     b.draw();
 }
 

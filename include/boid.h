@@ -6,10 +6,22 @@
 class Boid : public GameObject{
     public:
         Boid(vec3 _pos);
-        void draw();
+        void draw() = 0;
         void update();
     
 
+};
+
+class BoidComum : public Boid{
+    public:
+        BoidComum(vec3 _pos);
+        void draw();
+};
+
+class BoidLider : public Boid{
+    public:
+        BoidLider(vec3 _pos);
+        void draw();
 };
 
 #endif
