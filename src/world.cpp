@@ -7,12 +7,15 @@
 
 World::World(){
     this->reset();
+    bando = std::make_shared<Bando>(vec3(15,15,15));
+    bando->addBoid();
 }
 
 World::World(const World& old){
     this->alvo = old.alvo;
     this->observador = old.observador;
     this->normalObsvd = old.normalObsvd;
+    this->bando = old.bando;
 }
 
 void World::drawGeradores(){
@@ -61,9 +64,7 @@ void World::draw(){
     // glutSolidTeapot(50.0f);
     // glutWireCube(80.0f);
     drawGeradores();
-    Bando b(vec3(15,15,15));
-    b.addBoid();
-    b.draw();
+    bando->draw();
 }
 
 void World::view(){
@@ -119,4 +120,8 @@ void World::reset(){
     this->observador = vec3(0, 100, 200);
     this->alvo = vec3(0, 0 ,0);
     this->normalObsvd = vec3(0, 1, 0);
+}
+
+void World::addBoid(){
+    bando->addBoid();
 }

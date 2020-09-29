@@ -12,6 +12,7 @@
 
 #include "linalg.h"
 #include "constants.h"
+#include "bando.h"
 
 
 class World{
@@ -24,10 +25,12 @@ class World{
 
         void moveObservador(int frente, int direita, int cima);
         void reset();
+        void addBoid();
     private:
         vec3 observador;
         vec3 alvo;
         vec3 normalObsvd;
+        std::shared_ptr<Bando> bando;
 
         void drawGeradores();
 };

@@ -45,11 +45,21 @@ void keyboard_callback(unsigned char key, int, int){
 			glutPostRedisplay();
 			break;
 		}
-		case 'p':{
-			// if (DBG){
-			// 	lev.debugComplete();
-			// }
+		case '+':{
+			std::cout << "MAIS" << std::endl;
+			world.addBoid();
+			break;
 		}
+		case '=':{
+			std::cout << "MAIS" << std::endl;
+			world.addBoid();
+			break;
+		}
+		case '-':{
+			std::cout << "MENOS" << std::endl;
+			break;
+		}
+
 	}
 }
 
