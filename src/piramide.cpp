@@ -19,6 +19,8 @@ void Piramide::draw(){
         glRotatef(quad.az,0,0,1);
         glTranslatef(-pos.x,-pos.y,-pos.z);
 
+        vec3 vertTransl = pos + vertice; 
+
         GLfloat lado = quad.lado;
         vec3 vq1(pos.x - lado/2, pos.y - lado/2, pos.z);
         vec3 vq2(pos.x + lado/2, pos.y - lado/2, pos.z);
@@ -41,13 +43,13 @@ void Piramide::draw(){
                 }
                 
                 vec3 aresta = -v1 + v2;
-                vec3 normal = aresta * vertice;
+                vec3 normal = aresta * vertTransl;
                 normal.normalizar();
                 normais.push_back(normal);
                 arestas.push_back(aresta);
                 
                 glNormal3f(normal.x, normal.y, normal.z);
-                glVertex3f(vertice.x, vertice.y, vertice.z);
+                glVertex3f(vertTransl.x, vertTransl.y, vertTransl.z);
                 glVertex3f(v1.x, v1.y, v1.z);
                 glVertex3f(v2.x, v2.y, v2.z);
             glEnd();
