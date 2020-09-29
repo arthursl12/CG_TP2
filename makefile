@@ -8,7 +8,7 @@ TARGET := main
 SRCEXT := cpp
 CFLAGS := -O3 -std=c++14
 LIBS := -lglut -lGL -lGLU
-INC := -I include
+INC := -I include -I third-party -L. 
 
 
 MODULES = utils linalg world gObject piramide retangulo boid bando

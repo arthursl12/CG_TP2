@@ -33,6 +33,9 @@ class World{
         std::shared_ptr<Bando> bando;
 
         void drawGeradores();
+        void drawChao();
+        void drawParedes();
+        void drawCeu();
 };
 
 #endif /* WORLD_H */

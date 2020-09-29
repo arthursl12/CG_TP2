@@ -125,7 +125,7 @@ void EspecificaParametrosVisualizacao(void)
 	glLoadIdentity();
 
 	// Especifica a projeção perspectiva
-	gluPerspective(angle,fAspect,40,300000.0f);
+	gluPerspective(angle,fAspect,40,DRAW_DISTANCE);
 
 	// Especifica sistema de coordenadas do modelo
 	glMatrixMode(GL_MODELVIEW);

@@ -2,6 +2,7 @@
 #include "GL/gl.h"
 #include <iostream>
 
+
 #include "world.h"
 #include "bando.h"
 
@@ -29,8 +30,6 @@ void World::drawGeradores(){
     glEnd();
 
     glColor3f(1,0,0);
-    glPushMatrix();
-    glTranslatef(-5,-5,-5);
     glBegin(GL_TRIANGLES); 
         // Seta +Z
         glNormal3f(0.0, 1.0, 0.0); 
@@ -38,7 +37,6 @@ void World::drawGeradores(){
         glVertex3f(0,0,100);
         glVertex3f(5,0,0);
     glEnd();
-    glPopMatrix();
 
     glColor3f(0,0,1);
     glBegin(GL_TRIANGLES); 
@@ -48,22 +46,51 @@ void World::drawGeradores(){
         glVertex3f(100,0,0);
         glVertex3f(0,0,5);
     glEnd();
+}
 
+void World::drawChao(){ 
     glColor3f(1,1,1);
     glBegin(GL_QUADS); 
         glNormal3f(0.0, 1.0, 0.0); 
-        glVertex3f(0,-1,0);
-        glVertex3f(100,-1,0);
-        glVertex3f(100,-1,100);
-        glVertex3f(0,-1,100);
+        glVertex3f(-FLOOR_SIZE/2,-1,-FLOOR_SIZE/2);
+        glVertex3f(-FLOOR_SIZE/2,-1,+FLOOR_SIZE/2);
+        glVertex3f(+FLOOR_SIZE/2,-1,+FLOOR_SIZE/2);
+        glVertex3f(+FLOOR_SIZE/2,-1,-FLOOR_SIZE/2);
     glEnd();
 }
+
+void World::drawParedes(){
+    glColor3f(0,0,1);
+    glBegin(GL_QUADS);
+        glNormal3f(1.0, 0.0, 0.0); 
+        glVertex3f(-FLOOR_SIZE/2,-1,-FLOOR_SIZE/2);
+        glVertex3f(-FLOOR_SIZE/2,-1,+FLOOR_SIZE/2);
+        glVertex3f(-FLOOR_SIZE/2,SKY_HEIGHT,+FLOOR_SIZE/2);
+        glVertex3f(-FLOOR_SIZE/2,SKY_HEIGHT,-FLOOR_SIZE/2);
+
+        // glVertex3f(+FLOOR_SIZE/2,-1,+FLOOR_SIZE/2);
+        // glVertex3f(+FLOOR_SIZE/2,-1,-FLOOR_SIZE/2);
+    glEnd();
+
+    glColor3f(0,0,1);
+    glBegin(GL_QUADS);
+        glNormal3f(0.0, 0.0, 1.0); 
+        glVertex3f(+FLOOR_SIZE/2,-1,-FLOOR_SIZE/2);
+        glVertex3f(-FLOOR_SIZE/2,-1,-FLOOR_SIZE/2);
+        glVertex3f(-FLOOR_SIZE/2,SKY_HEIGHT,-FLOOR_SIZE/2);
+        glVertex3f(+FLOOR_SIZE/2,SKY_HEIGHT,-FLOOR_SIZE/2);
+    glEnd();
+}
+void World::drawCeu(){ }
 
 void World::draw(){
     glColor3f(1,1,1);
     // glutSolidTeapot(50.0f);
     // glutWireCube(80.0f);
     drawGeradores();
+    drawChao();
+    drawParedes();
+    drawCeu();
     bando->draw();
 }
 
@@ -121,7 +148,7 @@ void World::moveObservador(int frente, int direita, int cima){
 }
 
 void World::reset(){
-    this->observador = vec3(0, 100, 200);
+    this->observador = vec3(0, 500, 1000);
     this->alvo = vec3(0, 0 ,0);
     this->normalObsvd = vec3(0, 1, 0);
 }
