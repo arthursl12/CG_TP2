@@ -25,10 +25,12 @@ void display_callback(){
 
 	// Desenha o teapot com a cor corrente (wire-frame)
 	world.draw();
+	world.update();
 
 	// lev.draw();
 	// lev.update();
 	glutSwapBuffers();
+	glutPostRedisplay();
 }
 
 void keyboard_callback(unsigned char key, int, int){

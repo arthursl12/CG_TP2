@@ -67,6 +67,10 @@ void World::draw(){
     bando->draw();
 }
 
+void World::update(){
+    bando->update();
+}
+
 void World::view(){
 	// Especifica posição do observador e do alvo
     std::cout << "(view) O:" <<  observador << "; A: " << alvo << std::endl;

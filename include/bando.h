@@ -15,8 +15,14 @@ class Bando : public GameObject{
         void addBoid();
     private:
         int i;
+
         std::shared_ptr<BoidLider> lider;
         std::vector<std::shared_ptr<BoidComum>> bando;
+
+        GLfloat inicio;
+        GLfloat fim;
+        GLfloat dir;
+        GLfloat esq;
 };
 
 #endif

@@ -4,6 +4,7 @@
 #include "gObject.h"
 
 class Boid : public GameObject{
+    friend class Bando;
     public:
         Boid(vec3 _pos);
         void draw() = 0;
