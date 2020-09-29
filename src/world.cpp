@@ -3,8 +3,7 @@
 #include <iostream>
 
 #include "world.h"
-#include "piramide.h"
-#include "boid.h"
+#include "bando.h"
 
 World::World(){
     this->reset();
@@ -62,14 +61,8 @@ void World::draw(){
     // glutSolidTeapot(50.0f);
     // glutWireCube(80.0f);
     drawGeradores();
-    Boid b1 = Boid(vec3(15,15,15));
-    b1.draw();
-
-    Boid b2 = Boid(vec3(0,30,0));
-    b2.draw();
-        
-    Boid b3 = Boid(vec3(30,0,-40));
-    b3.draw();
+    Bando b(vec3(15,15,15));
+    b.draw();
 }
 
 void World::view(){

@@ -24,7 +24,6 @@ class World{
 
         void moveObservador(int frente, int direita, int cima);
         void reset();
-
     private:
         vec3 observador;
         vec3 alvo;
