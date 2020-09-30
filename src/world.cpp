@@ -11,7 +11,7 @@
 
 World::World(){
     this->reset();
-    bando = std::make_shared<Bando>(vec3(15,15,15));
+    bando = std::make_shared<Bando>(Vector3(15,15,15));
     bando->addBoid();
 }
 
@@ -110,7 +110,6 @@ void World::draw(){
 
     // Draw something, i.e. cube
     bando->draw();
-
     glPopMatrix();
 }
 

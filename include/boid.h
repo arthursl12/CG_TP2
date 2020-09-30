@@ -6,7 +6,7 @@
 class Boid : public GameObject{
     friend class Bando;
     public:
-        Boid(vec3 _pos);
+        Boid(Vector3 _pos);
         void draw() = 0;
         void update();
     
@@ -15,13 +15,13 @@ class Boid : public GameObject{
 
 class BoidComum : public Boid{
     public:
-        BoidComum(vec3 _pos);
+        BoidComum(Vector3 _pos);
         void draw();
 };
 
 class BoidLider : public Boid{
     public:
-        BoidLider(vec3 _pos);
+        BoidLider(Vector3 _pos);
         void draw();
 };
 

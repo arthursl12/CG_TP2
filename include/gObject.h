@@ -2,6 +2,7 @@
 #define GAME_OBJECT_H
 
 #include "linalg.h"
+#include "Vector3.hpp"
 #include <string>
 
 class GameObject {
@@ -10,7 +11,7 @@ class GameObject {
         virtual void update() = 0;
         std::string getNome();
     protected:
-        vec3 pos;
+        Vector3 pos;
         float height, width, depth;
         std::string nome;
 };

@@ -8,7 +8,7 @@
 
 class Bando : public GameObject{
     public:
-        Bando(vec3 _posleader);
+        Bando(Vector3 _posleader);
         void draw();
         void update();
 
