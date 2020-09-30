@@ -9,6 +9,8 @@ class Boid : public GameObject{
         Boid(Vector3 _pos);
         void draw() = 0;
         void update();
+    private:
+        Vector3 velocity;
     
 
 };

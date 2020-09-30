@@ -1,13 +1,17 @@
+#include "constants.h"
+#include "piramide.h"
 #include "boid.h"
 
-#include "piramide.h"
 
 Boid::Boid(Vector3 _pos){
     pos = _pos;
+    velocity = Vector3(0,1,-0.2);
 }
 
 void Boid::update(){
-
+    double passo = BOID_PASSO;
+    if (DBG) passo = passo/5;
+    pos += velocity * passo;
 }
 
 BoidComum::BoidComum(Vector3 _pos) : 
