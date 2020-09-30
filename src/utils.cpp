@@ -164,3 +164,27 @@ void mouse_callback(int button, int state, int x, int y)
 	EspecificaParametrosVisualizacao();
 	glutPostRedisplay();
 }
+
+GLdouble* expande(Matrix3x3& rot){
+    GLdouble* mat = new GLdouble [16];
+    mat[0] = rot.D00;
+    mat[1] = rot.D10;
+    mat[2] = rot.D20;
+    mat[3] = 0;
+
+    mat[4] = rot.D01;
+    mat[5] = rot.D11;
+    mat[6] = rot.D21;
+    mat[7] = 0;
+
+    mat[8] = rot.D02;
+    mat[9] = rot.D12;
+    mat[10] = rot.D22;
+    mat[11] = 0;
+
+    mat[12] = 0;
+    mat[13] = 0;
+    mat[14] = 0;
+    mat[15] = 1;
+    return mat; 
+}

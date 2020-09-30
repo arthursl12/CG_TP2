@@ -1,7 +1,10 @@
 #include <vector>
 #include <iostream>
 #include "piramide.h"
+#include "utils.h"
 
+#include "Quaternion.hpp"
+#include "Matrix3x3.hpp"
 
 Piramide::Piramide(vec3 _pos, vec3 _vert, GLfloat _ax, GLfloat _ay, GLfloat _az, GLfloat _lado1, GLfloat _lado2):
     quad(_pos, _ax, _ay, _az, _lado1, _lado2)
@@ -14,9 +17,14 @@ void Piramide::draw(){
     glPushMatrix();
         // "Restaura" a rotação do quadrado
         glTranslatef( pos.x, pos.y, pos.z);
-        glRotatef(quad.ax,1,0,0); 
-        glRotatef(quad.ay,0,1,0); 
-        glRotatef(quad.az,0,0,1);
+        Quaternion qx = Quaternion::FromAngleAxis(M_PI*quad.ax/180, Vector3(1,0,0));
+        Quaternion qy = Quaternion::FromAngleAxis(M_PI*quad.ay/180, Vector3(0,1,0));
+        Quaternion qz = Quaternion::FromAngleAxis(M_PI*quad.az/180, Vector3(0,0,1));
+
+        Quaternion q = qx * qy * qz;
+        Matrix3x3 m1 = Matrix3x3::FromQuaternion(q);
+    
+        glMultMatrixd(expande(m1));
         glTranslatef(-pos.x,-pos.y,-pos.z);
 
         vec3 vertTransl = pos + vertice; 
