@@ -2,6 +2,9 @@
 #include "GL/gl.h"
 #include <iostream>
 
+#include "Matrix3x3.hpp"
+#include "Quaternion.hpp"
+
 
 #include "world.h"
 #include "bando.h"
@@ -83,6 +86,30 @@ void World::drawParedes(){
 }
 void World::drawCeu(){ }
 
+GLdouble* expande(Matrix3x3& rot){
+    GLdouble* mat = new GLdouble [16];
+    mat[0] = rot.D00;
+    mat[1] = rot.D10;
+    mat[2] = rot.D20;
+    mat[3] = 0;
+
+    mat[4] = rot.D01;
+    mat[5] = rot.D11;
+    mat[6] = rot.D21;
+    mat[7] = 0;
+
+    mat[8] = rot.D02;
+    mat[9] = rot.D12;
+    mat[10] = rot.D22;
+    mat[11] = 0;
+
+    mat[12] = 0;
+    mat[13] = 0;
+    mat[14] = 0;
+    mat[15] = 1;
+    return mat; 
+}
+
 void World::draw(){
     glColor3f(1,1,1);
     // glutSolidTeapot(50.0f);
@@ -92,6 +119,23 @@ void World::draw(){
     drawParedes();
     drawCeu();
     bando->draw();
+
+    glPushMatrix();
+    glTranslatef(100.0f, 100.0f, 100.0f);
+    Quaternion q1 = Quaternion::FromAngleAxis(-M_PI/2,Vector3(1,0,0));
+    Quaternion q2 = Quaternion::FromAngleAxis(-M_PI/3,Vector3(0,1,0));
+    Quaternion q3 = q2 * q1;
+    Matrix3x3 m1 = Matrix3x3::FromQuaternion(q3);
+    
+    glMultMatrixd(expande(m1));
+    // Some other transformations
+    
+
+    // Draw something, i.e. cube
+    glColor3f(1,0,1);
+    glutSolidCone(40,80,10,15);
+
+    glPopMatrix();
 }
 
 void World::update(){
