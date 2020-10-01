@@ -23,6 +23,11 @@ class Bando : public GameObject{
         GLfloat fim;
         GLfloat dir;
         GLfloat esq;
+
+
+        Vector3 regra1();
+        Vector3 regra2();
+        Vector3 velocidadesSimilares(Boid& b);
 };
 
 #endif

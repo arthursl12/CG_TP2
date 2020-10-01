@@ -18,6 +18,8 @@
 #define BOID_PASSO 0.1
 #define MAX_INITIAL_VEL 3
 #define BOID_MAX_VEL 5
+#define CAMPO_VISAO 200
+#define FATOR_VEL_LOCAL 0.4
 
 #define FPS 60
 

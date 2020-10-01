@@ -43,19 +43,54 @@ void Bando::draw(){
     }
 }
 
+/**
+ * Um boid se move com velocidade e direção similares aos boids que ele consegue
+ * ter em seu campo de visão 
+ *
+ * https://github.com/beneater/boids/blob/86b4cb9896f43d598867b7d58986210ba21f03de/boids.js#L116
+ * 
+ */
+Vector3 Bando::velocidadesSimilares(Boid& b){
+    Vector3 vNotada = Vector3::Zero();
+    int qtdProximos = 0;
+
+    std::vector<std::shared_ptr<BoidComum>>::iterator it;
+    for (it = bando.begin(); it != bando.end(); it++){
+        Vector3 vecDist = b.pos - (*it)->pos;
+        double dist = Vector3::Magnitude(vecDist);
+
+        if (dist < CAMPO_VISAO){
+            vNotada += (*it)->velocity;
+            qtdProximos++;
+        }
+    }
+
+    if (qtdProximos > 0){
+        vNotada = vNotada/qtdProximos;
+        return vNotada * FATOR_VEL_LOCAL;
+    }else{
+        return Vector3::Zero();
+    }
+}
 
 
 void Bando::update(){
     // Computa a velocidade para cada boid com base nas regras
     std::vector<std::shared_ptr<BoidComum>>::iterator it;
     for (it = bando.begin(); it != bando.end(); it++){
+        std::srand(time(NULL));
         Vector3 v1, v2, v3;
         std::shared_ptr<Boid> bAtual = *it;
 
-        v1 = Vector3(0,0,0.001);
+        // if (std::rand()%100 > 50){
+        //     v1 = Vector3(-0.004,0,0.00002);
+        // }else if(std::rand()%100 > 50){
+        //     v2 = Vector3(0.002,0,-0.00001);
+        // }
+            
         // v1 = regra1();
         // v2 = regra2();
-        // v3 = regra3();
+        v3 = velocidadesSimilares(*bAtual);
 
         Vector3 soma = v1 + v2 + v3;
         bAtual->addVelocity(soma);
@@ -80,5 +115,9 @@ void Bando::addBoid(){
     esq = z;
 
     std::shared_ptr<BoidComum> b = std::make_shared<BoidComum>(Vector3(x, y, z));
+    x *= pow(-1, std::rand()%2);
+    y *= pow(-1, std::rand()%2);
+    z *= pow(-1, std::rand()%2);
+    b->addVelocity(Vector3((int)x%2, (int)y%4, (int)z%5));
     bando.push_back(b);
 }

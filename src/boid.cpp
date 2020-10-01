@@ -40,8 +40,7 @@ void Boid::addVelocity(Vector3 deltaV){
     velocity = velocity + deltaV;
     // velocity += deltaV;
     if (Vector3::Magnitude(velocity) >= BOID_MAX_VEL){
-        velocity = oldV;
-        oldV = oldV2;
+        velocity = (velocity/Vector3::Magnitude(velocity)) * BOID_MAX_VEL;
     }
     // Quaternion target = Quaternion::FromToRotation(oldV, velocity);
     // // std::cout << "Target:" << target.W << ", " << target.X << "," << target.Y << "," << target.Z << std::endl;
