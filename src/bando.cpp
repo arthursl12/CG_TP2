@@ -52,7 +52,7 @@ void Bando::update(){
         Vector3 v1, v2, v3;
         std::shared_ptr<Boid> bAtual = *it;
 
-        v1 = Vector3(0,0,1);
+        v1 = Vector3(0,0,0.001);
         // v1 = regra1();
         // v2 = regra2();
         // v3 = regra3();

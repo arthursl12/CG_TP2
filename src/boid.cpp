@@ -30,7 +30,7 @@ void Boid::update(){
 }
 
 void Boid::addVelocity(Vector3 deltaV){
-    // Vector3 oldV2 = oldV;
+    Vector3 oldV2 = oldV;
     // oldV = velocity;
     
     
@@ -41,7 +41,7 @@ void Boid::addVelocity(Vector3 deltaV){
     // velocity += deltaV;
     if (Vector3::Magnitude(velocity) >= BOID_MAX_VEL){
         velocity = oldV;
-        oldV = Vector3(1,0,0);
+        oldV = oldV2;
     }
     // Quaternion target = Quaternion::FromToRotation(oldV, velocity);
     // // std::cout << "Target:" << target.W << ", " << target.X << "," << target.Y << "," << target.Z << std::endl;
@@ -87,18 +87,24 @@ void BoidComum::draw(){
 
     // velocity = Vector3(resp.X, resp.Y, resp.Z);
 
-    Vector3 matching = Vector3::Cross(Vector3::Normalized(frente), Vector3::Normalized(velocity));
-    std::cout << Vector3::Magnitude(matching) << std::endl;
+    
+    // std::cout << "Fr:" << frente.X << "," << frente.Y << "," << frente.Z << std::endl;
+    // std::cout << "Ve:" << velocity.X << "," << velocity.Y << "," << velocity.Z << std::endl;
+    // std::cout << "Ma:" << matching.X << "," << matching.Y << "," << matching.Z << std::endl;
+    // std::cout << Vector3::Magnitude(matching) << std::endl;
+    Quaternion q = Quaternion::FromToRotation(Vector3(1,0,0), velocity);
+    Vector3 matching = Vector3::Normalized(frente) - Vector3::Normalized(velocity);
     if ( Vector3::Magnitude(matching) > 0.01 ){
-        Quaternion q = Quaternion::FromToRotation(frente, velocity);
+        std::cout << "Quat:" << q.W << ", " << q.X << "," << q.Y << "," << q.Z << std::endl;
         Quaternion K = Quaternion(Vector3(1,0,0),0);
         Quaternion resp = q * K * Quaternion::Conjugate(q);
+        // Quaternion resp = Quaternion::RotateTowards(Quaternion())
         frente = Vector3(resp.X, resp.Y, resp.Z);
-        Matrix3x3 m1 = Matrix3x3::FromQuaternion(q);
-        glTranslatef(pos.X,pos.Y,pos.Z);
-        glMultMatrixd(expande(m1));
-        glTranslatef(-pos.X,-pos.Y,-pos.Z);
     }
+    Matrix3x3 m1 = Matrix3x3::FromQuaternion(q);
+    glTranslatef(pos.X,pos.Y,pos.Z);
+    glMultMatrixd(expande(m1));
+    glTranslatef(-pos.X,-pos.Y,-pos.Z);
 
 
     
