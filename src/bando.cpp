@@ -13,31 +13,55 @@ Bando::Bando(Vector3 _posleader){
     i = 20;
 }
 
+void drawVector(Vector3 vec, Vector3 origem){
+    Vector3 copy = vec;
+    // if (Vector3::Magnitude(copy) >= 100){
+    //     copy = Vector3::Normalized(copy);
+    //     copy = copy * 5;
+    // }
+    // if (Vector3::Magnitude(copy) <= 100){
+    //     copy = Vector3::Normalized(copy);
+    //     copy = copy * 5;
+    // }
+    copy = copy * 5;
+    glColor3f(1,0,0);
+    glBegin(GL_TRIANGLES); 
+        glNormal3f(0.0, 1.0, 0.0); 
+        glVertex3f(origem.X, origem.Y - 1, origem.Z);
+        glVertex3f(origem.X + copy.X, origem.Y + copy.Y, origem.Z + copy.Z);
+        glVertex3f(origem.X, origem.Y + 1, origem.Z);
+    glEnd();
+}
+
 void Bando::draw(){
     lider->draw();
     std::vector<std::shared_ptr<BoidComum>>::iterator it;
     for (it = bando.begin(); it != bando.end(); it++){
         (*it)->draw();
+        // drawVector((*it)->velocity, (*it)->pos + Vector3(30,0,0));
+        drawVector((*it)->frente, (*it)->pos + Vector3(30,30,0));
     }
 }
 
+
+
 void Bando::update(){
-    GLfloat raioLong = esq - dir;
-    std::cout << raioLong << std::endl;
-
+    // Computa a velocidade para cada boid com base nas regras
     std::vector<std::shared_ptr<BoidComum>>::iterator it;
-    GLfloat maxDir = 0;
     for (it = bando.begin(); it != bando.end(); it++){
-        Vector3 vecDist = (*it)->pos - lider->pos;
-        GLfloat dist = Vector3::Magnitude(vecDist);
-        if (dist > maxDir){
-            maxDir = dist;
-        }
+        Vector3 v1, v2, v3;
+        std::shared_ptr<Boid> bAtual = *it;
+
+        v1 = Vector3(0,0,1);
+        // v1 = regra1();
+        // v2 = regra2();
+        // v3 = regra3();
+
+        Vector3 soma = v1 + v2 + v3;
+        bAtual->addVelocity(soma);
     }
-
-    std::cout << maxDir << std::endl;
-    // Rearranja
-
+    
+    // Muda a posição de cada boid
     lider->update();
     for (it = bando.begin(); it != bando.end(); it++){
         (*it)->update();

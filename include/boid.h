@@ -2,6 +2,7 @@
 #define BOID_H
 
 #include "gObject.h"
+#include "Quaternion.hpp"
 
 class Boid : public GameObject{
     friend class Bando;
@@ -9,8 +10,16 @@ class Boid : public GameObject{
         Boid(Vector3 _pos);
         void draw() = 0;
         void update();
-    private:
+
+        void addVelocity(Vector3& deltaV);
+    protected:
         Vector3 velocity;
+        Vector3 frente;
+
+
+        Vector3 oldV;
+        Quaternion pose;
+        Quaternion oldPose;
     
 
 };

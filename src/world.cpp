@@ -98,13 +98,13 @@ void World::draw(){
     // bando->draw();
 
     glPushMatrix();
-    Quaternion qx = Quaternion::FromAngleAxis(0,Vector3(1,0,0));
-    Quaternion qy = Quaternion::FromAngleAxis(-M_PI/3,Vector3(0,1,0));
-    Quaternion qz = Quaternion::FromAngleAxis(-M_PI/3,Vector3(0,1,0));
-    Quaternion q = qx * qz *qy;
-    Matrix3x3 m1 = Matrix3x3::FromQuaternion(q);
+    // Quaternion qx = Quaternion::FromAngleAxis(0,Vector3(1,0,0));
+    // Quaternion qy = Quaternion::FromAngleAxis(-M_PI/3,Vector3(0,1,0));
+    // Quaternion qz = Quaternion::FromAngleAxis(-M_PI/3,Vector3(0,1,0));
+    // Quaternion q = qx * qz *qy;
+    // Matrix3x3 m1 = Matrix3x3::FromQuaternion(q);
     
-    glMultMatrixd(expande(m1));
+    // glMultMatrixd(expande(m1));
     // Some other transformations
     
 

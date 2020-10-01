@@ -2,8 +2,10 @@
 #define UTILS_H
 
 #include "constants.h"
-#include "Matrix3x3.hpp"
+#include <GL/gl.h>
 #include <string>
+#include "Matrix3x3.hpp"
+
 
 extern bool gameOver;
 extern int score;

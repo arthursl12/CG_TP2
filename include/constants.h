@@ -16,6 +16,8 @@
 #define MAX_DIST_SPAWN_BOID 15
 
 #define BOID_PASSO 0.1
+#define MAX_INITIAL_VEL 3
+#define BOID_MAX_VEL 5
 
 #define FPS 60
 
