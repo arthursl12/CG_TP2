@@ -11,10 +11,11 @@ class Boid : public GameObject{
         void draw() = 0;
         void update();
 
-        void addVelocity(Vector3& deltaV);
+        void addVelocity(Vector3 deltaV);
     protected:
         Vector3 velocity;
         Vector3 frente;
+        Quaternion q;
 
 
         Vector3 oldV;

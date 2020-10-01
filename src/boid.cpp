@@ -25,18 +25,24 @@ void Boid::update(){
     double passo = BOID_PASSO;
     if (DBG) passo = passo/5;
     pos += velocity * passo;
-    std::cout << "P: " << pos.X << "," << pos.Y << "," << pos.Z << std::endl;
+
+    
 }
 
-void Boid::addVelocity(Vector3& deltaV){
+void Boid::addVelocity(Vector3 deltaV){
     // Vector3 oldV2 = oldV;
     // oldV = velocity;
-    velocity = 0*deltaV + velocity; 
+    
+    
+
+    // frente = frente + deltaV;
+    oldV = velocity;
+    velocity = velocity + deltaV;
     // velocity += deltaV;
-    // if (Vector3::Magnitude(velocity) >= BOID_MAX_VEL){
-    //     velocity = oldV;
-    //     oldV = oldV2;
-    // }
+    if (Vector3::Magnitude(velocity) >= BOID_MAX_VEL){
+        velocity = oldV;
+        oldV = Vector3(1,0,0);
+    }
     // Quaternion target = Quaternion::FromToRotation(oldV, velocity);
     // // std::cout << "Target:" << target.W << ", " << target.X << "," << target.Y << "," << target.Z << std::endl;
     // float matching = Quaternion::Dot(target, pose);
@@ -51,7 +57,7 @@ void Boid::addVelocity(Vector3& deltaV){
     // std::cout << "O: " << oldV.X << "," << oldV.Y << "," << oldV.Z << std::endl;
 
 
-    // std::cout << "V1: " << velocity.X << "," << velocity.Y << "," << velocity.Z << std::endl;
+    // std::cout << "Q1: " << q.X << "," << q.Y << "," << q.Z << std::endl;
     // std::cout << "O1: " << oldV.X << "," << oldV.Y << "," << oldV.Z << std::endl;
 }
 
@@ -72,21 +78,29 @@ void BoidComum::draw(){
     // }
     
     // Quaternion qx = Quaternion::FromAngleAxis(0,Vector3(1,0,0));
-    Quaternion qy = Quaternion::FromAngleAxis(M_PI/4,Vector3(0,-1,0));
-    Quaternion qz = Quaternion::FromAngleAxis(M_PI/3,Vector3(0,0,1));
-    Quaternion q = qy * qz;
+
+    // Quaternion qy = Quaternion::FromAngleAxis(M_PI/4,Vector3(0,-1,0));
+    // Quaternion qz = Quaternion::FromAngleAxis(M_PI/3,Vector3(0,0,1));
+    // Quaternion q = qy * qz;
     
-    // "Virei" a frente do Boid
-    Quaternion K = Quaternion(Vector3(1,0,0),0);
-    Quaternion resp = q * K * Quaternion::Conjugate(q);
-    frente = Vector3(resp.X, resp.Y, resp.Z);
+    // "Virei" a frente do Boid e a sua velocidade
 
-    velocity = Vector3(resp.X, resp.Y, resp.Z);
+    // velocity = Vector3(resp.X, resp.Y, resp.Z);
 
-    Matrix3x3 m1 = Matrix3x3::FromQuaternion(q);
-    glTranslatef(pos.X,pos.Y,pos.Z);
-    glMultMatrixd(expande(m1));
-    glTranslatef(-pos.X,-pos.Y,-pos.Z);
+    Vector3 matching = Vector3::Cross(Vector3::Normalized(frente), Vector3::Normalized(velocity));
+    std::cout << Vector3::Magnitude(matching) << std::endl;
+    if ( Vector3::Magnitude(matching) > 0.01 ){
+        Quaternion q = Quaternion::FromToRotation(frente, velocity);
+        Quaternion K = Quaternion(Vector3(1,0,0),0);
+        Quaternion resp = q * K * Quaternion::Conjugate(q);
+        frente = Vector3(resp.X, resp.Y, resp.Z);
+        Matrix3x3 m1 = Matrix3x3::FromQuaternion(q);
+        glTranslatef(pos.X,pos.Y,pos.Z);
+        glMultMatrixd(expande(m1));
+        glTranslatef(-pos.X,-pos.Y,-pos.Z);
+    }
+
+
     
     // Asa direita
     glColor3f(1,1,0.2);

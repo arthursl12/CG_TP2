@@ -23,7 +23,7 @@ void drawVector(Vector3 vec, Vector3 origem){
     //     copy = Vector3::Normalized(copy);
     //     copy = copy * 5;
     // }
-    copy = copy * 5;
+    copy = copy * 20;
     glColor3f(1,0,0);
     glBegin(GL_TRIANGLES); 
         glNormal3f(0.0, 1.0, 0.0); 
@@ -38,7 +38,7 @@ void Bando::draw(){
     std::vector<std::shared_ptr<BoidComum>>::iterator it;
     for (it = bando.begin(); it != bando.end(); it++){
         (*it)->draw();
-        // drawVector((*it)->velocity, (*it)->pos + Vector3(30,0,0));
+        drawVector((*it)->velocity, (*it)->pos + Vector3(30,0,0));
         drawVector((*it)->frente, (*it)->pos + Vector3(30,30,0));
     }
 }
