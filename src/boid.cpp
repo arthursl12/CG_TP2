@@ -29,6 +29,17 @@ void Boid::update(){
     
 }
 
+bool Boid::operator!=(Boid& outro){
+    Vector3 vecDist = this->pos - outro.pos;
+    double dist = Vector3::Magnitude(vecDist);
+
+    if (dist >= 1){
+        return true;
+    }else{
+        return false;
+    }
+}
+
 void Boid::addVelocity(Vector3 deltaV){
     Vector3 oldV2 = oldV;
     // oldV = velocity;

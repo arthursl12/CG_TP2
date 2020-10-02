@@ -25,8 +25,8 @@ class Bando : public GameObject{
         GLfloat esq;
 
 
-        Vector3 regra1();
-        Vector3 regra2();
+        Vector3 voarParaCentro(Boid& b);
+        Vector3 manterDistanciaOutros(Boid& b);
         Vector3 velocidadesSimilares(Boid& b);
         Vector3 manterLimites(Boid& b);
 };

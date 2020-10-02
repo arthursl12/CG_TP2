@@ -44,11 +44,12 @@ void Bando::draw(){
 }
 
 /**
+ * ALINHAMENTO :
  * Um boid se move com velocidade e direção similares aos boids que ele consegue
  * ter em seu campo de visão 
  *
+ * Adaptado de:
  * https://github.com/beneater/boids/blob/86b4cb9896f43d598867b7d58986210ba21f03de/boids.js#L116
- * 
  */
 Vector3 Bando::velocidadesSimilares(Boid& b){
     Vector3 vNotada = Vector3::Zero();
@@ -77,8 +78,8 @@ Vector3 Bando::velocidadesSimilares(Boid& b){
  * Manter os boids dentro da "caixa", evitar que saiam de onde conseguimos
  * vê-los
  *
+ * Adaptado de:
  * https://github.com/beneater/boids/blob/86b4cb9896f43d598867b7d58986210ba21f03de/boids.js#L51
- * 
  */
 Vector3 Bando::manterLimites(Boid& b){
     Vector3 pos = b.pos;
@@ -91,7 +92,6 @@ Vector3 Bando::manterLimites(Boid& b){
     if (pos.X > FLOOR_SIZE/2 - BOID_OFFSET_MARGIN) {
         vel.X -= BOID_FATOR_CURVA;
     }
-
 
     // Eixo Y (altura)
     if (pos.Y < BOID_OFFSET_MARGIN) {
@@ -112,6 +112,63 @@ Vector3 Bando::manterLimites(Boid& b){
     return vel;
 }
 
+/**
+ * COESÃO :
+ * Um boid tende a ficar junto com os boids em seu campo de visão. Isso pode 
+ * ser modelado somando à sua velocidade um fator que tende ao "centro de massa"
+ * dos boids ao redor dele. 
+ *
+ * Adaptado de:
+ * https://github.com/beneater/boids/blob/86b4cb9896f43d598867b7d58986210ba21f03de/boids.js#L71
+ */
+Vector3 Bando::voarParaCentro(Boid& b){
+    Vector3 centro = Vector3::Zero();
+    int qtdProximos = 0;
+    
+    std::vector<std::shared_ptr<BoidComum>>::iterator it;
+    for (it = bando.begin(); it != bando.end(); it++){
+        Vector3 vecDist = b.pos - (*it)->pos;
+        double dist = Vector3::Magnitude(vecDist);
+
+        if (dist < CAMPO_VISAO && dist != 0){
+            centro += (*it)->pos;
+            qtdProximos++;
+        }
+    }
+
+    if (qtdProximos > 0){
+        centro = centro/qtdProximos;
+        return centro * FATOR_CENTRALIZAR;
+    }else{
+        return Vector3::Zero();
+    }
+    return centro; 
+}
+
+/**
+ * SEPARAÇÃO :
+ * Um boid tende a manter uma distância mínima entre ele e outros boids
+ *
+ * Adaptado de:
+ * https://github.com/beneater/boids/blob/86b4cb9896f43d598867b7d58986210ba21f03de/boids.js#L96
+ */
+Vector3 Bando::manterDistanciaOutros(Boid& b){
+    Vector3 velEvitar = Vector3::Zero();
+
+    std::vector<std::shared_ptr<BoidComum>>::iterator it;
+    for (it = bando.begin(); it != bando.end(); it++){
+        if (b != (**it)){
+            Vector3 vecDist = b.pos - (*it)->pos;
+            double dist = Vector3::Magnitude(vecDist);
+
+            if (dist < MIN_DIST){
+                velEvitar += b.pos - (*it)->pos;
+            }
+        }
+    }
+
+    return velEvitar * FATOR_SEPARACAO;
+}   
 
 void Bando::update(){
     // Computa a velocidade para cada boid com base nas regras
@@ -127,9 +184,9 @@ void Bando::update(){
         //     v2 = Vector3(0.002,0,-0.00001);
         // }
             
-        // v1 = regra1();
-        // v2 = regra2();
-        v3 = velocidadesSimilares(*bAtual);
+        // v1 = voarParaCentro(*bAtual);           // Coesão
+        v2 = manterDistanciaOutros(*bAtual);    // Separação
+        v3 = velocidadesSimilares(*bAtual);     // Alinhamento
         v4 = manterLimites(*bAtual);
 
         Vector3 soma = v1 + v2 + v3 + v4;

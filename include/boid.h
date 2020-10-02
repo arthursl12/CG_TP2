@@ -12,6 +12,7 @@ class Boid : public GameObject{
         void update();
 
         void addVelocity(Vector3 deltaV);
+        bool operator!=(Boid& outro);
     protected:
         Vector3 velocity;
         Vector3 frente;
