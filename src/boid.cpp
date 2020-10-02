@@ -23,7 +23,7 @@ Boid::Boid(Vector3 _pos){
 
 void Boid::update(){
     double passo = BOID_PASSO;
-    if (DBG) passo = passo/5;
+    if (DBG) passo = passo;
     pos += velocity * passo;
 
     
@@ -105,7 +105,7 @@ void BoidComum::draw(){
     Quaternion q = Quaternion::FromToRotation(Vector3(1,0,0), velocity);
     Vector3 matching = Vector3::Normalized(frente) - Vector3::Normalized(velocity);
     if ( Vector3::Magnitude(matching) > 0.01 ){
-        std::cout << "Quat:" << q.W << ", " << q.X << "," << q.Y << "," << q.Z << std::endl;
+        // std::cout << "Quat:" << q.W << ", " << q.X << "," << q.Y << "," << q.Z << std::endl;
         Quaternion K = Quaternion(Vector3(1,0,0),0);
         Quaternion resp = q * K * Quaternion::Conjugate(q);
         // Quaternion resp = Quaternion::RotateTowards(Quaternion())

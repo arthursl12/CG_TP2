@@ -39,8 +39,9 @@ void Bando::draw(){
     for (it = bando.begin(); it != bando.end(); it++){
         (*it)->draw();
         drawVector((*it)->velocity, (*it)->pos + Vector3(30,0,0));
-        drawVector((*it)->frente, (*it)->pos + Vector3(30,30,0));
+        // drawVector((*it)->frente, (*it)->pos + Vector3(30,30,0));
     }
+    // drawVector(centroBando, Vector3(0,0,0));
 }
 
 /**
@@ -84,6 +85,7 @@ Vector3 Bando::velocidadesSimilares(Boid& b){
 Vector3 Bando::manterLimites(Boid& b){
     Vector3 pos = b.pos;
     Vector3 vel = Vector3::Zero();
+
     
     // Eixo X
     if (pos.X < (-FLOOR_SIZE/2) + BOID_OFFSET_MARGIN) {
@@ -130,7 +132,7 @@ Vector3 Bando::voarParaCentro(Boid& b){
         Vector3 vecDist = b.pos - (*it)->pos;
         double dist = Vector3::Magnitude(vecDist);
 
-        if (dist < CAMPO_VISAO && dist != 0){
+        if (b != **it){
             centro += (*it)->pos;
             qtdProximos++;
         }
@@ -142,7 +144,6 @@ Vector3 Bando::voarParaCentro(Boid& b){
     }else{
         return Vector3::Zero();
     }
-    return centro; 
 }
 
 /**
@@ -184,7 +185,8 @@ void Bando::update(){
         //     v2 = Vector3(0.002,0,-0.00001);
         // }
             
-        // v1 = voarParaCentro(*bAtual);           // Coesão
+        v1 = voarParaCentro(*bAtual);           // Coesão
+        
         v2 = manterDistanciaOutros(*bAtual);    // Separação
         v3 = velocidadesSimilares(*bAtual);     // Alinhamento
         v4 = manterLimites(*bAtual);
@@ -192,7 +194,9 @@ void Bando::update(){
         Vector3 soma = v1 + v2 + v3 + v4;
         bAtual->addVelocity(soma);
     }
-    
+    std::cout << "Centr:" << FATOR_CENTRALIZAR << ", Curva: " << BOID_FATOR_CURVA << ", VLoc: " << FATOR_VEL_LOCAL << ", Sepa: " << FATOR_SEPARACAO << std::endl;
+
+
     // Muda a posição de cada boid
     lider->update();
     for (it = bando.begin(); it != bando.end(); it++){

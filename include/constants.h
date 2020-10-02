@@ -23,18 +23,18 @@
 
 // velocidadesSimilares
 #define CAMPO_VISAO 150
-#define FATOR_VEL_LOCAL 0.005
+// #define FATOR_VEL_LOCAL 0.005
 
 // voarParaCentro
-#define FATOR_CENTRALIZAR 0.005
+// #define FATOR_CENTRALIZAR 0.005
 
 // manterDistanciaOutros
-#define FATOR_SEPARACAO 0.05
+// #define FATOR_SEPARACAO 0.005
 #define MIN_DIST 30
 
 // manterLimites
 #define BOID_OFFSET_MARGIN 200
-#define BOID_FATOR_CURVA 1
+// #define BOID_FATOR_CURVA 0.05
 
 #define FPS 60
 

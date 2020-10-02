@@ -15,6 +15,7 @@ class Bando : public GameObject{
         void addBoid();
     private:
         int i;
+        Vector3 centroBando;
 
         std::shared_ptr<BoidLider> lider;
         std::vector<std::shared_ptr<BoidComum>> bando;
@@ -24,7 +25,11 @@ class Bando : public GameObject{
         GLfloat dir;
         GLfloat esq;
 
-
+        const double FATOR_CENTRALIZAR = 0.0000005;
+        const double BOID_FATOR_CURVA = 0.03;
+        const double FATOR_VEL_LOCAL = 0.005;
+        const double FATOR_SEPARACAO = 0.005;
+        
         Vector3 voarParaCentro(Boid& b);
         Vector3 manterDistanciaOutros(Boid& b);
         Vector3 velocidadesSimilares(Boid& b);
