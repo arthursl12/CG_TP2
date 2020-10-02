@@ -73,13 +73,52 @@ Vector3 Bando::velocidadesSimilares(Boid& b){
     }
 }
 
+/**
+ * Manter os boids dentro da "caixa", evitar que saiam de onde conseguimos
+ * vê-los
+ *
+ * https://github.com/beneater/boids/blob/86b4cb9896f43d598867b7d58986210ba21f03de/boids.js#L51
+ * 
+ */
+Vector3 Bando::manterLimites(Boid& b){
+    Vector3 pos = b.pos;
+    Vector3 vel = Vector3::Zero();
+    
+    // Eixo X
+    if (pos.X < (-FLOOR_SIZE/2) + BOID_OFFSET_MARGIN) {
+        vel.X += BOID_FATOR_CURVA;
+    }
+    if (pos.X > FLOOR_SIZE/2 - BOID_OFFSET_MARGIN) {
+        vel.X -= BOID_FATOR_CURVA;
+    }
+
+
+    // Eixo Y (altura)
+    if (pos.Y < BOID_OFFSET_MARGIN) {
+        vel.Y += BOID_FATOR_CURVA;
+    }
+    if (pos.Y > SKY_HEIGHT - BOID_OFFSET_MARGIN) {
+        vel.Y -= BOID_FATOR_CURVA;
+    }
+
+    // Eixo Z
+    if (pos.Z < (-FLOOR_SIZE/2) + BOID_OFFSET_MARGIN) {
+        vel.Z += BOID_FATOR_CURVA;
+    }
+    if (pos.Z > FLOOR_SIZE/2 - BOID_OFFSET_MARGIN) {
+        vel.Z -= BOID_FATOR_CURVA;
+    }
+
+    return vel;
+}
+
 
 void Bando::update(){
     // Computa a velocidade para cada boid com base nas regras
     std::vector<std::shared_ptr<BoidComum>>::iterator it;
     for (it = bando.begin(); it != bando.end(); it++){
         std::srand(time(NULL));
-        Vector3 v1, v2, v3;
+        Vector3 v1, v2, v3, v4;
         std::shared_ptr<Boid> bAtual = *it;
 
         // if (std::rand()%100 > 50){
@@ -91,8 +130,9 @@ void Bando::update(){
         // v1 = regra1();
         // v2 = regra2();
         v3 = velocidadesSimilares(*bAtual);
+        v4 = manterLimites(*bAtual);
 
-        Vector3 soma = v1 + v2 + v3;
+        Vector3 soma = v1 + v2 + v3 + v4;
         bAtual->addVelocity(soma);
     }
     

@@ -28,6 +28,7 @@ class Bando : public GameObject{
         Vector3 regra1();
         Vector3 regra2();
         Vector3 velocidadesSimilares(Boid& b);
+        Vector3 manterLimites(Boid& b);
 };
 
 #endif
