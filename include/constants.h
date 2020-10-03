@@ -38,6 +38,9 @@
 #define FATOR_SEPARACAO_MAX 0.8
 #define FATOR_SEPARACAO_DELTA 0.005
 
+// seguirLider
+#define FATOR_LIDER_INI 0.4
+
 // manterLimites
 #define BOID_OFFSET_MARGIN 200
 #define FATOR_CURVA_INI 0.03

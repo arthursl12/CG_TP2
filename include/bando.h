@@ -32,6 +32,7 @@ class Bando : public GameObject{
         double fatCurva;
         double fatVelLoc;
         double fatSeparar;
+        double fatLider;
         double campoVisao;
         
 
@@ -40,6 +41,7 @@ class Bando : public GameObject{
         Vector3 manterDistanciaOutros(Boid& b);
         Vector3 velocidadesSimilares(Boid& b);
         Vector3 manterLimites(Boid& b);
+        Vector3 seguirLider(Boid& b);
 };
 
 #endif

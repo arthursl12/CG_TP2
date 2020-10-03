@@ -16,6 +16,7 @@ Bando::Bando(Vector3 _posleader){
     fatCurva = FATOR_CURVA_INI;
     fatVelLoc = FATOR_VEL_LOCAL_INI;
     fatSeparar = FATOR_SEPARACAO_INI;
+    fatLider = 0.0001;
     campoVisao = CAMPO_VISAO_INI;
 }
 
@@ -205,12 +206,23 @@ Vector3 Bando::manterDistanciaOutros(Boid& b){
     return velEvitar * fatSeparar;
 }   
 
+/**
+ * Um boid tende a seguir o boid líder
+ *
+ * Adaptado de:
+ * http://www.kfish.org/boids/pseudocode.html
+ */
+Vector3 Bando::seguirLider(Boid& b){
+    Vector3 liderPos = lider->pos;
+    return (liderPos - b.pos) * fatLider;
+}
+
 void Bando::update(){
     // Computa a velocidade para cada boid com base nas regras
     std::vector<std::shared_ptr<BoidComum>>::iterator it;
     for (it = bando.begin(); it != bando.end(); it++){
         std::srand(time(NULL));
-        Vector3 v1, v2, v3, v4;
+        Vector3 v1, v2, v3, v4, v5;
         std::shared_ptr<Boid> bAtual = *it;
 
         // if (std::rand()%100 > 50){
@@ -222,9 +234,10 @@ void Bando::update(){
         v1 = voarParaCentro(*bAtual);           // Coesão
         v2 = manterDistanciaOutros(*bAtual);    // Separação
         v3 = velocidadesSimilares(*bAtual);     // Alinhamento
-        v4 = manterLimites(*bAtual);
+        v4 = seguirLider(*bAtual);
+        v5 = manterLimites(*bAtual);
 
-        Vector3 soma = v1 + v2 + v3 + v4;
+        Vector3 soma = v1 + v2 + v3 + v4 + v5;
         bAtual->addVelocity(soma);
     }
     std::cout << "CV:" << campoVisao << ", VLoc: " << fatVelLoc << ", Sepa: " << fatSeparar << std::endl;
