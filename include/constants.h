@@ -29,12 +29,18 @@
 // #define FATOR_CENTRALIZAR 0.005
 
 // manterDistanciaOutros
-// #define FATOR_SEPARACAO 0.005
+#define FATOR_SEPARACAO_MIN 0
+#define FATOR_SEPARACAO_INI 0.005
+#define FATOR_SEPARACAO_MAX 0.8
+#define FATOR_SEPARACAO_DELTA 0.005
 #define MIN_DIST 30
 
 // manterLimites
 #define BOID_OFFSET_MARGIN 200
-// #define BOID_FATOR_CURVA 0.05
+#define FATOR_CURVA_MIN 0.015
+#define FATOR_CURVA_INI 0.03
+#define FATOR_CURVA_MAX 0.035
+#define FATOR_CURVA_DELTA 0.002
 
 #define FPS 60
 

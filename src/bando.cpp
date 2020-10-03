@@ -11,6 +11,11 @@ Bando::Bando(Vector3 _posleader){
     dir = 0;
     esq = 0;
     i = 20;
+
+    FATOR_CENTRALIZAR = 0.0000005;
+    fatCurva = FATOR_CURVA_INI;
+    FATOR_VEL_LOCAL = 0.005;
+    fatSeparar = FATOR_SEPARACAO_INI;
 }
 
 void drawVector(Vector3 vec, Vector3 origem){
@@ -42,6 +47,24 @@ void Bando::draw(){
         // drawVector((*it)->frente, (*it)->pos + Vector3(30,30,0));
     }
     // drawVector(centroBando, Vector3(0,0,0));
+}
+
+void Bando::addSeparacao(double delta){
+    fatSeparar += delta;
+    if (fatSeparar <= FATOR_SEPARACAO_MIN){
+        fatSeparar = FATOR_SEPARACAO_MIN;
+    }else if (fatSeparar >= FATOR_SEPARACAO_MAX){
+        fatSeparar = FATOR_SEPARACAO_MAX;
+    }
+}
+
+void Bando::addCurva(double delta){
+    fatCurva += delta;
+    if (fatCurva <= FATOR_CURVA_MIN){
+        fatCurva = FATOR_CURVA_MIN;
+    }else if(fatCurva >= FATOR_CURVA_MAX){
+        fatCurva = FATOR_CURVA_MAX;
+    }
 }
 
 /**
@@ -89,26 +112,26 @@ Vector3 Bando::manterLimites(Boid& b){
     
     // Eixo X
     if (pos.X < (-FLOOR_SIZE/2) + BOID_OFFSET_MARGIN) {
-        vel.X += BOID_FATOR_CURVA;
+        vel.X += fatCurva;
     }
     if (pos.X > FLOOR_SIZE/2 - BOID_OFFSET_MARGIN) {
-        vel.X -= BOID_FATOR_CURVA;
+        vel.X -= fatCurva;
     }
 
     // Eixo Y (altura)
     if (pos.Y < BOID_OFFSET_MARGIN) {
-        vel.Y += BOID_FATOR_CURVA;
+        vel.Y += fatCurva;
     }
     if (pos.Y > SKY_HEIGHT - BOID_OFFSET_MARGIN) {
-        vel.Y -= BOID_FATOR_CURVA;
+        vel.Y -= fatCurva;
     }
 
     // Eixo Z
     if (pos.Z < (-FLOOR_SIZE/2) + BOID_OFFSET_MARGIN) {
-        vel.Z += BOID_FATOR_CURVA;
+        vel.Z += fatCurva;
     }
     if (pos.Z > FLOOR_SIZE/2 - BOID_OFFSET_MARGIN) {
-        vel.Z -= BOID_FATOR_CURVA;
+        vel.Z -= fatCurva;
     }
 
     return vel;
@@ -168,7 +191,7 @@ Vector3 Bando::manterDistanciaOutros(Boid& b){
         }
     }
 
-    return velEvitar * FATOR_SEPARACAO;
+    return velEvitar * fatSeparar;
 }   
 
 void Bando::update(){
@@ -186,7 +209,6 @@ void Bando::update(){
         // }
             
         v1 = voarParaCentro(*bAtual);           // Coesão
-        
         v2 = manterDistanciaOutros(*bAtual);    // Separação
         v3 = velocidadesSimilares(*bAtual);     // Alinhamento
         v4 = manterLimites(*bAtual);
@@ -194,7 +216,7 @@ void Bando::update(){
         Vector3 soma = v1 + v2 + v3 + v4;
         bAtual->addVelocity(soma);
     }
-    std::cout << "Centr:" << FATOR_CENTRALIZAR << ", Curva: " << BOID_FATOR_CURVA << ", VLoc: " << FATOR_VEL_LOCAL << ", Sepa: " << FATOR_SEPARACAO << std::endl;
+    std::cout << "Centr:" << FATOR_CENTRALIZAR << ", Curva: " << fatCurva << ", VLoc: " << FATOR_VEL_LOCAL << ", Sepa: " << fatSeparar << std::endl;
 
 
     // Muda a posição de cada boid

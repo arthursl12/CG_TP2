@@ -26,6 +26,11 @@ class World{
         void moveObservador(int frente, int direita, int cima);
         void reset();
         void addBoid();
+
+        void addSeparacao(double delta);
+        void addCurva(double delta);
+        void addVelLocal(double delta);
+        void addCentralizar(double delta);
     private:
         vec3 observador;
         vec3 alvo;

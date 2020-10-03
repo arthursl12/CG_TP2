@@ -7,6 +7,7 @@
 #include <vector>
 #include <iterator>
 
+#include "constants.h"
 #include "gObject.h"
 #include "world.h"
 #include "utils.h"
@@ -53,12 +54,54 @@ void keyboard_callback(unsigned char key, int, int){
 			break;
 		}
 		case '=':{
+			// Esse é o mais ao lado do backspace
 			std::cout << "MAIS" << std::endl;
 			world.addBoid();
 			break;
 		}
 		case '-':{
 			std::cout << "MENOS" << std::endl;
+			break;
+		}
+
+		// Altera fator de curva
+		case 't':{
+			world.addCurva(+FATOR_CURVA_DELTA);
+			break;
+		}
+		case 'g':{
+			world.addCurva(-FATOR_CURVA_DELTA);
+			break;
+		}
+
+		// Altera fator de separação
+		case 'y':{
+			world.addSeparacao(+FATOR_SEPARACAO_DELTA);
+			break;
+		}
+		case 'h':{
+			world.addSeparacao(-FATOR_SEPARACAO_DELTA);
+			break;
+		}
+
+		case 'u':{
+			break;
+		}
+		case 'j':{
+			break;
+		}
+
+		case 'i':{
+			break;
+		}
+		case 'k':{
+			break;
+		}
+
+		case 'o':{
+			break;
+		}
+		case 'l':{
 			break;
 		}
 
