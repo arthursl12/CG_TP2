@@ -91,10 +91,13 @@ void keyboard_callback(unsigned char key, int, int){
 			break;
 		}
 
+		// Altera o fator de velocidade local (coesão)
 		case 'i':{
+			world.addVelLocal(+FATOR_VEL_LOCAL_DELTA);
 			break;
 		}
 		case 'k':{
+			world.addVelLocal(-FATOR_VEL_LOCAL_DELTA);
 			break;
 		}
 

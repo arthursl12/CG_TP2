@@ -30,7 +30,6 @@ class World{
         void addSeparacao(double delta);
         void addCurva(double delta);
         void addVelLocal(double delta);
-        void addCentralizar(double delta);
     private:
         vec3 observador;
         vec3 alvo;

@@ -16,7 +16,6 @@ class Bando : public GameObject{
         void addSeparacao(double delta);
         void addCurva(double delta);
         void addVelLocal(double delta);
-        void addCentralizar(double delta);
     private:
         int i;
         Vector3 centroBando;
@@ -29,9 +28,9 @@ class Bando : public GameObject{
         GLfloat dir;
         GLfloat esq;
 
-        double FATOR_CENTRALIZAR;
+        double fatCentro;
         double fatCurva;
-        double FATOR_VEL_LOCAL;
+        double fatVelLoc;
         double fatSeparar;
         
 

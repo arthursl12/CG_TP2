@@ -12,9 +12,9 @@ Bando::Bando(Vector3 _posleader){
     esq = 0;
     i = 20;
 
-    FATOR_CENTRALIZAR = 0.0000005;
+    fatCentro = FATOR_CENTRALIZAR_INI;
     fatCurva = FATOR_CURVA_INI;
-    FATOR_VEL_LOCAL = 0.005;
+    fatVelLoc = FATOR_VEL_LOCAL_INI;
     fatSeparar = FATOR_SEPARACAO_INI;
 }
 
@@ -67,6 +67,15 @@ void Bando::addCurva(double delta){
     }
 }
 
+void Bando::addVelLocal(double delta){
+    fatVelLoc += delta;
+    if (fatVelLoc <= FATOR_VEL_LOCAL_MIN){
+        fatVelLoc = FATOR_VEL_LOCAL_MIN;
+    }else if(fatVelLoc >= FATOR_VEL_LOCAL_MAX){
+        fatVelLoc = FATOR_VEL_LOCAL_MAX;
+    }
+}
+
 /**
  * ALINHAMENTO :
  * Um boid se move com velocidade e direção similares aos boids que ele consegue
@@ -92,7 +101,7 @@ Vector3 Bando::velocidadesSimilares(Boid& b){
 
     if (qtdProximos > 0){
         vNotada = vNotada/qtdProximos;
-        return vNotada * FATOR_VEL_LOCAL;
+        return vNotada * fatVelLoc;
     }else{
         return Vector3::Zero();
     }
@@ -155,7 +164,7 @@ Vector3 Bando::voarParaCentro(Boid& b){
         Vector3 vecDist = b.pos - (*it)->pos;
         double dist = Vector3::Magnitude(vecDist);
 
-        if (b != **it){
+        if (b != **it && dist <= CAMPO_VISAO){
             centro += (*it)->pos;
             qtdProximos++;
         }
@@ -163,7 +172,7 @@ Vector3 Bando::voarParaCentro(Boid& b){
 
     if (qtdProximos > 0){
         centro = centro/qtdProximos;
-        return centro * FATOR_CENTRALIZAR;
+        return centro * fatCentro;
     }else{
         return Vector3::Zero();
     }
@@ -216,7 +225,7 @@ void Bando::update(){
         Vector3 soma = v1 + v2 + v3 + v4;
         bAtual->addVelocity(soma);
     }
-    std::cout << "Centr:" << FATOR_CENTRALIZAR << ", Curva: " << fatCurva << ", VLoc: " << FATOR_VEL_LOCAL << ", Sepa: " << fatSeparar << std::endl;
+    std::cout << "Centr:" << fatCentro << ", Curva: " << fatCurva << ", VLoc: " << fatVelLoc << ", Sepa: " << fatSeparar << std::endl;
 
 
     // Muda a posição de cada boid

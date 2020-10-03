@@ -24,9 +24,13 @@
 // velocidadesSimilares
 #define CAMPO_VISAO 150
 // #define FATOR_VEL_LOCAL 0.005
+#define FATOR_VEL_LOCAL_MIN 0
+#define FATOR_VEL_LOCAL_INI 0.05
+#define FATOR_VEL_LOCAL_MAX 0.65
+#define FATOR_VEL_LOCAL_DELTA 0.05
 
 // voarParaCentro
-// #define FATOR_CENTRALIZAR 0.005
+#define FATOR_CENTRALIZAR_INI 0.0000005
 
 // manterDistanciaOutros
 #define FATOR_SEPARACAO_MIN 0

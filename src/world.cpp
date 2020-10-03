@@ -123,8 +123,9 @@ void World::addSeparacao(double delta){
 void World::addCurva(double delta){
     bando->addCurva(delta);
 }
-void World::addVelLocal(double delta){}
-void World::addCentralizar(double delta){}
+void World::addVelLocal(double delta){
+    bando->addVelLocal(delta);
+}
 
 void World::view(){
 	// Especifica posição do observador e do alvo
