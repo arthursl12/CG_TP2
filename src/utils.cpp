@@ -66,38 +66,40 @@ void keyboard_callback(unsigned char key, int, int){
 
 		// Altera fator de curva
 		case 't':{
-			world.addCurva(+FATOR_CURVA_DELTA);
+			world.addCampoVisao(+20);
 			break;
 		}
 		case 'g':{
-			world.addCurva(-FATOR_CURVA_DELTA);
+			world.addCampoVisao(-20);
+			break;
+		}
+
+		// Altera o campo de visão
+		case 'y':{
+			world.addVelLocal(+FATOR_VEL_LOCAL_DELTA);
+			break;
+		}
+		case 'h':{
+			world.addVelLocal(-FATOR_VEL_LOCAL_DELTA);
 			break;
 		}
 
 		// Altera fator de separação
-		case 'y':{
+		case 'u':{
 			world.addSeparacao(+FATOR_SEPARACAO_DELTA);
 			break;
 		}
-		case 'h':{
+		case 'j':{
 			world.addSeparacao(-FATOR_SEPARACAO_DELTA);
 			break;
 		}
 
-		case 'u':{
-			break;
-		}
-		case 'j':{
-			break;
-		}
-
-		// Altera o fator de velocidade local (coesão)
 		case 'i':{
-			world.addVelLocal(+FATOR_VEL_LOCAL_DELTA);
+			
 			break;
 		}
 		case 'k':{
-			world.addVelLocal(-FATOR_VEL_LOCAL_DELTA);
+			
 			break;
 		}
 

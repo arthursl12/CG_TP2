@@ -22,29 +22,25 @@
 #define BOID_MAX_VEL 5
 
 // velocidadesSimilares
-#define CAMPO_VISAO 150
-// #define FATOR_VEL_LOCAL 0.005
+#define CAMPO_VISAO_INI 150
 #define FATOR_VEL_LOCAL_MIN 0
 #define FATOR_VEL_LOCAL_INI 0.05
-#define FATOR_VEL_LOCAL_MAX 0.65
+#define FATOR_VEL_LOCAL_MAX 1
 #define FATOR_VEL_LOCAL_DELTA 0.05
 
 // voarParaCentro
 #define FATOR_CENTRALIZAR_INI 0.0000005
 
 // manterDistanciaOutros
+#define MIN_DIST 30
 #define FATOR_SEPARACAO_MIN 0
 #define FATOR_SEPARACAO_INI 0.005
 #define FATOR_SEPARACAO_MAX 0.8
 #define FATOR_SEPARACAO_DELTA 0.005
-#define MIN_DIST 30
 
 // manterLimites
 #define BOID_OFFSET_MARGIN 200
-#define FATOR_CURVA_MIN 0.015
 #define FATOR_CURVA_INI 0.03
-#define FATOR_CURVA_MAX 0.035
-#define FATOR_CURVA_DELTA 0.002
 
 #define FPS 60
 

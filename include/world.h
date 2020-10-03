@@ -28,8 +28,8 @@ class World{
         void addBoid();
 
         void addSeparacao(double delta);
-        void addCurva(double delta);
         void addVelLocal(double delta);
+        void addCampoVisao(double delta);
     private:
         vec3 observador;
         vec3 alvo;

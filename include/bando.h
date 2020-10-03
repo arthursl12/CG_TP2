@@ -14,8 +14,8 @@ class Bando : public GameObject{
 
         void addBoid();
         void addSeparacao(double delta);
-        void addCurva(double delta);
         void addVelLocal(double delta);
+        void addCampoVisao(double delta);
     private:
         int i;
         Vector3 centroBando;
@@ -32,6 +32,7 @@ class Bando : public GameObject{
         double fatCurva;
         double fatVelLoc;
         double fatSeparar;
+        double campoVisao;
         
 
 

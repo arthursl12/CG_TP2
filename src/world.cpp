@@ -120,13 +120,12 @@ void World::update(){
 void World::addSeparacao(double delta){
     bando->addSeparacao(delta);
 }
-void World::addCurva(double delta){
-    bando->addCurva(delta);
-}
 void World::addVelLocal(double delta){
     bando->addVelLocal(delta);
 }
-
+void World::addCampoVisao(double delta){
+    bando->addCampoVisao(delta);
+}
 void World::view(){
 	// Especifica posição do observador e do alvo
     std::cout << "(view) O:" <<  observador << "; A: " << alvo << std::endl;
