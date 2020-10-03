@@ -250,21 +250,26 @@ void Bando::update(){
     }
 }
 
+/**
+ * Spawna um boid novo no "centro de massa" do bando
+ */
 void Bando::addBoid(){
     std::srand(time(NULL));
-    GLfloat x = pos.X - 30 - fim - (std::rand()%(MAX_DIST_SPAWN_BOID - MIN_DIST_BOID) + MIN_DIST_BOID);
 
-    GLfloat y = pos.Y + std::rand()%(MAX_DIST_SPAWN_BOID - MIN_DIST_BOID) + MIN_DIST_BOID;
+    Vector3 centro = Vector3::Zero();
+    int qtdProximos = 0;
+    
+    std::vector<std::shared_ptr<BoidComum>>::iterator it;
+    for (it = bando.begin(); it != bando.end(); it++){
+        centro += (*it)->pos;
+        qtdProximos++;
+    }
+    if (qtdProximos > 0){
+        centro = centro/qtdProximos;
+    }else{
+        centro = Vector3::Zero();
+    }
 
-    GLfloat z = pos.Z + esq + std::rand()%(MAX_DIST_SPAWN_BOID - MIN_DIST_BOID) + MIN_DIST_BOID;
-
-    fim = x - 30;
-    esq = z;
-
-    std::shared_ptr<BoidComum> b = std::make_shared<BoidComum>(Vector3(x, y, z));
-    x *= pow(-1, std::rand()%2);
-    y *= pow(-1, std::rand()%2);
-    z *= pow(-1, std::rand()%2);
-    b->addVelocity(Vector3((int)x%2, (int)y%4, (int)z%5));
+    std::shared_ptr<BoidComum> b = std::make_shared<BoidComum>(centro);
     bando.push_back(b);
 }
