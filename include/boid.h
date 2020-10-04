@@ -18,6 +18,8 @@ class Boid : public GameObject{
         Vector3 velocity;
         Vector3 frente;
         Quaternion q;
+
+        Vector3 cima;
 };
 
 class BoidComum : public Boid{

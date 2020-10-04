@@ -11,6 +11,7 @@ Boid::Boid(Vector3 _pos){
     frente = Vector3(1,0,0);
     oldV = Vector3(1,0,0);
 
+    cima = Vector3(0,1,0);
     // Quaternion qy = Quaternion::FromAngleAxis(+M_PI/3,Vector3(0,1,0));
     // Quaternion q = qy;
     // Quaternion K = Quaternion(velocity,0);
@@ -104,6 +105,10 @@ void BoidComum::draw(){
         Quaternion resp = q * K * Quaternion::Conjugate(q);
         // Quaternion resp = Quaternion::RotateTowards(Quaternion())
         frente = Vector3(resp.X, resp.Y, resp.Z);
+
+        K = Quaternion(Vector3(0,1,0),0);
+        resp = q * K * Quaternion::Conjugate(q);
+        cima = Vector3(resp.X, resp.Y, resp.Z);
     }
     Matrix3x3 m1 = Matrix3x3::FromQuaternion(q);
     glTranslatef(pos.X,pos.Y,pos.Z);

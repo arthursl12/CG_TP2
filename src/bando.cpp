@@ -22,6 +22,10 @@ Vector3 Bando::getLiderVel(){
     return lider->velocity;
 }
 
+Vector3 Bando::getLiderNor(){
+    return lider->cima;
+}
+
 void drawVector(Vector3 vec, Vector3 origem){
     Vector3 copy = vec;
     // if (Vector3::Magnitude(copy) >= 100){

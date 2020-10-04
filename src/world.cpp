@@ -133,11 +133,13 @@ void World::view(){
     //                 alvo.x,       alvo.y,       alvo.z,
     //          normalObsvd.x,   normalObsvd.y,   normalObsvd.z);
     Vector3 posLider = bando->getLiderPos();
-    Vector3 menosV = -150 * (Vector3::Normalized(bando->getLiderVel()));
+    Vector3 menosV = -300 * (Vector3::Normalized(bando->getLiderVel()));
     Vector3 obs = posLider + menosV;
+    Vector3 normal = Vector3::Normalized(bando->getLiderNor());
+    obs += 100 * (normal);
     gluLookAt(obs.X, obs.Y, obs.Z,
                 posLider.X,   posLider.Y,   posLider.Z,
-             normalObsvd.x,   normalObsvd.y,   normalObsvd.z);
+             normal.X,   normal.Y,   normal.Z);
 }
 
 void World::moveObservador(int frente, int direita, int cima){
