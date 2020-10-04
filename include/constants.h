@@ -34,7 +34,7 @@
 // manterDistanciaOutros
 #define MIN_DIST 30
 #define FATOR_SEPARACAO_MIN 0
-#define FATOR_SEPARACAO_INI 0.005
+#define FATOR_SEPARACAO_INI 0.3
 #define FATOR_SEPARACAO_MAX 0.8
 #define FATOR_SEPARACAO_DELTA 0.005
 

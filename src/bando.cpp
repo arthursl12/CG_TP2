@@ -255,21 +255,23 @@ void Bando::update(){
  */
 void Bando::addBoid(){
     std::srand(time(NULL));
-
-    Vector3 centro = Vector3::Zero();
-    int qtdProximos = 0;
-    
-    std::vector<std::shared_ptr<BoidComum>>::iterator it;
-    for (it = bando.begin(); it != bando.end(); it++){
-        centro += (*it)->pos;
-        qtdProximos++;
-    }
-    if (qtdProximos > 0){
-        centro = centro/qtdProximos;
+    Vector3 newPos = Vector3::Zero();
+    if (bando.size() == 0){
+        newPos.X += std::rand() % 40;
+        newPos.Y += std::rand() % 20;
+        newPos.Z += std::rand() % 40;
     }else{
-        centro = Vector3::Zero();
+        std::vector<std::shared_ptr<BoidComum>>::iterator randIt = bando.begin();
+        std::advance(randIt, std::rand() % bando.size());
+        BoidComum boid = **randIt;
+
+        newPos = boid.pos;
+        newPos.X += (std::rand() % 2 == 0) ? std::rand() % 60 : -std::rand() % 60;
+        newPos.Y += (std::rand() % 2 == 0) ? std::rand() % 40 : -std::rand() % 40;
+        newPos.Z += (std::rand() % 2 == 0) ? std::rand() % 60 : -std::rand() % 60;
     }
 
-    std::shared_ptr<BoidComum> b = std::make_shared<BoidComum>(centro);
+    
+    std::shared_ptr<BoidComum> b = std::make_shared<BoidComum>(newPos);
     bando.push_back(b);
 }
