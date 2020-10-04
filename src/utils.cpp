@@ -32,6 +32,7 @@ void display_callback(){
 	// lev.update();
 	glutSwapBuffers();
 	glutPostRedisplay();
+	EspecificaParametrosVisualizacao();
 }
 
 void keyboard_callback(unsigned char key, int, int){

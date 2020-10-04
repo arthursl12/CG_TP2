@@ -18,6 +18,10 @@ Vector3 Bando::getLiderPos(){
     return lider->pos;
 }
 
+Vector3 Bando::getLiderVel(){
+    return lider->velocity;
+}
+
 void drawVector(Vector3 vec, Vector3 origem){
     Vector3 copy = vec;
     // if (Vector3::Magnitude(copy) >= 100){

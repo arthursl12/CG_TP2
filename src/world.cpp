@@ -129,8 +129,14 @@ void World::addCampoVisao(double delta){
 void World::view(){
 	// Especifica posição do observador e do alvo
     std::cout << "(view) O:" <<  observador << "; A: " << alvo << std::endl;
-	gluLookAt(observador.x, observador.y, observador.z,
-                    alvo.x,       alvo.y,       alvo.z,
+	// gluLookAt(observador.x, observador.y, observador.z,
+    //                 alvo.x,       alvo.y,       alvo.z,
+    //          normalObsvd.x,   normalObsvd.y,   normalObsvd.z);
+    Vector3 posLider = bando->getLiderPos();
+    Vector3 menosV = -150 * (Vector3::Normalized(bando->getLiderVel()));
+    Vector3 obs = posLider + menosV;
+    gluLookAt(obs.X, obs.Y, obs.Z,
+                posLider.X,   posLider.Y,   posLider.Z,
              normalObsvd.x,   normalObsvd.y,   normalObsvd.z);
 }
 

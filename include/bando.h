@@ -17,6 +17,7 @@ class Bando : public GameObject{
         void addVelLocal(double delta);
         void addCampoVisao(double delta);
         Vector3 getLiderPos();
+        Vector3 getLiderVel();
     private:
         Vector3 centroBando;
 
