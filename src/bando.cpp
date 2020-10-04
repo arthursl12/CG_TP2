@@ -6,18 +6,16 @@ Bando::Bando(Vector3 _posleader){
     pos = _posleader;
     lider = std::make_shared<BoidLider>(_posleader);
 
-    inicio = 0;
-    fim = 0;
-    dir = 0;
-    esq = 0;
-    i = 20;
-
     fatCentro = FATOR_CENTRALIZAR_INI;
     fatCurva = FATOR_CURVA_INI;
     fatVelLoc = FATOR_VEL_LOCAL_INI;
     fatSeparar = FATOR_SEPARACAO_INI;
     fatLider = 0.0001;
     campoVisao = CAMPO_VISAO_INI;
+}
+
+Vector3 Bando::getLiderPos(){
+    return lider->pos;
 }
 
 void drawVector(Vector3 vec, Vector3 origem){
@@ -224,12 +222,6 @@ void Bando::update(){
         std::srand(time(NULL));
         Vector3 v1, v2, v3, v4, v5;
         std::shared_ptr<Boid> bAtual = *it;
-
-        // if (std::rand()%100 > 50){
-        //     v1 = Vector3(-0.004,0,0.00002);
-        // }else if(std::rand()%100 > 50){
-        //     v2 = Vector3(0.002,0,-0.00001);
-        // }
             
         v1 = voarParaCentro(*bAtual);           // Coesão
         v2 = manterDistanciaOutros(*bAtual);    // Separação
@@ -251,7 +243,7 @@ void Bando::update(){
 }
 
 /**
- * Spawna um boid novo no "centro de massa" do bando
+ * Spawna um boid novo próximo ao bando
  */
 void Bando::addBoid(){
     std::srand(time(NULL));

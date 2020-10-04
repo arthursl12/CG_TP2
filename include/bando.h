@@ -16,17 +16,12 @@ class Bando : public GameObject{
         void addSeparacao(double delta);
         void addVelLocal(double delta);
         void addCampoVisao(double delta);
+        Vector3 getLiderPos();
     private:
-        int i;
         Vector3 centroBando;
 
         std::shared_ptr<BoidLider> lider;
         std::vector<std::shared_ptr<BoidComum>> bando;
-
-        GLfloat inicio;
-        GLfloat fim;
-        GLfloat dir;
-        GLfloat esq;
 
         double fatCentro;
         double fatCurva;
@@ -35,8 +30,6 @@ class Bando : public GameObject{
         double fatLider;
         double campoVisao;
         
-
-
         Vector3 voarParaCentro(Boid& b);
         Vector3 manterDistanciaOutros(Boid& b);
         Vector3 velocidadesSimilares(Boid& b);

@@ -10,8 +10,6 @@ Boid::Boid(Vector3 _pos){
     velocity = Vector3(1,0,0);      // Direção que o boid está olhando inicialmente
     frente = Vector3(1,0,0);
     oldV = Vector3(1,0,0);
-    pose = Quaternion::Identity();
-    oldPose = Quaternion::Normalized(Quaternion::Identity());
 
     // Quaternion qy = Quaternion::FromAngleAxis(+M_PI/3,Vector3(0,1,0));
     // Quaternion q = qy;
@@ -41,11 +39,7 @@ bool Boid::operator!=(Boid& outro){
 }
 
 void Boid::addVelocity(Vector3 deltaV){
-    Vector3 oldV2 = oldV;
-    // oldV = velocity;
     
-    
-
     // frente = frente + deltaV;
     oldV = velocity;
     velocity = velocity + deltaV;

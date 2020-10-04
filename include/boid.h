@@ -14,16 +14,10 @@ class Boid : public GameObject{
         void addVelocity(Vector3 deltaV);
         bool operator!=(Boid& outro);
     protected:
+        Vector3 oldV;
         Vector3 velocity;
         Vector3 frente;
         Quaternion q;
-
-
-        Vector3 oldV;
-        Quaternion pose;
-        Quaternion oldPose;
-    
-
 };
 
 class BoidComum : public Boid{
