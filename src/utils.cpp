@@ -38,7 +38,10 @@ void display_callback(){
 void keyboard_callback(unsigned char key, int, int){
 	switch(key){
 		case 'q':
-			exit(0);
+			world.liderYawEsq();
+			break;
+		case 'e':
+			// world.liderYawDir();
 			break;
 		case 'r':{
 			// lev = Level(lev);

@@ -13,6 +13,8 @@ class Boid : public GameObject{
 
         void addVelocity(Vector3 deltaV);
         bool operator!=(Boid& outro);
+
+        void yawEsq();
     protected:
         Vector3 oldV;
         Vector3 velocity;

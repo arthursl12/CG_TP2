@@ -183,6 +183,10 @@ void World::moveObservador(int frente, int direita, int cima){
     std::cout << std::endl;
 }
 
+void World::liderYawEsq(){
+    bando->liderYawEsq();
+}
+
 void World::reset(){
     this->observador = vec3(1500, 1000, 2500);
     this->alvo = vec3(0, 0 ,0);

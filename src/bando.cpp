@@ -26,6 +26,10 @@ Vector3 Bando::getLiderNor(){
     return lider->cima;
 }
 
+void Bando::liderYawEsq(){
+    lider->yawEsq();
+}
+
 void drawVector(Vector3 vec, Vector3 origem){
     Vector3 copy = vec;
     // if (Vector3::Magnitude(copy) >= 100){
@@ -48,6 +52,8 @@ void drawVector(Vector3 vec, Vector3 origem){
 
 void Bando::draw(){
     lider->draw();
+    drawVector(lider->velocity, lider->pos + Vector3(30,0,0));
+    drawVector(lider->frente, lider->pos + Vector3(30,30,0));
     std::vector<std::shared_ptr<BoidComum>>::iterator it;
     for (it = bando.begin(); it != bando.end(); it++){
         (*it)->draw();

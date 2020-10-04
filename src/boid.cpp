@@ -28,6 +28,11 @@ void Boid::update(){
     
 }
 
+void Boid::yawEsq(){
+    Vector3 esquerda = Vector3::Cross(cima, frente);
+    velocity += 0.5 * esquerda;
+}
+
 bool Boid::operator!=(Boid& outro){
     Vector3 vecDist = this->pos - outro.pos;
     double dist = Vector3::Magnitude(vecDist);
@@ -164,6 +169,24 @@ BoidLider::BoidLider(Vector3 _pos) :
 
 void BoidLider::draw(){
     glPushMatrix();
+    Quaternion q = Quaternion::FromToRotation(Vector3(1,0,0), velocity);
+    Vector3 matching = Vector3::Normalized(frente) - Vector3::Normalized(velocity);
+    if ( Vector3::Magnitude(matching) > 0.01 ){
+        // std::cout << "Quat:" << q.W << ", " << q.X << "," << q.Y << "," << q.Z << std::endl;
+        Quaternion K = Quaternion(Vector3(1,0,0),0);
+        Quaternion resp = q * K * Quaternion::Conjugate(q);
+        // Quaternion resp = Quaternion::RotateTowards(Quaternion())
+        frente = Vector3(resp.X, resp.Y, resp.Z);
+
+        K = Quaternion(Vector3(0,1,0),0);
+        resp = q * K * Quaternion::Conjugate(q);
+        cima = Vector3(resp.X, resp.Y, resp.Z);
+    }
+    Matrix3x3 m1 = Matrix3x3::FromQuaternion(q);
+    glTranslatef(pos.X,pos.Y,pos.Z);
+    glMultMatrixd(expande(m1));
+    glTranslatef(-pos.X,-pos.Y,-pos.Z);
+    
     // Asa direita
     glColor3f(1,0.5,0);
     Vector3 p1(pos.X, pos.Y, pos.Z + 2);

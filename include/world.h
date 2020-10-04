@@ -30,6 +30,8 @@ class World{
         void addSeparacao(double delta);
         void addVelLocal(double delta);
         void addCampoVisao(double delta);
+
+        void liderYawEsq();
     private:
         vec3 observador;
         vec3 alvo;
