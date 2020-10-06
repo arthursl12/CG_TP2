@@ -88,6 +88,7 @@ void World::drawCeu(){ }
 
 
 void World::draw(){
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glColor3f(1,1,1);
     // glutSolidTeapot(50.0f);
     // glutWireCube(80.0f);
@@ -129,17 +130,18 @@ void World::addCampoVisao(double delta){
 void World::view(){
 	// Especifica posição do observador e do alvo
     std::cout << "(view) O:" <<  observador << "; A: " << alvo << std::endl;
-	// gluLookAt(observador.x, observador.y, observador.z,
-    //                 alvo.x,       alvo.y,       alvo.z,
-    //          normalObsvd.x,   normalObsvd.y,   normalObsvd.z);
-    Vector3 posLider = bando->getLiderPos();
-    Vector3 menosV = -300 * (Vector3::Normalized(bando->getLiderVel()));
-    Vector3 obs = posLider + menosV;
-    Vector3 normal = Vector3::Normalized(bando->getLiderNor());
-    obs += 100 * (normal);
-    gluLookAt(obs.X, obs.Y, obs.Z,
-                posLider.X,   posLider.Y,   posLider.Z,
-             normal.X,   normal.Y,   normal.Z);
+    glLoadIdentity();
+	gluLookAt(observador.x, observador.y, observador.z,
+                    alvo.x,       alvo.y,       alvo.z,
+             normalObsvd.x,   normalObsvd.y,   normalObsvd.z);
+    // Vector3 posLider = bando->getLiderPos();
+    // Vector3 menosV = -300 * (Vector3::Normalized(bando->getLiderVel()));
+    // Vector3 obs = posLider + menosV;
+    // Vector3 normal = Vector3::Normalized(bando->getLiderNor());
+    // obs += 100 * (normal);
+    // gluLookAt(obs.X, obs.Y, obs.Z,
+    //             posLider.X,   posLider.Y,   posLider.Z,
+    //          normal.X,   normal.Y,   normal.Z);
 }
 
 void World::moveObservador(int frente, int direita, int cima){

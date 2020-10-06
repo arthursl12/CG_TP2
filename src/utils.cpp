@@ -21,6 +21,7 @@ void drawText(float x, float y, std::string text) {
 }
 
 void display_callback(){
+    glClearDepth(10.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glColor3f(0.0f, 0.0f, 1.0f);
 
@@ -30,9 +31,11 @@ void display_callback(){
 
 	// lev.draw();
 	// lev.update();
+	
 	glutSwapBuffers();
-	glutPostRedisplay();
 	EspecificaParametrosVisualizacao();
+	glutPostRedisplay();
+	
 }
 
 void keyboard_callback(unsigned char key, int, int){
@@ -121,32 +124,32 @@ void keyboard_special_callback(int key, int x, int y){
     switch (key){
     case GLUT_KEY_UP:
         world.moveObservador( 1, 0, 0);
-        EspecificaParametrosVisualizacao();
+        world.view();
 		glutPostRedisplay();
         break;
 	case GLUT_KEY_DOWN:
         world.moveObservador(-1, 0, 0);
-        EspecificaParametrosVisualizacao();
+        world.view();
 		glutPostRedisplay();
         break;
 	case GLUT_KEY_RIGHT:
 		world.moveObservador( 0, 1, 0);
-        EspecificaParametrosVisualizacao();
+        world.view();
 		glutPostRedisplay();
 		break;
 	case GLUT_KEY_LEFT:
 		world.moveObservador( 0,-1, 0);
-        EspecificaParametrosVisualizacao();
+        world.view();
 		glutPostRedisplay();
 		break;
 	case GLUT_KEY_SHIFT_R:
 		world.moveObservador( 0, 0, 1);
-        EspecificaParametrosVisualizacao();
+        world.view();
 		glutPostRedisplay();
 		break;
 	case GLUT_KEY_CTRL_R:
 		world.moveObservador( 0, 0,-1);
-        EspecificaParametrosVisualizacao();
+        world.view();
 		glutPostRedisplay();
 		break;
     default:

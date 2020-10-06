@@ -52,6 +52,19 @@ void init(){
 	glEnable(GL_DEPTH_TEST);
 
 	angle=45;
+
+	glEnable(GL_FOG);
+   	{
+		GLfloat fogColor[4] = {0.5, 0.5, 0.5, 1.0};
+
+		glFogi(GL_FOG_MODE, GL_LINEAR);
+		glFogfv(GL_FOG_COLOR, fogColor);
+		glFogf(GL_FOG_DENSITY, 0.35);
+		glHint(GL_FOG_HINT, GL_DONT_CARE);
+		glFogf(GL_FOG_START, 1.0);
+		glFogf(GL_FOG_END, 3000);
+	}
+	glClearColor(0.5, 0.5, 0.5, 1.0);  /* fog color */
 }
 
 int main(int argc, char **argv){
