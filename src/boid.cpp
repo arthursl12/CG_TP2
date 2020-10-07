@@ -18,14 +18,14 @@ Boid::Boid(Vector3 _pos){
     // Quaternion resp = q * K * Quaternion::Conjugate(q);
     // velocity = Vector3(resp.X, resp.Y, resp.Z);
 
+    flapTimer = 0;
 }
 
 void Boid::update(){
     double passo = BOID_PASSO;
     if (DBG) passo = passo;
-    pos += velocity * passo;
-
-    
+    // pos += velocity * passo;
+    flapTimer += 1;
 }
 
 void Boid::yawEsq(){
@@ -77,7 +77,10 @@ BoidComum::BoidComum(Vector3 _pos) :
 }
 
 void BoidComum::draw(){
-    
+    if (flapTimer == WING_FLAP_INTERVAL){
+        flapTimer = 0;
+        std::cout << "Flap" << std::endl;
+    }
     glPushMatrix();
     // "Olhar" para a nova velocidade
     // float matching = Quaternion::Dot(oldPose, pose);

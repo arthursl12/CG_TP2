@@ -11,6 +11,7 @@
 #define SKY_HEIGHT 1000
 
 #define PASSO 10
+#define WING_FLAP_INTERVAL 200
 
 // addBoid
 #define MIN_DIST_BOID 5

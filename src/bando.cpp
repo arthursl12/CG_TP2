@@ -246,7 +246,7 @@ void Bando::update(){
         Vector3 soma = v1 + v2 + v3 + v4 + v5;
         bAtual->addVelocity(soma);
     }
-    std::cout << "CV:" << campoVisao << ", VLoc: " << fatVelLoc << ", Sepa: " << fatSeparar << std::endl;
+    // std::cout << "CV:" << campoVisao << ", VLoc: " << fatVelLoc << ", Sepa: " << fatSeparar << std::endl;
 
 
     // Muda a posição de cada boid

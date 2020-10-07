@@ -131,7 +131,7 @@ void World::addCampoVisao(double delta){
 }
 void World::view(){
 	// Especifica posição do observador e do alvo
-    std::cout << "(view) O:" <<  observador << "; A: " << alvo << std::endl;
+    // std::cout << "(view) O:" <<  observador << "; A: " << alvo << std::endl;
     glLoadIdentity();
 	gluLookAt(observador.x, observador.y, observador.z,
                     alvo.x,       alvo.y,       alvo.z,
@@ -192,7 +192,8 @@ void World::liderYawEsq(){
 }
 
 void World::reset(){
-    this->observador = vec3(1500, 1000, 2500);
+    // this->observador = vec3(1500, 1000, 2500);
+    this->observador = vec3(200, 250, 500);
     this->alvo = vec3(0, 0 ,0);
     this->normalObsvd = vec3(0, 1, 0);
 }
