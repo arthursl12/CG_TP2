@@ -62,7 +62,7 @@ void init(){
 		glHint(GL_FOG_HINT, GL_DONT_CARE);
 		glFogf(GL_FOG_START, 1.0);
 		glFogf(GL_FOG_END, 3000);
-		// glClearColor(0.5, 0.5, 0.5, 1.0);  /* fog color */
+		
 	}
 	
 }
