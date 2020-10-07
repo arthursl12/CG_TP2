@@ -281,3 +281,16 @@ void Bando::addBoid(){
     std::shared_ptr<BoidComum> b = std::make_shared<BoidComum>(newPos);
     bando.push_back(b);
 }
+
+/**
+ * Remove um boid aleatório do bando, que deve ter sempre pelo menos um boid,
+ * além do líder
+ */
+void Bando::removeBoid(){
+    std::srand(time(NULL));
+    if (bando.size() > 1){
+        std::vector<std::shared_ptr<BoidComum>>::iterator randIt = bando.begin();
+        std::advance(randIt, std::rand() % bando.size());
+        bando.erase(randIt);
+    }
+}

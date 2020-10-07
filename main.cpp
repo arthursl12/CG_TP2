@@ -53,7 +53,7 @@ void init(){
 
 	angle=45;
 
-	
+	// Parâmetros da Fog
    	{
 		GLfloat fogColor[4] = {0.5, 0.5, 0.5, 1.0};
 		glFogi(GL_FOG_MODE, GL_LINEAR);

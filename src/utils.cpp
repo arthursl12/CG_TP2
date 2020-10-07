@@ -47,7 +47,6 @@ void keyboard_callback(unsigned char key, int, int){
 			// world.liderYawDir();
 			break;
 		case 'r':{
-			// lev = Level(lev);
 			glClearColor(0.0f, 0.0f, 0.0f, 1.0f );
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			world.reset();
@@ -56,18 +55,16 @@ void keyboard_callback(unsigned char key, int, int){
 			break;
 		}
 		case '+':{
-			std::cout << "MAIS" << std::endl;
 			world.addBoid();
 			break;
 		}
 		case '=':{
 			// Esse é o mais ao lado do backspace
-			std::cout << "MAIS" << std::endl;
 			world.addBoid();
 			break;
 		}
 		case '-':{
-			std::cout << "MENOS" << std::endl;
+			world.removeBoid();
 			break;
 		}
 

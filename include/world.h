@@ -27,6 +27,7 @@ class World{
         void toggleFog();
         void reset();
         void addBoid();
+        void removeBoid();
 
         void addSeparacao(double delta);
         void addVelLocal(double delta);

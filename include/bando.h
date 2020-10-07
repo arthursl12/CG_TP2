@@ -13,6 +13,7 @@ class Bando : public GameObject{
         void update();
 
         void addBoid();
+        void removeBoid();
         void addSeparacao(double delta);
         void addVelLocal(double delta);
         void addCampoVisao(double delta);

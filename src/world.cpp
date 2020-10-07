@@ -212,3 +212,7 @@ void World::toggleFog(){
 void World::addBoid(){
     bando->addBoid();
 }
+
+void World::removeBoid(){
+    bando->removeBoid();
+}
