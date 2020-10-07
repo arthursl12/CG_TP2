@@ -13,6 +13,7 @@ World::World(){
     this->reset();
     bando = std::make_shared<Bando>(Vector3(15,15,15));
     bando->addBoid();
+    fogEnabled = false;
 }
 
 World::World(const World& old){
@@ -20,6 +21,7 @@ World::World(const World& old){
     this->observador = old.observador;
     this->normalObsvd = old.normalObsvd;
     this->bando = old.bando;
+    fogEnabled = false;
 }
 
 void World::drawGeradores(){
@@ -193,6 +195,18 @@ void World::reset(){
     this->observador = vec3(1500, 1000, 2500);
     this->alvo = vec3(0, 0 ,0);
     this->normalObsvd = vec3(0, 1, 0);
+}
+
+void World::toggleFog(){
+    if (fogEnabled){
+        fogEnabled = false;
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        glDisable(GL_FOG);
+    }else{
+        fogEnabled = true;
+        glClearColor(0.5, 0.5, 0.5, 1.0);  /* fog color */
+        glEnable(GL_FOG);
+    }
 }
 
 void World::addBoid(){

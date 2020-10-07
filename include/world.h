@@ -24,6 +24,7 @@ class World{
         void view();
 
         void moveObservador(int frente, int direita, int cima);
+        void toggleFog();
         void reset();
         void addBoid();
 
@@ -37,6 +38,7 @@ class World{
         vec3 alvo;
         vec3 normalObsvd;
         std::shared_ptr<Bando> bando;
+        bool fogEnabled;
 
         void drawGeradores();
         void drawChao();

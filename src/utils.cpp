@@ -101,22 +101,10 @@ void keyboard_callback(unsigned char key, int, int){
 			break;
 		}
 
-		case 'i':{
-			
+		case 'f':{
+			world.toggleFog();
 			break;
 		}
-		case 'k':{
-			
-			break;
-		}
-
-		case 'o':{
-			break;
-		}
-		case 'l':{
-			break;
-		}
-
 	}
 }
 
