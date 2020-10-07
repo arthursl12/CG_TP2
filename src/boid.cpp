@@ -26,6 +26,11 @@ void Boid::update(){
     if (DBG) passo = passo;
     // pos += velocity * passo;
     flapTimer += 1;
+
+    if (flapTimer >= WING_FLAP_INTERVAL){
+        flapTimer = 0;
+        std::cout << "Flap" << std::endl;
+    }
 }
 
 void Boid::yawEsq(){
@@ -77,10 +82,6 @@ BoidComum::BoidComum(Vector3 _pos) :
 }
 
 void BoidComum::draw(){
-    if (flapTimer == WING_FLAP_INTERVAL){
-        flapTimer = 0;
-        std::cout << "Flap" << std::endl;
-    }
     glPushMatrix();
     // "Olhar" para a nova velocidade
     // float matching = Quaternion::Dot(oldPose, pose);
@@ -124,18 +125,19 @@ void BoidComum::draw(){
     glTranslatef(-pos.X,-pos.Y,-pos.Z);
 
 
-    
+    double pontaAsa = flapTimer/WING_FLAP_PROP - WING_FLAP_PROP/2;
+    std::cout << "PA: " << pontaAsa << std::endl;
     // Asa direita
     glColor3f(1,1,0.2);
     Vector3 p1(pos.X, pos.Y, pos.Z + 2);
-    Vector3 v1(0,0,20);
+    Vector3 v1(0,pontaAsa,20);
     Piramide pir1(p1, v1, 0, -15, 0, 15, 15);
     pir1.draw();
 
     // Asa esquerda
     glColor3f(1,1,0.2);
     Vector3 p2(pos.X, pos.Y, pos.Z - 2);
-    Vector3 v2(0,0,-20);
+    Vector3 v2(0,pontaAsa,-20);
     Piramide pir2(p2, v2, 0, 15, 0, 15, 15);
     pir2.draw();
     
@@ -190,17 +192,18 @@ void BoidLider::draw(){
     glMultMatrixd(expande(m1));
     glTranslatef(-pos.X,-pos.Y,-pos.Z);
     
+    double pontaAsa = flapTimer/WING_FLAP_PROP - WING_FLAP_PROP/2;
     // Asa direita
     glColor3f(1,0.5,0);
     Vector3 p1(pos.X, pos.Y, pos.Z + 2);
-    Vector3 v1(0,0,20);
+    Vector3 v1(0,pontaAsa,20);
     Piramide pir1(p1, v1, 0, -15, 0, 15, 15);
     pir1.draw();
 
     // Asa esquerda
     glColor3f(1,0.5,0);
     Vector3 p2(pos.X, pos.Y, pos.Z - 2);
-    Vector3 v2(0,0,-20);
+    Vector3 v2(0,pontaAsa,-20);
     Piramide pir2(p2, v2, 0, 15, 0, 15, 15);
     pir2.draw();
 
