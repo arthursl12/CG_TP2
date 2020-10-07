@@ -24,12 +24,11 @@ Boid::Boid(Vector3 _pos){
 void Boid::update(){
     double passo = BOID_PASSO;
     if (DBG) passo = passo;
-    // pos += velocity * passo;
+    pos += velocity * passo;
     flapTimer += 1;
 
     if (flapTimer >= WING_FLAP_INTERVAL){
         flapTimer = 0;
-        std::cout << "Flap" << std::endl;
     }
 }
 

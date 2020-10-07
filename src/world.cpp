@@ -192,8 +192,8 @@ void World::liderYawEsq(){
 }
 
 void World::reset(){
-    // this->observador = vec3(1500, 1000, 2500);
-    this->observador = vec3(200, 250, 500);
+    this->observador = vec3(1500, 1000, 2500);
+    // this->observador = vec3(200, 250, 500);
     this->alvo = vec3(0, 0 ,0);
     this->normalObsvd = vec3(0, 1, 0);
 }
