@@ -114,6 +114,9 @@ void World::draw(){
     // Draw something, i.e. cube
     bando->draw();
     glPopMatrix();
+
+    Torre t1(Vector3(0,0,0), 500, 100);
+    t1.draw();
 }
 
 void World::update(){

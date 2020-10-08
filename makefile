@@ -11,7 +11,7 @@ LIBS := -lglut -lGL -lGLU
 INC := -I include -I third-party -L. 
 
 
-MODULES = utils linalg world gObject piramide retangulo boid bando
+MODULES = utils linalg world gObject piramide retangulo boid bando torre
 SOURCES = $(addsuffix .cpp,$(MODULES))
 OBJECTS = $(patsubst %.cpp, %.o, $(SOURCES))
 TESTS = $(addprefix test_,$(SOURCES))

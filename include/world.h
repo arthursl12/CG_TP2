@@ -13,6 +13,7 @@
 #include "linalg.h"
 #include "constants.h"
 #include "bando.h"
+#include "torre.h"
 
 
 class World{

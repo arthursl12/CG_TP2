@@ -125,7 +125,7 @@ void BoidComum::draw(){
 
 
     double pontaAsa = flapTimer/WING_FLAP_PROP - WING_FLAP_PROP/2;
-    std::cout << "PA: " << pontaAsa << std::endl;
+    // std::cout << "PA: " << pontaAsa << std::endl;
     // Asa direita
     glColor3f(1,1,0.2);
     Vector3 p1(pos.X, pos.Y, pos.Z + 2);
