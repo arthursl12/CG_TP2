@@ -21,6 +21,7 @@ class Boid : public GameObject{
         Quaternion q;
 
         Vector3 cima;
+        Vector3 esq;
 
         int flapTimer;
 };

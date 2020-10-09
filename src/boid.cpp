@@ -12,6 +12,7 @@ Boid::Boid(Vector3 _pos){
     oldV = Vector3(1,0,0);
 
     cima = Vector3(0,1,0);
+    esq = Vector3(0,0,-1);
     // Quaternion qy = Quaternion::FromAngleAxis(+M_PI/3,Vector3(0,1,0));
     // Quaternion q = qy;
     // Quaternion K = Quaternion(velocity,0);
@@ -30,16 +31,45 @@ void Boid::update(){
     if (flapTimer >= WING_FLAP_INTERVAL){
         flapTimer = 0;
     }
+
+
+
 }
 
 void BoidLider::yawEsq(){
-    Vector3 esquerda = Vector3::Cross(cima, frente);
-    velocity += 0.1 * esquerda;
+    Quaternion K = Quaternion(velocity,0);
+    Quaternion q = Quaternion::FromAngleAxis(M_PI/6,cima);
+    Quaternion resp = q * K * Quaternion::Conjugate(q);
+    // Quaternion resp = Quaternion::RotateTowards(Quaternion())
+    velocity = Vector3(resp.X, resp.Y, resp.Z);
+
+    K = Quaternion(cima,0);
+    resp = q * K * Quaternion::Conjugate(q);
+    cima = Vector3(resp.X, resp.Y, resp.Z);
+
+    K = Quaternion(esq,0);
+    resp = q * K * Quaternion::Conjugate(q);
+    esq = Vector3(resp.X, resp.Y, resp.Z);
+    // addVelocity(0.1 * esq);
+    // velocity += 0.1 * esq;
 }
 
 void BoidLider::yawDir(){
-    Vector3 esquerda = Vector3::Cross(cima, frente);
-    velocity -= 0.1 * esquerda;
+    Quaternion K = Quaternion(velocity,0);
+    Quaternion q = Quaternion::FromAngleAxis(-M_PI/6,cima);
+    Quaternion resp = q * K * Quaternion::Conjugate(q);
+    // Quaternion resp = Quaternion::RotateTowards(Quaternion())
+    velocity = Vector3(resp.X, resp.Y, resp.Z);
+
+    K = Quaternion(cima,0);
+    resp = q * K * Quaternion::Conjugate(q);
+    cima = Vector3(resp.X, resp.Y, resp.Z);
+
+    K = Quaternion(esq,0);
+    resp = q * K * Quaternion::Conjugate(q);
+    esq = Vector3(resp.X, resp.Y, resp.Z);
+    // addVelocity(-0.1 * esq);
+    // velocity -= 0.1 * esq;
 }
 
 void BoidLider::pitchUp(){
@@ -49,12 +79,44 @@ void BoidLider::pitchUp(){
     // Vector3 dirNorm = Vector3::Normalized(direita);
 
     // Vector3 trasNorm = Vector3::Cross(dirNorm, cimaNorm);
-    
-    velocity += 0.1 * cima;
+    Quaternion K = Quaternion(velocity,0);
+    Quaternion q = Quaternion::FromAngleAxis(-M_PI/20,esq);
+    Quaternion resp = q * K * Quaternion::Conjugate(q);
+    velocity = Vector3(resp.X, resp.Y, resp.Z);
+
+    K = Quaternion(cima,0);
+    resp = q * K * Quaternion::Conjugate(q);
+    cima = Vector3(resp.X, resp.Y, resp.Z);
+
+    K = Quaternion(esq,0);
+    resp = q * K * Quaternion::Conjugate(q);
+    esq = Vector3(resp.X, resp.Y, resp.Z);
+    // addVelocity(0.1 * cima);
+    // velocity += 0.1 * cima;
     // cima += 1 * trasNorm;
 }
 void BoidLider::pitchDown(){
-    velocity -= 0.1 * cima;
+    // Quaternion K = Quaternion(velocity,0);
+    // Quaternion q = Quaternion::FromAngleAxis(M_PI/20,esq);
+    // Quaternion resp = q * K * Quaternion::Conjugate(q);
+    // velocity = Vector3(resp.X, resp.Y, resp.Z);
+
+    // K = Quaternion(cima,0);
+    // resp = q * K * Quaternion::Conjugate(q);
+    // cima = Vector3(resp.X, resp.Y, resp.Z);
+    Quaternion K = Quaternion(velocity,0);
+    Quaternion q = Quaternion::FromAngleAxis(M_PI/20,esq);
+    Quaternion resp = q * K * Quaternion::Conjugate(q);
+    velocity = Vector3(resp.X, resp.Y, resp.Z);
+
+    K = Quaternion(cima,0);
+    resp = q * K * Quaternion::Conjugate(q);
+    cima = Vector3(resp.X, resp.Y, resp.Z);
+
+    K = Quaternion(esq,0);
+    resp = q * K * Quaternion::Conjugate(q);
+    esq = Vector3(resp.X, resp.Y, resp.Z);
+    // velocity -= 0.1 * cima;
 }
 
 bool Boid::operator!=(Boid& outro){
@@ -137,6 +199,10 @@ void BoidComum::draw(){
         K = Quaternion(Vector3(0,1,0),0);
         resp = q * K * Quaternion::Conjugate(q);
         cima = Vector3(resp.X, resp.Y, resp.Z);
+
+        K = Quaternion(Vector3(0,0,-1),0);
+        resp = q * K * Quaternion::Conjugate(q);
+        esq = Vector3(resp.X, resp.Y, resp.Z);
     }
     Matrix3x3 m1 = Matrix3x3::FromQuaternion(q);
     glTranslatef(pos.X,pos.Y,pos.Z);
@@ -202,9 +268,13 @@ void BoidLider::draw(){
         // Quaternion resp = Quaternion::RotateTowards(Quaternion())
         frente = Vector3(resp.X, resp.Y, resp.Z);
 
-        K = Quaternion(Vector3(0,1,0),0);
-        resp = q * K * Quaternion::Conjugate(q);
-        cima = Vector3(resp.X, resp.Y, resp.Z);
+        // K = Quaternion(Vector3(0,1,0),0);
+        // resp = q * K * Quaternion::Conjugate(q);
+        // cima = Vector3(resp.X, resp.Y, resp.Z);
+
+        // K = Quaternion(Vector3(0,0,-1),0);
+        // resp = q * K * Quaternion::Conjugate(q);
+        // esq = Vector3(resp.X, resp.Y, resp.Z);
     }
     Matrix3x3 m1 = Matrix3x3::FromQuaternion(q);
     glTranslatef(pos.X,pos.Y,pos.Z);

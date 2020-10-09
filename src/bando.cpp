@@ -48,7 +48,7 @@ void drawVector(Vector3 vec, Vector3 origem){
     //     copy = copy * 50;
     // }
     copy = copy * 20;
-    glColor3f(1,0,0);
+    // glColor3f(1,0,0);
     glBegin(GL_TRIANGLES); 
         // glNormal3f(0.0, 1.0, 0.0); 
         glVertex3f(origem.X, origem.Y - 2, origem.Z - 2);
@@ -59,13 +59,17 @@ void drawVector(Vector3 vec, Vector3 origem){
 
 void Bando::draw(){
     lider->draw();
+    glColor3f(1,1,0);
     drawVector(lider->cima, lider->pos + Vector3(30,0,0));
+    glColor3f(1,0,0);
     drawVector(lider->velocity, lider->pos + Vector3(30,0,0));
+    glColor3f(1,0,1);
     drawVector(lider->frente, lider->pos + Vector3(30,30,0));
+    glColor3f(0,0.5,1);
+    drawVector(lider->esq, lider->pos + Vector3(30,0,0));
+
     
     // drawVector(lider->cima, lider->pos + Vector3(30,0,0));
-    std::cout << "C<" << lider->cima.X << "," << lider->cima.Y << ","<< lider->cima.Z << ">" << std::endl;
-    std::cout << "V<" << lider->velocity.X << "," << lider->velocity.Y << ","<< lider->velocity.Z << ">" << std::endl;
     std::vector<std::shared_ptr<BoidComum>>::iterator it;
     for (it = bando.begin(); it != bando.end(); it++){
         (*it)->draw();
