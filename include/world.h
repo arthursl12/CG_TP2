@@ -27,6 +27,7 @@ class World{
         void moveObservador(int frente, int direita, int cima);
         void toggleFog();
         void reset();
+        void changeCamera(Camera newC);
         void addBoid();
         void removeBoid();
 
@@ -44,6 +45,7 @@ class World{
         vec3 normalObsvd;
         std::shared_ptr<Bando> bando;
         bool fogEnabled;
+        Camera cameraAtual;
 
         void drawGeradores();
         void drawChao();

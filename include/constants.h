@@ -9,6 +9,7 @@
 #define FLOOR_SIZE 1500
 #define DRAW_DISTANCE 30000
 #define SKY_HEIGHT 1000
+enum Camera {AltoTorre, Chase, ChaseLateral};
 
 #define PASSO 10
 #define WING_FLAP_INTERVAL 230

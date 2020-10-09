@@ -57,6 +57,18 @@ void keyboard_callback(unsigned char key, int, int){
 
 	// Outros controles
 	switch (key){
+		case '1':{
+			world.changeCamera(AltoTorre);
+			break;
+		}
+		case '2':{
+			world.changeCamera(Chase);
+			break;
+		}
+		case '3':{
+			world.changeCamera(ChaseLateral);
+			break;
+		}
 		case 'f':{
 			world.toggleFog();
 			break;

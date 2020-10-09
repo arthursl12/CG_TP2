@@ -14,6 +14,7 @@ World::World(){
     bando = std::make_shared<Bando>(Vector3(15,150,150));
     bando->addBoid();
     fogEnabled = false;
+    cameraAtual = AltoTorre;
 }
 
 World::World(const World& old){
@@ -22,6 +23,7 @@ World::World(const World& old){
     this->normalObsvd = old.normalObsvd;
     this->bando = old.bando;
     fogEnabled = false;
+    cameraAtual = AltoTorre;
 }
 
 void World::drawGeradores(){
@@ -132,21 +134,39 @@ void World::addVelLocal(double delta){
 void World::addCampoVisao(double delta){
     bando->addCampoVisao(delta);
 }
+void World::changeCamera(Camera newCamera){
+    cameraAtual = newCamera;
+}
+
 void World::view(){
 	// Especifica posição do observador e do alvo
     // std::cout << "(view) O:" <<  observador << "; A: " << alvo << std::endl;
     glLoadIdentity();
-	gluLookAt(observador.x, observador.y, observador.z,
+	
+    switch (cameraAtual){
+        case Chase:{
+            Vector3 posLider = bando->getLiderPos();
+            Vector3 menosV = -300 * (Vector3::Normalized(bando->getLiderVel()));
+            Vector3 obs = posLider + menosV;
+            Vector3 normal = Vector3::Normalized(bando->getLiderNor());
+            obs += 100 * (normal);
+            gluLookAt(obs.X, obs.Y, obs.Z,
+                        posLider.X,   posLider.Y,   posLider.Z,
+                    normal.X,   normal.Y,   normal.Z);
+            break;
+        }case ChaseLateral:{
+            gluLookAt(observador.x, observador.y, observador.z,
                     alvo.x,       alvo.y,       alvo.z,
              normalObsvd.x,   normalObsvd.y,   normalObsvd.z);
-    // Vector3 posLider = bando->getLiderPos();
-    // Vector3 menosV = -300 * (Vector3::Normalized(bando->getLiderVel()));
-    // Vector3 obs = posLider + menosV;
-    // Vector3 normal = Vector3::Normalized(bando->getLiderNor());
-    // obs += 100 * (normal);
-    // gluLookAt(obs.X, obs.Y, obs.Z,
-    //             posLider.X,   posLider.Y,   posLider.Z,
-    //          normal.X,   normal.Y,   normal.Z);
+            break;
+        }case AltoTorre:{
+            gluLookAt(observador.x, observador.y, observador.z,
+                    alvo.x,       alvo.y,       alvo.z,
+             normalObsvd.x,   normalObsvd.y,   normalObsvd.z);
+            break;
+        }
+    }
+    
 }
 
 void World::moveObservador(int frente, int direita, int cima){
