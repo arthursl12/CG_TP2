@@ -39,6 +39,7 @@ void display_callback(){
 }
 
 void keyboard_callback(unsigned char key, int, int){
+	// Controles líder
 	switch(key){
 		case 'q':
 			world.liderYawEsq();
@@ -46,6 +47,14 @@ void keyboard_callback(unsigned char key, int, int){
 		case 'e':
 			world.liderYawDir();
 			break;
+	}
+
+	// Outros controles
+	switch (key){
+		case 'f':{
+			world.toggleFog();
+			break;
+		}
 		case 'r':{
 			glClearColor(0.0f, 0.0f, 0.0f, 1.0f );
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -54,6 +63,10 @@ void keyboard_callback(unsigned char key, int, int){
 			glutPostRedisplay();
 			break;
 		}
+	}
+
+	// Quantidade de Boids
+	switch (key){
 		case '+':{
 			world.addBoid();
 			break;
@@ -67,7 +80,10 @@ void keyboard_callback(unsigned char key, int, int){
 			world.removeBoid();
 			break;
 		}
+	}
 
+	// Mudança em fatores
+	switch (key){
 		// Altera fator de curva
 		case 't':{
 			world.addCampoVisao(+20);
@@ -95,11 +111,6 @@ void keyboard_callback(unsigned char key, int, int){
 		}
 		case 'j':{
 			world.addSeparacao(-FATOR_SEPARACAO_DELTA);
-			break;
-		}
-
-		case 'f':{
-			world.toggleFog();
 			break;
 		}
 	}
