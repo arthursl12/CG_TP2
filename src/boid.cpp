@@ -42,6 +42,21 @@ void BoidLider::yawDir(){
     velocity -= 0.1 * esquerda;
 }
 
+void BoidLider::pitchUp(){
+    // Vector3 cimaNorm = Vector3::Normalized(cima);
+
+    // Vector3 direita = Vector3::Cross(frente,cimaNorm);
+    // Vector3 dirNorm = Vector3::Normalized(direita);
+
+    // Vector3 trasNorm = Vector3::Cross(dirNorm, cimaNorm);
+    
+    velocity += 0.1 * cima;
+    // cima += 1 * trasNorm;
+}
+void BoidLider::pitchDown(){
+    velocity -= 0.1 * cima;
+}
+
 bool Boid::operator!=(Boid& outro){
     Vector3 vecDist = this->pos - outro.pos;
     double dist = Vector3::Magnitude(vecDist);

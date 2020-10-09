@@ -34,34 +34,43 @@ void Bando::liderYawDir(){
     lider->yawDir();
 }
 
+void Bando::liderPitchUp(){
+    lider->pitchUp();
+}
+void Bando::liderPitchDown(){
+    lider->pitchDown();
+}
+
 void drawVector(Vector3 vec, Vector3 origem){
     Vector3 copy = vec;
-    // if (Vector3::Magnitude(copy) >= 100){
+    // if (Vector3::Magnitude(copy) <= 20){
     //     copy = Vector3::Normalized(copy);
-    //     copy = copy * 5;
-    // }
-    // if (Vector3::Magnitude(copy) <= 100){
-    //     copy = Vector3::Normalized(copy);
-    //     copy = copy * 5;
+    //     copy = copy * 50;
     // }
     copy = copy * 20;
     glColor3f(1,0,0);
     glBegin(GL_TRIANGLES); 
-        glNormal3f(0.0, 1.0, 0.0); 
-        glVertex3f(origem.X, origem.Y - 1, origem.Z);
+        // glNormal3f(0.0, 1.0, 0.0); 
+        glVertex3f(origem.X, origem.Y - 2, origem.Z - 2);
         glVertex3f(origem.X + copy.X, origem.Y + copy.Y, origem.Z + copy.Z);
-        glVertex3f(origem.X, origem.Y + 1, origem.Z);
+        glVertex3f(origem.X, origem.Y + 2, origem.Z + 2);
     glEnd();
 }
 
 void Bando::draw(){
     lider->draw();
+    drawVector(lider->cima, lider->pos + Vector3(30,0,0));
     drawVector(lider->velocity, lider->pos + Vector3(30,0,0));
     drawVector(lider->frente, lider->pos + Vector3(30,30,0));
+    
+    // drawVector(lider->cima, lider->pos + Vector3(30,0,0));
+    std::cout << "C<" << lider->cima.X << "," << lider->cima.Y << ","<< lider->cima.Z << ">" << std::endl;
+    std::cout << "V<" << lider->velocity.X << "," << lider->velocity.Y << ","<< lider->velocity.Z << ">" << std::endl;
     std::vector<std::shared_ptr<BoidComum>>::iterator it;
     for (it = bando.begin(); it != bando.end(); it++){
         (*it)->draw();
         drawVector((*it)->velocity, (*it)->pos + Vector3(30,0,0));
+        drawVector((*it)->cima, (*it)->pos + Vector3(30,0,0));
         // drawVector((*it)->frente, (*it)->pos + Vector3(30,30,0));
     }
     // drawVector(centroBando, Vector3(0,0,0));

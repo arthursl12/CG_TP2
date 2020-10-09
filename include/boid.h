@@ -38,6 +38,8 @@ class BoidLider : public Boid{
 
         void yawEsq();
         void yawDir();
+        void pitchUp();
+        void pitchDown();
 };
 
 #endif

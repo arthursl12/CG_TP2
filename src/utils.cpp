@@ -47,6 +47,12 @@ void keyboard_callback(unsigned char key, int, int){
 		case 'e':
 			world.liderYawDir();
 			break;
+		case 'w':
+			world.liderPitchUp();
+			break;
+		case 's':
+			world.liderPitchDown();
+			break;
 	}
 
 	// Outros controles

@@ -36,6 +36,8 @@ class World{
 
         void liderYawEsq();
         void liderYawDir();
+        void liderPitchUp();
+        void liderPitchDown();
     private:
         vec3 observador;
         vec3 alvo;
