@@ -32,9 +32,14 @@ void Boid::update(){
     }
 }
 
-void Boid::yawEsq(){
+void BoidLider::yawEsq(){
     Vector3 esquerda = Vector3::Cross(cima, frente);
-    velocity += 0.5 * esquerda;
+    velocity += 0.1 * esquerda;
+}
+
+void BoidLider::yawDir(){
+    Vector3 esquerda = Vector3::Cross(cima, frente);
+    velocity -= 0.1 * esquerda;
 }
 
 bool Boid::operator!=(Boid& outro){

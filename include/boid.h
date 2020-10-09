@@ -14,7 +14,6 @@ class Boid : public GameObject{
         void addVelocity(Vector3 deltaV);
         bool operator!=(Boid& outro);
 
-        void yawEsq();
     protected:
         Vector3 oldV;
         Vector3 velocity;
@@ -36,6 +35,9 @@ class BoidLider : public Boid{
     public:
         BoidLider(Vector3 _pos);
         void draw();
+
+        void yawEsq();
+        void yawDir();
 };
 
 #endif

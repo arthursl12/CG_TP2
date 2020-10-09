@@ -35,6 +35,7 @@ class World{
         void addCampoVisao(double delta);
 
         void liderYawEsq();
+        void liderYawDir();
     private:
         vec3 observador;
         vec3 alvo;

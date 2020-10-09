@@ -44,7 +44,7 @@ void keyboard_callback(unsigned char key, int, int){
 			world.liderYawEsq();
 			break;
 		case 'e':
-			// world.liderYawDir();
+			world.liderYawDir();
 			break;
 		case 'r':{
 			glClearColor(0.0f, 0.0f, 0.0f, 1.0f );

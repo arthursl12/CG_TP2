@@ -23,6 +23,7 @@ class Bando : public GameObject{
         Vector3 getLiderNor();
 
         void liderYawEsq();
+        void liderYawDir();
     private:
         Vector3 centroBando;
 

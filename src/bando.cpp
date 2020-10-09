@@ -30,6 +30,10 @@ void Bando::liderYawEsq(){
     lider->yawEsq();
 }
 
+void Bando::liderYawDir(){
+    lider->yawDir();
+}
+
 void drawVector(Vector3 vec, Vector3 origem){
     Vector3 copy = vec;
     // if (Vector3::Magnitude(copy) >= 100){
