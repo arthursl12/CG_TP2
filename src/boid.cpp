@@ -50,6 +50,10 @@ void BoidLider::yawEsq(){
     K = Quaternion(esq,0);
     resp = q * K * Quaternion::Conjugate(q);
     esq = Vector3(resp.X, resp.Y, resp.Z);
+
+    // K = Quaternion(frente,0);
+    // resp = q * K * Quaternion::Conjugate(q);
+    // frente = Vector3(resp.X, resp.Y, resp.Z);
     // addVelocity(0.1 * esq);
     // velocity += 0.1 * esq;
 }
@@ -68,6 +72,10 @@ void BoidLider::yawDir(){
     K = Quaternion(esq,0);
     resp = q * K * Quaternion::Conjugate(q);
     esq = Vector3(resp.X, resp.Y, resp.Z);
+
+    // K = Quaternion(frente,0);
+    // resp = q * K * Quaternion::Conjugate(q);
+    // frente = Vector3(resp.X, resp.Y, resp.Z);
     // addVelocity(-0.1 * esq);
     // velocity -= 0.1 * esq;
 }
@@ -91,6 +99,10 @@ void BoidLider::pitchUp(){
     K = Quaternion(esq,0);
     resp = q * K * Quaternion::Conjugate(q);
     esq = Vector3(resp.X, resp.Y, resp.Z);
+
+    // K = Quaternion(frente,0);
+    // resp = q * K * Quaternion::Conjugate(q);
+    // frente = Vector3(resp.X, resp.Y, resp.Z);
     // addVelocity(0.1 * cima);
     // velocity += 0.1 * cima;
     // cima += 1 * trasNorm;
@@ -116,6 +128,10 @@ void BoidLider::pitchDown(){
     K = Quaternion(esq,0);
     resp = q * K * Quaternion::Conjugate(q);
     esq = Vector3(resp.X, resp.Y, resp.Z);
+
+    // K = Quaternion(frente,0);
+    // resp = q * K * Quaternion::Conjugate(q);
+    // frente = Vector3(resp.X, resp.Y, resp.Z);
     // velocity -= 0.1 * cima;
 }
 
@@ -255,28 +271,25 @@ void BoidComum::draw(){
 BoidLider::BoidLider(Vector3 _pos) : 
     Boid(_pos)
 {
+    normal = Vector3(0,1,0);
 }
 
 void BoidLider::draw(){
     glPushMatrix();
-    Quaternion q = Quaternion::FromToRotation(Vector3(1,0,0), velocity);
-    Vector3 matching = Vector3::Normalized(frente) - Vector3::Normalized(velocity);
-    if ( Vector3::Magnitude(matching) > 0.01 ){
-        // std::cout << "Quat:" << q.W << ", " << q.X << "," << q.Y << "," << q.Z << std::endl;
-        Quaternion K = Quaternion(Vector3(1,0,0),0);
-        Quaternion resp = q * K * Quaternion::Conjugate(q);
-        // Quaternion resp = Quaternion::RotateTowards(Quaternion())
-        frente = Vector3(resp.X, resp.Y, resp.Z);
+    Quaternion qF = Quaternion::FromToRotation(Vector3(1,0,0),  frente);
+    Quaternion qN = Quaternion::FromToRotation(Vector3(0,1,0),  cima);
+    Quaternion qE = Quaternion::FromToRotation(Vector3(0,0,-1), esq);
 
-        // K = Quaternion(Vector3(0,1,0),0);
-        // resp = q * K * Quaternion::Conjugate(q);
-        // cima = Vector3(resp.X, resp.Y, resp.Z);
-
-        // K = Quaternion(Vector3(0,0,-1),0);
-        // resp = q * K * Quaternion::Conjugate(q);
-        // esq = Vector3(resp.X, resp.Y, resp.Z);
-    }
+    // Quaternion q = qF * qN * qE;
+    // Quaternion q = qF * qE * qN; //Esse
+    // Quaternion q = qN * qF * qE;
+    // Quaternion q = qN * qE * qF;
+    // Quaternion q = qE * qF * qN;
+    // Quaternion q = qE * qN * qF;
+    
+    Quaternion q = qF * qE * qN; //Esse
     Matrix3x3 m1 = Matrix3x3::FromQuaternion(q);
+
     glTranslatef(pos.X,pos.Y,pos.Z);
     glMultMatrixd(expande(m1));
     glTranslatef(-pos.X,-pos.Y,-pos.Z);

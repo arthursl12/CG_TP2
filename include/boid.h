@@ -33,6 +33,7 @@ class BoidComum : public Boid{
 };
 
 class BoidLider : public Boid{
+    friend class Bando;
     public:
         BoidLider(Vector3 _pos);
         void draw();
@@ -41,6 +42,8 @@ class BoidLider : public Boid{
         void yawDir();
         void pitchUp();
         void pitchDown();
+    private:
+        Vector3 normal;
 };
 
 #endif

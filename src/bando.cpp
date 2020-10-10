@@ -63,10 +63,14 @@ void Bando::draw(){
     drawVector(lider->cima, lider->pos + Vector3(30,0,0));
     glColor3f(1,0,0);
     drawVector(lider->velocity, lider->pos + Vector3(30,0,0));
-    glColor3f(1,0,1);
-    drawVector(lider->frente, lider->pos + Vector3(30,30,0));
     glColor3f(0,0.5,1);
     drawVector(lider->esq, lider->pos + Vector3(30,0,0));
+
+    glColor3f(1,0,1);
+    drawVector(lider->frente, lider->pos + Vector3(30,30,0));
+    glColor3f(1,0,1);
+    drawVector(lider->normal, lider->pos + Vector3(30,30,0));
+
 
     
     // drawVector(lider->cima, lider->pos + Vector3(30,0,0));
