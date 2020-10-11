@@ -9,11 +9,16 @@
 #define FLOOR_SIZE 1500
 #define DRAW_DISTANCE 30000
 #define SKY_HEIGHT 1000
-enum Camera {AltoTorre, Chase, ChaseLateral};
 
+// Câmeras
+enum Camera {AltoTorre, Chase, ChaseLateral};
+#define FATOR_LIDER_CAM_OFFSET_HORZ 300
+#define FATOR_LIDER_CAM_OFFSET_VERT 100
 #define PASSO 10
-#define WING_FLAP_INTERVAL 230
-#define WING_FLAP_PROP 10
+
+// Movimento do líder
+#define YAW_ANGLE M_PI/20
+#define PITCH_ANGLE M_PI/20
 
 // addBoid
 #define MIN_DIST_BOID 5
@@ -23,6 +28,8 @@ enum Camera {AltoTorre, Chase, ChaseLateral};
 #define BOID_PASSO 0.1
 #define MAX_INITIAL_VEL 3
 #define BOID_MAX_VEL 5
+#define WING_FLAP_INTERVAL 230
+#define WING_FLAP_PROP 10
 
 // velocidadesSimilares
 #define CAMPO_VISAO_INI 150

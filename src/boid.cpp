@@ -38,7 +38,7 @@ void Boid::update(){
 
 void BoidLider::yawEsq(){
     Quaternion K = Quaternion(velocity,0);
-    Quaternion q = Quaternion::FromAngleAxis(M_PI/20,cima);
+    Quaternion q = Quaternion::FromAngleAxis(YAW_ANGLE,cima);
     Quaternion resp = q * K * Quaternion::Conjugate(q);
     // Quaternion resp = Quaternion::RotateTowards(Quaternion())
     velocity = Vector3(resp.X, resp.Y, resp.Z);
@@ -61,7 +61,7 @@ void BoidLider::yawEsq(){
 
 void BoidLider::yawDir(){
     Quaternion K = Quaternion(velocity,0);
-    Quaternion q = Quaternion::FromAngleAxis(-M_PI/20,cima);
+    Quaternion q = Quaternion::FromAngleAxis(-YAW_ANGLE,cima);
     Quaternion resp = q * K * Quaternion::Conjugate(q);
     // Quaternion resp = Quaternion::RotateTowards(Quaternion())
     velocity = Vector3(resp.X, resp.Y, resp.Z);
@@ -90,7 +90,7 @@ void BoidLider::pitchUp(){
 
     // Vector3 trasNorm = Vector3::Cross(dirNorm, cimaNorm);
     Quaternion K = Quaternion(velocity,0);
-    Quaternion q = Quaternion::FromAngleAxis(-M_PI/20,esq);
+    Quaternion q = Quaternion::FromAngleAxis(-PITCH_ANGLE,esq);
     Quaternion resp = q * K * Quaternion::Conjugate(q);
     velocity = Vector3(resp.X, resp.Y, resp.Z);
 
@@ -121,7 +121,7 @@ void BoidLider::pitchDown(){
     // resp = q * K * Quaternion::Conjugate(q);
     // cima = Vector3(resp.X, resp.Y, resp.Z);
     Quaternion K = Quaternion(velocity,0);
-    Quaternion q = Quaternion::FromAngleAxis(M_PI/20,esq);
+    Quaternion q = Quaternion::FromAngleAxis(PITCH_ANGLE,esq);
     Quaternion resp = q * K * Quaternion::Conjugate(q);
     velocity = Vector3(resp.X, resp.Y, resp.Z);
 

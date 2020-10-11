@@ -161,19 +161,26 @@ void World::view(){
     switch (cameraAtual){
         case Chase:{
             Vector3 posLider = bando->getLiderPos();
-            Vector3 menosV = -300 * (Vector3::Normalized(bando->getLiderVel()));
+            Vector3 menosV = -FATOR_LIDER_CAM_OFFSET_HORZ * \
+                             (Vector3::Normalized(bando->getLiderVel()));
             Vector3 obs = posLider + menosV;
             Vector3 normal = Vector3::Normalized(bando->getLiderNor());
-            obs += 100 * (normal);
+            obs += FATOR_LIDER_CAM_OFFSET_VERT * normal;
 
             gluLookAt(obs.X, obs.Y, obs.Z,
                         posLider.X,   posLider.Y,   posLider.Z,
                     normal.X,   normal.Y,   normal.Z);
             break;
         }case ChaseLateral:{
-            gluLookAt(observador.X, observador.Y, observador.Z,
-                    alvo.X,       alvo.Y,       alvo.Z,
-             normalObsvd.X,   normalObsvd.Y,   normalObsvd.Z);
+            Vector3 posLider = bando->getLiderPos();
+            Vector3 vel = Vector3::Normalized(bando->getLiderVel());
+            Vector3 normal = Vector3::Normalized(bando->getLiderNor());
+            Vector3 esquerda = Vector3::Cross(normal, vel);
+            Vector3 obs = posLider + FATOR_LIDER_CAM_OFFSET_HORZ * esquerda;
+
+            gluLookAt(obs.X, obs.Y, obs.Z,
+                        posLider.X,   posLider.Y,   posLider.Z,
+                    normal.X,   normal.Y,   normal.Z);
             break;
         }case AltoTorre:{
             gluLookAt(observador.X, observador.Y, observador.Z,
