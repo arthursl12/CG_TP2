@@ -44,6 +44,7 @@ class BoidLider : public Boid{
         void pitchDown();
     private:
         Vector3 normal;
+        Quaternion totalRotation;
 };
 
 #endif

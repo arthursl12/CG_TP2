@@ -51,6 +51,7 @@ void BoidLider::yawEsq(){
     resp = q * K * Quaternion::Conjugate(q);
     esq = Vector3(resp.X, resp.Y, resp.Z);
 
+    totalRotation = q * totalRotation;
     // K = Quaternion(frente,0);
     // resp = q * K * Quaternion::Conjugate(q);
     // frente = Vector3(resp.X, resp.Y, resp.Z);
@@ -73,6 +74,7 @@ void BoidLider::yawDir(){
     resp = q * K * Quaternion::Conjugate(q);
     esq = Vector3(resp.X, resp.Y, resp.Z);
 
+    totalRotation = q * totalRotation;
     // K = Quaternion(frente,0);
     // resp = q * K * Quaternion::Conjugate(q);
     // frente = Vector3(resp.X, resp.Y, resp.Z);
@@ -99,6 +101,8 @@ void BoidLider::pitchUp(){
     K = Quaternion(esq,0);
     resp = q * K * Quaternion::Conjugate(q);
     esq = Vector3(resp.X, resp.Y, resp.Z);
+
+    totalRotation = q * totalRotation;
 
     // K = Quaternion(frente,0);
     // resp = q * K * Quaternion::Conjugate(q);
@@ -129,6 +133,7 @@ void BoidLider::pitchDown(){
     resp = q * K * Quaternion::Conjugate(q);
     esq = Vector3(resp.X, resp.Y, resp.Z);
 
+    totalRotation = q * totalRotation;
     // K = Quaternion(frente,0);
     // resp = q * K * Quaternion::Conjugate(q);
     // frente = Vector3(resp.X, resp.Y, resp.Z);
@@ -272,6 +277,7 @@ BoidLider::BoidLider(Vector3 _pos) :
     Boid(_pos)
 {
     normal = Vector3(0,1,0);
+    totalRotation = Quaternion::Identity();
 }
 
 void BoidLider::draw(){
@@ -286,8 +292,8 @@ void BoidLider::draw(){
     // Quaternion q = qN * qE * qF;
     // Quaternion q = qE * qF * qN;
     // Quaternion q = qE * qN * qF;
-    
-    Quaternion q = qF; //Esse
+    totalRotation = Quaternion::Normalized(totalRotation);
+    Quaternion q = totalRotation; //Esse
     Matrix3x3 m1 = Matrix3x3::FromQuaternion(q);
 
     glTranslatef(pos.X,pos.Y,pos.Z);
