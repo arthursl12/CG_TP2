@@ -5,29 +5,37 @@
 BoidComum::BoidComum(Vector3 _pos) : 
     Boid(_pos)
 {
+    totalRotation = Quaternion::Identity();
+}
+
+void BoidComum::addVelocity(Vector3 deltaV){
+    Vector3 oldV = velocity;
+    velocity = velocity + deltaV;
+    if (Vector3::Magnitude(velocity) >= BOID_MAX_VEL){
+        velocity = (velocity/Vector3::Magnitude(velocity)) * BOID_MAX_VEL;
+    }
+
+
+    Quaternion q0 = Quaternion::FromToRotation(oldV, velocity);
+    Vector3 cimaAtual = mulQuatVec(q0,cima);
+    if (cimaAtual.Y < 0){
+        cimaAtual.Y = -cimaAtual.Y;
+    }
+    Quaternion q1 = Quaternion::FromToRotation(cima, cimaAtual);
+    totalRotation = q0 * totalRotation;
 }
 
 void BoidComum::draw(){
     glPushMatrix();
 
-    Quaternion q = Quaternion::FromToRotation(Vector3(1,0,0), velocity);
-    Vector3 matching = Vector3::Normalized(frente) - Vector3::Normalized(velocity);
-    if ( Vector3::Magnitude(matching) > 0.01 ){
-        // std::cout << "Quat:" << q.W << ", " << q.X << "," << q.Y << "," << q.Z << std::endl;
-        Quaternion K = Quaternion(Vector3(1,0,0),0);
-        Quaternion resp = q * K * Quaternion::Conjugate(q);
-        // Quaternion resp = Quaternion::RotateTowards(Quaternion())
-        frente = Vector3(resp.X, resp.Y, resp.Z);
-
-        K = Quaternion(Vector3(0,1,0),0);
-        resp = q * K * Quaternion::Conjugate(q);
-        cima = Vector3(resp.X, resp.Y, resp.Z);
-
-        K = Quaternion(Vector3(0,0,-1),0);
-        resp = q * K * Quaternion::Conjugate(q);
-        esq = Vector3(resp.X, resp.Y, resp.Z);
-    }
+    totalRotation = Quaternion::Normalized(totalRotation);
+    Quaternion q = Quaternion::RotateTowards(Quaternion::Identity(),totalRotation,M_PI)/20;
     Matrix3x3 m1 = Matrix3x3::FromQuaternion(q);
+
+    frente = mulQuatVec(q, frente);
+    cima = mulQuatVec(q,cima);
+    esq = mulQuatVec(q, esq);
+
     glTranslatef(pos.X,pos.Y,pos.Z);
     glMultMatrixd(expande(m1));
     glTranslatef(-pos.X,-pos.Y,-pos.Z);

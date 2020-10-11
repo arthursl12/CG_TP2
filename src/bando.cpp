@@ -257,7 +257,7 @@ void Bando::update(){
     for (it = bando.begin(); it != bando.end(); it++){
         std::srand(time(NULL));
         Vector3 v1, v2, v3, v4, v5, v6;
-        std::shared_ptr<Boid> bAtual = *it;
+        std::shared_ptr<BoidComum> bAtual = *it;
             
         v1 = voarParaCentro(*bAtual);           // Coesão
         v2 = manterDistanciaOutros(*bAtual);    // Separação

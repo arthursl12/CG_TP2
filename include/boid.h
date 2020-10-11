@@ -10,8 +10,6 @@ class Boid : public GameObject{
         Boid(Vector3 _pos);
         void draw() = 0;
         void update();
-
-        void addVelocity(Vector3 deltaV);
         bool operator!=(Boid& outro);
     protected:
         Vector3 velocity;

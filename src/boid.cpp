@@ -38,12 +38,5 @@ bool Boid::operator!=(Boid& outro){
     }
 }
 
-void Boid::addVelocity(Vector3 deltaV){
-    velocity = velocity + deltaV;
-    if (Vector3::Magnitude(velocity) >= BOID_MAX_VEL){
-        velocity = (velocity/Vector3::Magnitude(velocity)) * BOID_MAX_VEL;
-    }
-}
-
 
 
