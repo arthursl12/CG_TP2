@@ -38,7 +38,7 @@ void Boid::update(){
 
 void BoidLider::yawEsq(){
     Quaternion K = Quaternion(velocity,0);
-    Quaternion q = Quaternion::FromAngleAxis(M_PI/6,cima);
+    Quaternion q = Quaternion::FromAngleAxis(M_PI/20,cima);
     Quaternion resp = q * K * Quaternion::Conjugate(q);
     // Quaternion resp = Quaternion::RotateTowards(Quaternion())
     velocity = Vector3(resp.X, resp.Y, resp.Z);
@@ -61,7 +61,7 @@ void BoidLider::yawEsq(){
 
 void BoidLider::yawDir(){
     Quaternion K = Quaternion(velocity,0);
-    Quaternion q = Quaternion::FromAngleAxis(-M_PI/6,cima);
+    Quaternion q = Quaternion::FromAngleAxis(-M_PI/20,cima);
     Quaternion resp = q * K * Quaternion::Conjugate(q);
     // Quaternion resp = Quaternion::RotateTowards(Quaternion())
     velocity = Vector3(resp.X, resp.Y, resp.Z);

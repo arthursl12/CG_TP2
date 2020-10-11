@@ -268,16 +268,17 @@ void Bando::update(){
     std::vector<std::shared_ptr<BoidComum>>::iterator it;
     for (it = bando.begin(); it != bando.end(); it++){
         std::srand(time(NULL));
-        Vector3 v1, v2, v3, v4, v5;
+        Vector3 v1, v2, v3, v4, v5, v6;
         std::shared_ptr<Boid> bAtual = *it;
             
         v1 = voarParaCentro(*bAtual);           // Coesão
         v2 = manterDistanciaOutros(*bAtual);    // Separação
         v3 = velocidadesSimilares(*bAtual);     // Alinhamento
         v4 = tenderPara(*bAtual, lider->pos);
-        v5 = manterLimites(*bAtual);
+        v5 = evitarObstaculos(*bAtual);
+        v6 = manterLimites(*bAtual);
 
-        Vector3 soma = v1 + v2 + v3 + v4 + v5;
+        Vector3 soma = v1 + v2 + v3 + v4 + v5 + v6;
         bAtual->addVelocity(soma);
     }
     // std::cout << "CV:" << campoVisao << ", VLoc: " << fatVelLoc << ", Sepa: " << fatSeparar << std::endl;
