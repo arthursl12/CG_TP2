@@ -1,22 +1,29 @@
-#include "GL/glut.h"
-#include "GL/gl.h"
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <GL/glut.h>
+#include <GL/freeglut.h>
 #include <iostream>
 
-#include "Matrix3x3.hpp"
-#include "Quaternion.hpp"
+#include <Matrix3x3.hpp>
+#include <Quaternion.hpp>
 
 #include "world.h"
 #include "bando.h"
 #include "utils.h"
 
+extern GLfloat angle;
+
 World::World(){
     this->reset();
+
     bando = std::make_shared<Bando>(Vector3(15,150,150));
     bando->addBoid();
     obstaculos.push_back(std::make_shared<Esfera>(Vector3(100,150,-150)));
     bando->addObstaculo(obstaculos[0]);
+
     fogEnabled = false;
     cameraAtual = AltoTorre;
+    zoomFactor = 1;
 }
 
 World::World(const World& old){
@@ -143,6 +150,7 @@ void World::addCampoVisao(double delta){
 }
 void World::changeCamera(Camera newCamera){
     cameraAtual = newCamera;
+    angle = 45;
 }
 
 void World::view(){
@@ -157,19 +165,20 @@ void World::view(){
             Vector3 obs = posLider + menosV;
             Vector3 normal = Vector3::Normalized(bando->getLiderNor());
             obs += 100 * (normal);
+
             gluLookAt(obs.X, obs.Y, obs.Z,
                         posLider.X,   posLider.Y,   posLider.Z,
                     normal.X,   normal.Y,   normal.Z);
             break;
         }case ChaseLateral:{
-            gluLookAt(observador.x, observador.y, observador.z,
-                    alvo.x,       alvo.y,       alvo.z,
-             normalObsvd.x,   normalObsvd.y,   normalObsvd.z);
+            gluLookAt(observador.X, observador.Y, observador.Z,
+                    alvo.X,       alvo.Y,       alvo.Z,
+             normalObsvd.X,   normalObsvd.Y,   normalObsvd.Z);
             break;
         }case AltoTorre:{
-            gluLookAt(observador.x, observador.y, observador.z,
-                    alvo.x,       alvo.y,       alvo.z,
-             normalObsvd.x,   normalObsvd.y,   normalObsvd.z);
+            gluLookAt(observador.X, observador.Y, observador.Z,
+                    alvo.X,       alvo.Y,       alvo.Z,
+             normalObsvd.X,   normalObsvd.Y,   normalObsvd.Z);
             break;
         }
     }
@@ -177,9 +186,8 @@ void World::view(){
 }
 
 void World::moveObservador(int frente, int direita, int cima){
-    vec3 vetorFrente = alvo - observador;
-    vetorFrente.normalizar();
-    std::cout << "VF: " << vetorFrente << std::endl;
+    Vector3 vetorFrente = alvo - observador;
+    vetorFrente = Vector3::Normalized(vetorFrente);
     if (frente > 0){
         observador += vetorFrente * PASSO;
         alvo += vetorFrente * PASSO;
@@ -189,32 +197,26 @@ void World::moveObservador(int frente, int direita, int cima){
     }
 
     if (direita > 0){
-        vec3 vetorDireita = vetorFrente * normalObsvd;
-        vetorDireita.normalizar();
+        Vector3 vetorDireita = Vector3::Cross(vetorFrente, normalObsvd);
+        vetorDireita = Vector3::Normalized(vetorDireita);
         observador += vetorDireita * PASSO;
         // alvo += vetorDireita * PASSO;
-        std::cout << "VD: " << vetorDireita << std::endl;
     }else if (direita < 0){
-        vec3 vetorEsquerda = normalObsvd * vetorFrente;
-        vetorEsquerda.normalizar();
+        Vector3 vetorEsquerda = Vector3::Cross(normalObsvd, vetorFrente);
+        vetorEsquerda = Vector3::Normalized(vetorEsquerda);
         observador += vetorEsquerda * PASSO;
         // alvo += vetorEsquerda * PASSO;
-        std::cout << "VE: " << vetorEsquerda << std::endl;
     }
 
-    vec3 vetorCima = normalObsvd;
-    vetorCima.normalizar();
-    std::cout << "VC: " << vetorCima << std::endl;
+    Vector3 vetorCima = normalObsvd;
+    vetorCima = Vector3::Normalized(vetorCima);
     if (cima > 0){
         observador += vetorCima * PASSO;
         alvo += vetorCima * PASSO;
-        std::cout << "CIMA" << std::endl;
-        std::cout << "(move) O:" <<  observador << "; A: " << alvo << std::endl;
     }else if (cima < 0){
         observador -= vetorCima * PASSO;
         alvo -= vetorCima * PASSO;
     }
-    std::cout << std::endl;
 }
 
 void World::liderYawEsq(){
@@ -235,9 +237,9 @@ void World::liderPitchDown(){
 
 void World::reset(){
     // this->observador = vec3(1500, 1000, 2500);
-    this->observador = vec3(500, 250, 1000);
-    this->alvo = vec3(300, 150 ,0);
-    this->normalObsvd = vec3(0, 1, 0);
+    this->observador = Vector3(500, 250, 1000);
+    this->alvo = Vector3(300, 150 ,0);
+    this->normalObsvd = Vector3(0, 1, 0);
 }
 
 void World::toggleFog(){

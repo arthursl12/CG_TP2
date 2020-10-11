@@ -26,9 +26,11 @@ class World{
         void view();
 
         void moveObservador(int frente, int direita, int cima);
+        void changeCamera(Camera newC);
+
         void toggleFog();
         void reset();
-        void changeCamera(Camera newC);
+
         void addBoid();
         void removeBoid();
 
@@ -41,13 +43,16 @@ class World{
         void liderPitchUp();
         void liderPitchDown();
     private:
-        vec3 observador;
-        vec3 alvo;
-        vec3 normalObsvd;
+        Vector3 observador;
+        double zoomFactor;
+        Vector3 alvo;
+        Vector3 normalObsvd;
+        Camera cameraAtual;
+        
         std::shared_ptr<Bando> bando;
         std::vector<std::shared_ptr<Obstaculo>> obstaculos;
         bool fogEnabled;
-        Camera cameraAtual;
+        
 
         void drawGeradores();
         void drawChao();

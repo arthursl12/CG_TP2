@@ -207,7 +207,7 @@ void EspecificaParametrosVisualizacao(void)
 // Função callback chamada quando o tamanho da janela é alterado 
 void reshape_callback(GLsizei w, GLsizei h)
 {
-	// Para previnir uma divisão por zero
+	// Para prevenir uma divisão por zero
 	if ( h == 0 ) h = 1;
 
 	// Especifica o tamanho da viewport
@@ -222,14 +222,14 @@ void reshape_callback(GLsizei w, GLsizei h)
 // Função callback chamada para gerenciar eventos do mouse
 void mouse_callback(int button, int state, int x, int y)
 {
-	if (button == GLUT_LEFT_BUTTON)
-		if (state == GLUT_DOWN) {  // Zoom-in
-			if (angle >= 10) angle -= 5;
-		}
-	if (button == GLUT_RIGHT_BUTTON)
-		if (state == GLUT_DOWN) {  // Zoom-out
-			if (angle <= 130) angle += 5;
-		}
+	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
+		// world.cameraZoomIn();
+		if (angle >= 10) angle -= 5;
+		
+	if (button == GLUT_RIGHT_BUTTON && state == GLUT_DOWN)
+		// Zoom-out
+		if (angle <= 90) angle += 5;
+		
 	EspecificaParametrosVisualizacao();
 	glutPostRedisplay();
 }
