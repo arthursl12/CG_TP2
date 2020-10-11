@@ -43,6 +43,7 @@ enum Camera {AltoTorre, Chase, ChaseLateral};
 
 // seguirLider
 #define FATOR_LIDER_INI 0.4
+#define FATOR_OBSTACULOS 0.2
 
 // manterLimites
 #define BOID_OFFSET_MARGIN 200

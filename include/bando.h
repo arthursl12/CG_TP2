@@ -4,6 +4,7 @@
 #include <memory>
 #include <vector>
 #include "gObject.h"
+#include "obstaculos.h"
 #include "boid.h"
 
 class Bando : public GameObject{
@@ -17,6 +18,7 @@ class Bando : public GameObject{
         void addSeparacao(double delta);
         void addVelLocal(double delta);
         void addCampoVisao(double delta);
+        void addObstaculo(std::shared_ptr<Obstaculo> obs);
 
         Vector3 getLiderPos();
         Vector3 getLiderVel();
@@ -31,6 +33,7 @@ class Bando : public GameObject{
 
         std::shared_ptr<BoidLider> lider;
         std::vector<std::shared_ptr<BoidComum>> bando;
+        std::vector<std::shared_ptr<Obstaculo>> obstaculos;
 
         double fatCentro;
         double fatCurva;
@@ -43,7 +46,8 @@ class Bando : public GameObject{
         Vector3 manterDistanciaOutros(Boid& b);
         Vector3 velocidadesSimilares(Boid& b);
         Vector3 manterLimites(Boid& b);
-        Vector3 seguirLider(Boid& b);
+        Vector3 tenderPara(Boid& b, Vector3& liderPos);
+        Vector3 evitarObstaculos(Boid& b);
 };
 
 #endif

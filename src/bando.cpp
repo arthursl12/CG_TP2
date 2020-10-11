@@ -112,6 +112,10 @@ void Bando::addCampoVisao(double delta){
     // }
 }
 
+void Bando::addObstaculo(std::shared_ptr<Obstaculo> obs){
+    obstaculos.push_back(obs);
+}
+
 /**
  * ALINHAMENTO :
  * Um boid se move com velocidade e direção similares aos boids que ele consegue
@@ -240,14 +244,23 @@ Vector3 Bando::manterDistanciaOutros(Boid& b){
 }   
 
 /**
- * Um boid tende a seguir o boid líder
+ * Um pode tender para um determinado lugar (por exemplo para o boid líder, 
+ * seguindo-o).
  *
  * Adaptado de:
  * http://www.kfish.org/boids/pseudocode.html
  */
-Vector3 Bando::seguirLider(Boid& b){
-    Vector3 liderPos = lider->pos;
-    return (liderPos - b.pos) * fatLider;
+Vector3 Bando::tenderPara(Boid& b, Vector3& _pos){
+    return (_pos - b.pos) * fatLider;
+}
+
+Vector3 Bando::evitarObstaculos(Boid& b){
+    std::vector<std::shared_ptr<Obstaculo>>::iterator it;
+    Vector3 v = Vector3::Zero();
+    for (it = obstaculos.begin(); it != obstaculos.end(); it++){
+        v += -0.2 * tenderPara(b, (*it)->pos);
+    }
+    return v;
 }
 
 void Bando::update(){
@@ -261,7 +274,7 @@ void Bando::update(){
         v1 = voarParaCentro(*bAtual);           // Coesão
         v2 = manterDistanciaOutros(*bAtual);    // Separação
         v3 = velocidadesSimilares(*bAtual);     // Alinhamento
-        v4 = seguirLider(*bAtual);
+        v4 = tenderPara(*bAtual, lider->pos);
         v5 = manterLimites(*bAtual);
 
         Vector3 soma = v1 + v2 + v3 + v4 + v5;

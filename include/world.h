@@ -14,6 +14,7 @@
 #include "constants.h"
 #include "bando.h"
 #include "torre.h"
+#include "obstaculos.h"
 
 
 class World{
@@ -44,6 +45,7 @@ class World{
         vec3 alvo;
         vec3 normalObsvd;
         std::shared_ptr<Bando> bando;
+        std::vector<std::shared_ptr<Obstaculo>> obstaculos;
         bool fogEnabled;
         Camera cameraAtual;
 

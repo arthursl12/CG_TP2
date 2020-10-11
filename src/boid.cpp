@@ -276,9 +276,9 @@ BoidLider::BoidLider(Vector3 _pos) :
 
 void BoidLider::draw(){
     glPushMatrix();
-    Quaternion qF = Quaternion::FromToRotation(Vector3(1,0,0),  frente);
-    Quaternion qN = Quaternion::FromToRotation(Vector3(0,1,0),  cima);
-    Quaternion qE = Quaternion::FromToRotation(Vector3(0,0,-1), esq);
+    Quaternion qF = Quaternion::FromToRotation(Vector3(1,0,0),  velocity);
+    // Quaternion qN = Quaternion::FromToRotation(Vector3(0,1,0),  cima);
+    // Quaternion qE = Quaternion::FromToRotation(Vector3(0,0,-1), esq);
 
     // Quaternion q = qF * qN * qE;
     // Quaternion q = qF * qE * qN; //Esse
@@ -287,7 +287,7 @@ void BoidLider::draw(){
     // Quaternion q = qE * qF * qN;
     // Quaternion q = qE * qN * qF;
     
-    Quaternion q = qF * qE * qN; //Esse
+    Quaternion q = qF; //Esse
     Matrix3x3 m1 = Matrix3x3::FromQuaternion(q);
 
     glTranslatef(pos.X,pos.Y,pos.Z);

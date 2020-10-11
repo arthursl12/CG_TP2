@@ -13,6 +13,8 @@ World::World(){
     this->reset();
     bando = std::make_shared<Bando>(Vector3(15,150,150));
     bando->addBoid();
+    obstaculos.push_back(std::make_shared<Esfera>(Vector3(100,150,-150)));
+    bando->addObstaculo(obstaculos[0]);
     fogEnabled = false;
     cameraAtual = AltoTorre;
 }
@@ -119,6 +121,11 @@ void World::draw(){
 
     Torre t1(Vector3(0,0,0), 500, 100);
     t1.draw();
+
+    std::vector<std::shared_ptr<Obstaculo>>::iterator it;
+    for (it = obstaculos.begin(); it != obstaculos.end(); it++){
+        (*it)->draw();
+    }
 }
 
 void World::update(){
