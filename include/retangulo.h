@@ -15,9 +15,8 @@
 #define RETANGULO_H
 
 
-#include "Vector3.hpp"
+#include <Vector3.hpp>
 #include "gObject.h"
-#include "linalg.h"
 
 class Retangulo : public GameObject{
     friend class Piramide;

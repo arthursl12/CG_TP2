@@ -10,7 +10,6 @@
 #ifndef WORLD_H
 #define WORLD_H
 
-#include "linalg.h"
 #include "constants.h"
 #include "bando.h"
 #include "torre.h"

@@ -1,8 +1,7 @@
 #ifndef GAME_OBJECT_H
 #define GAME_OBJECT_H
 
-#include "linalg.h"
-#include "Vector3.hpp"
+#include <Vector3.hpp>
 #include <string>
 
 class GameObject {

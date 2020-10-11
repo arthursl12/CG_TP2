@@ -1,3 +1,4 @@
+#include <GL/gl.h>
 #include <iostream>
 #include "bando.h"
 #include "constants.h"

@@ -1,10 +1,9 @@
+#include <Quaternion.hpp>
+#include <Matrix3x3.hpp>
 #include <vector>
 #include <iostream>
-#include "piramide.h"
 #include "utils.h"
-
-#include "Quaternion.hpp"
-#include "Matrix3x3.hpp"
+#include "piramide.h"
 
 Piramide::Piramide(Vector3 _pos, Vector3 _vert, GLfloat _ax, GLfloat _ay, GLfloat _az, GLfloat _lado1, GLfloat _lado2):
     quad(_pos, _ax, _ay, _az, _lado1, _lado2)

@@ -7,9 +7,9 @@
 #include <Matrix3x3.hpp>
 #include <Quaternion.hpp>
 
+#include "utils.h"
 #include "world.h"
 #include "bando.h"
-#include "utils.h"
 
 extern GLfloat angle;
 

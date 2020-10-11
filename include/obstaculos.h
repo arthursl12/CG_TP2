@@ -1,8 +1,9 @@
 #ifndef OBSTACULO_H
 #define OBSTACULO_H
 
+#include <Quaternion.hpp>
 #include "gObject.h"
-#include "Quaternion.hpp"
+
 
 class Obstaculo : public GameObject{
     friend class Bando;

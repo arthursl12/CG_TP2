@@ -15,8 +15,8 @@
 #ifndef PIRAMIDE_H
 #define PIRAMIDE_H
 
+#include <Vector3.hpp>
 #include "gObject.h"
-#include "Vector3.hpp"
 #include "retangulo.h"
 
 class Piramide : public GameObject{
