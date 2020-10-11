@@ -14,7 +14,7 @@
 #ifndef RETANGULO_H
 #define RETANGULO_H
 
-
+#include <GL/gl.h>
 #include <Vector3.hpp>
 #include "gObject.h"
 

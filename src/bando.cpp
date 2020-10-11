@@ -246,7 +246,9 @@ Vector3 Bando::evitarObstaculos(Boid& b){
     std::vector<std::shared_ptr<Obstaculo>>::iterator it;
     Vector3 v = Vector3::Zero();
     for (it = obstaculos.begin(); it != obstaculos.end(); it++){
-        v += -0.2 * tenderPara(b, (*it)->pos);
+        if ((*it)->proximo(b.pos)){
+            v += -20000 * tenderPara(b, (*it)->pos);
+        }
     }
     return v;
 }
@@ -258,16 +260,32 @@ void Bando::update(){
         std::srand(time(NULL));
         Vector3 v1, v2, v3, v4, v5, v6;
         std::shared_ptr<BoidComum> bAtual = *it;
-            
-        v1 = voarParaCentro(*bAtual);           // Coesão
-        v2 = manterDistanciaOutros(*bAtual);    // Separação
-        v3 = velocidadesSimilares(*bAtual);     // Alinhamento
-        v4 = tenderPara(*bAtual, lider->pos);
-        v5 = evitarObstaculos(*bAtual);
-        v6 = manterLimites(*bAtual);
+        
+        std::vector<std::shared_ptr<Obstaculo>>::iterator it1;
+        bool flagObst = false;
+        Vector3 v = Vector3::Zero();
+        for (it1 = obstaculos.begin(); it1 != obstaculos.end(); it1++){
+            if ((*it1)->proximo(bAtual->pos)){
+                flagObst = true;
+                v1 += -10000 * tenderPara(*bAtual, (*it)->pos);
+            }
+        }
 
-        Vector3 soma = v1 + v2 + v3 + v4 + v5 + v6;
-        bAtual->addVelocity(soma);
+        if (!flagObst){
+            v1 = voarParaCentro(*bAtual);           // Coesão
+            v2 = manterDistanciaOutros(*bAtual);    // Separação
+            v3 = velocidadesSimilares(*bAtual);     // Alinhamento
+            v4 = tenderPara(*bAtual, lider->pos);
+            v5 = evitarObstaculos(*bAtual);
+            v6 = manterLimites(*bAtual);
+            
+            Vector3 soma = v1 + v2 + v3 + v4 + v5 + v6;
+            bAtual->addVelocity(soma);
+        }else{
+            bAtual->fugir(v1);
+        }
+
+
     }
     // std::cout << "CV:" << campoVisao << ", VLoc: " << fatVelLoc << ", Sepa: " << fatSeparar << std::endl;
 

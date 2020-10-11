@@ -42,9 +42,9 @@ enum Camera {AltoTorre, Chase, ChaseLateral};
 #define FATOR_CENTRALIZAR_INI 0.0000005
 
 // manterDistanciaOutros
-#define MIN_DIST 30
+#define MIN_DIST 45
 #define FATOR_SEPARACAO_MIN 0
-#define FATOR_SEPARACAO_INI 0.3
+#define FATOR_SEPARACAO_INI 0.4
 #define FATOR_SEPARACAO_MAX 0.8
 #define FATOR_SEPARACAO_DELTA 0.005
 

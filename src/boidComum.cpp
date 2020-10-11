@@ -25,6 +25,23 @@ void BoidComum::addVelocity(Vector3 deltaV){
     totalRotation = q0 * totalRotation;
 }
 
+void BoidComum::fugir(Vector3 newV){
+    Vector3 oldV = velocity;
+    velocity = newV;
+    if (Vector3::Magnitude(velocity) >= BOID_MAX_VEL){
+        velocity = (velocity/Vector3::Magnitude(velocity)) * BOID_MAX_VEL;
+    }
+
+
+    Quaternion q0 = Quaternion::FromToRotation(oldV, velocity);
+    Vector3 cimaAtual = mulQuatVec(q0,cima);
+    if (cimaAtual.Y < 0){
+        cimaAtual.Y = -cimaAtual.Y;
+    }
+    Quaternion q1 = Quaternion::FromToRotation(cima, cimaAtual);
+    totalRotation = q0 * totalRotation;
+}
+
 void BoidComum::draw(){
     glPushMatrix();
 

@@ -9,6 +9,7 @@ class BoidComum : public Boid{
         void draw();
 
         void addVelocity(Vector3 deltaV);
+        void fugir(Vector3 newV);
     private:
         Quaternion totalRotation;
 };
