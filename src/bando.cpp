@@ -17,11 +17,9 @@ Bando::Bando(Vector3 _posleader){
 Vector3 Bando::getLiderPos(){
     return lider->pos;
 }
-
 Vector3 Bando::getLiderVel(){
     return lider->velocity;
 }
-
 Vector3 Bando::getLiderNor(){
     return lider->cima;
 }
@@ -29,11 +27,9 @@ Vector3 Bando::getLiderNor(){
 void Bando::liderYawEsq(){
     lider->yawEsq();
 }
-
 void Bando::liderYawDir(){
     lider->yawDir();
 }
-
 void Bando::liderPitchUp(){
     lider->pitchUp();
 }
@@ -43,14 +39,9 @@ void Bando::liderPitchDown(){
 
 void drawVector(Vector3 vec, Vector3 origem){
     Vector3 copy = vec;
-    // if (Vector3::Magnitude(copy) <= 20){
-    //     copy = Vector3::Normalized(copy);
-    //     copy = copy * 50;
-    // }
     copy = copy * 20;
-    // glColor3f(1,0,0);
+
     glBegin(GL_TRIANGLES); 
-        // glNormal3f(0.0, 1.0, 0.0); 
         glVertex3f(origem.X, origem.Y - 2, origem.Z - 2);
         glVertex3f(origem.X + copy.X, origem.Y + copy.Y, origem.Z + copy.Z);
         glVertex3f(origem.X, origem.Y + 2, origem.Z + 2);
@@ -71,17 +62,12 @@ void Bando::draw(){
     glColor3f(1,0,1);
     drawVector(lider->normal, lider->pos + Vector3(30,30,0));
 
-
-    
-    // drawVector(lider->cima, lider->pos + Vector3(30,0,0));
     std::vector<std::shared_ptr<BoidComum>>::iterator it;
     for (it = bando.begin(); it != bando.end(); it++){
         (*it)->draw();
         drawVector((*it)->velocity, (*it)->pos + Vector3(30,0,0));
         drawVector((*it)->cima, (*it)->pos + Vector3(30,0,0));
-        // drawVector((*it)->frente, (*it)->pos + Vector3(30,30,0));
     }
-    // drawVector(centroBando, Vector3(0,0,0));
 }
 
 void Bando::addSeparacao(double delta){
@@ -92,7 +78,6 @@ void Bando::addSeparacao(double delta){
         fatSeparar = FATOR_SEPARACAO_MAX;
     }
 }
-
 void Bando::addVelLocal(double delta){
     fatVelLoc += delta;
     if (fatVelLoc <= FATOR_VEL_LOCAL_MIN){
@@ -101,15 +86,11 @@ void Bando::addVelLocal(double delta){
         fatVelLoc = FATOR_VEL_LOCAL_MAX;
     }
 }
-
 void Bando::addCampoVisao(double delta){
     campoVisao += delta;
     if (campoVisao <= 0){
         campoVisao = 0;
     }
-    // else if(fatCurva >= FATOR_CURVA_MAX){
-    //     fatCurva = FATOR_CURVA_MAX;
-    // }
 }
 
 void Bando::addObstaculo(std::shared_ptr<Obstaculo> obs){
@@ -254,6 +235,14 @@ Vector3 Bando::tenderPara(Boid& b, Vector3& _pos){
     return (_pos - b.pos) * fatLider;
 }
 
+/**
+ * Evitar um obstáculo é não tender a um obstáculo, então basta adicionar
+ * um fator de velocidade afastando o boid de cada obstáculo, proporcional
+ * à distância entre eles
+ * 
+ * Inspirado em:
+ * http://www.kfish.org/boids/pseudocode.html
+**/
 Vector3 Bando::evitarObstaculos(Boid& b){
     std::vector<std::shared_ptr<Obstaculo>>::iterator it;
     Vector3 v = Vector3::Zero();
@@ -283,7 +272,6 @@ void Bando::update(){
     }
     // std::cout << "CV:" << campoVisao << ", VLoc: " << fatVelLoc << ", Sepa: " << fatSeparar << std::endl;
 
-
     // Muda a posição de cada boid
     lider->update();
     for (it = bando.begin(); it != bando.end(); it++){
@@ -312,7 +300,6 @@ void Bando::addBoid(){
         newPos.Z += (std::rand() % 2 == 0) ? std::rand() % 60 : -std::rand() % 60;
     }
 
-    
     std::shared_ptr<BoidComum> b = std::make_shared<BoidComum>(newPos);
     bando.push_back(b);
 }

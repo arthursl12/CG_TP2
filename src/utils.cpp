@@ -15,25 +15,16 @@
 extern World world;
 extern GLfloat angle, fAspect;
 
-void drawText(float x, float y, std::string text) {
-    glRasterPos2f(x, y);
-    glutBitmapString(GLUT_BITMAP_8_BY_13, (const unsigned char*)text.c_str());
-}
-
 void display_callback(){
     glClearDepth(10.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glColor3f(0.0f, 0.0f, 1.0f);
 
-	// Desenha o teapot com a cor corrente (wire-frame)
 	world.draw();
 	world.update();
 
-	// lev.draw();
-	// lev.update();
-	
 	glutSwapBuffers();
-	EspecificaParametrosVisualizacao();
+	view_callback();
 	glutPostRedisplay();
 	
 }
@@ -77,7 +68,7 @@ void keyboard_callback(unsigned char key, int, int){
 			glClearColor(0.0f, 0.0f, 0.0f, 1.0f );
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			world.reset();
-			EspecificaParametrosVisualizacao();
+			view_callback();
 			glutPostRedisplay();
 			break;
 		}
@@ -171,69 +162,60 @@ void keyboard_special_callback(int key, int x, int y){
     }
 }
 
-void motion_callback(int x, int y){
-	// lev.setMousePos(x, y);
-}
-
 void timer_callback(int){
-	// if (!lev.getIsPaused()){
-	// 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f );
-	// 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	// 	glutPostRedisplay();
-	// }
-
 	glutTimerFunc(1000/FPS,timer_callback,0);
 }
 
-// Função usada para especificar o volume de visualização
-void EspecificaParametrosVisualizacao(void)
-{
-	// Especifica sistema de coordenadas de projeção
+/**
+ * Função usada para especificar o volume de visualização 
+ * 
+ * Adaptado de: https://www.inf.pucrs.br/~manssour/OpenGL/Programando3D.html
+**/
+void view_callback(void){
 	glMatrixMode(GL_PROJECTION);
-	// Inicializa sistema de coordenadas de projeção
 	glLoadIdentity();
-
-	// Especifica a projeção perspectiva
 	gluPerspective(angle,fAspect,40,DRAW_DISTANCE);
 
-	// Especifica sistema de coordenadas do modelo
 	glMatrixMode(GL_MODELVIEW);
-	// Inicializa sistema de coordenadas do modelo
 	glLoadIdentity();
 
     world.view();
 }
 
-// Função callback chamada quando o tamanho da janela é alterado 
-void reshape_callback(GLsizei w, GLsizei h)
-{
-	// Para prevenir uma divisão por zero
-	if ( h == 0 ) h = 1;
-
-	// Especifica o tamanho da viewport
+/**
+ * Função callback chamada quando o tamanho da janela é alterado 
+ * 
+ * Adaptado de: https://www.inf.pucrs.br/~manssour/OpenGL/Programando3D.html
+**/
+void reshape_callback(GLsizei w, GLsizei h){
+	if ( h == 0 ) h = 1; 	// Evita divisão por zero
 	glViewport(0, 0, w, h);
- 
-	// Calcula a correção de aspecto
 	fAspect = (GLfloat)w/(GLfloat)h;
-
-	EspecificaParametrosVisualizacao();
+	view_callback();
 }
 
-// Função callback chamada para gerenciar eventos do mouse
-void mouse_callback(int button, int state, int x, int y)
-{
+/**
+ * Função callback chamada para gerenciar eventos do mouse
+ * 
+ * Adaptado de: https://www.inf.pucrs.br/~manssour/OpenGL/Programando3D.html
+**/
+void mouse_callback(int button, int state, int x, int y){
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
-		// world.cameraZoomIn();
+		// Zoom-int
 		if (angle >= 10) angle -= 5;
 		
 	if (button == GLUT_RIGHT_BUTTON && state == GLUT_DOWN)
 		// Zoom-out
 		if (angle <= 90) angle += 5;
 		
-	EspecificaParametrosVisualizacao();
+	view_callback();
 	glutPostRedisplay();
 }
 
+/**
+ * Transforma uma matriz de rotação 3x3 do tipo Matrix3x3 em uma matriz 3x3 de 
+ * GLdouble, para utilização nas funções do OpenGL
+**/
 GLdouble* expande(Matrix3x3& rot){
     GLdouble* mat = new GLdouble [16];
     mat[0] = rot.D00;
