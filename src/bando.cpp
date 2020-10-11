@@ -59,8 +59,6 @@ void Bando::draw(){
 
     glColor3f(1,0,1);
     drawVector(lider->frente, lider->pos + Vector3(30,30,0));
-    glColor3f(1,0,1);
-    drawVector(lider->normal, lider->pos + Vector3(30,30,0));
 
     std::vector<std::shared_ptr<BoidComum>>::iterator it;
     for (it = bando.begin(); it != bando.end(); it++){

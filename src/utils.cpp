@@ -239,3 +239,16 @@ GLdouble* expande(Matrix3x3& rot){
     mat[15] = 1;
     return mat; 
 }
+
+/**
+ * Rotaciona um vetor segundo um quaternion fornecido
+ * 
+ * @param q   Quaternion de rotação
+ * @param vec Vetor que será rotacionado
+ * @return Novo vetor rotacionado
+**/
+Vector3 mulQuatVec(Quaternion q, Vector3 vec){
+	Quaternion K = Quaternion(vec,0);
+    Quaternion resp = q * K * Quaternion::Conjugate(q);
+    return Vector3(resp.X, resp.Y, resp.Z);
+}

@@ -15,5 +15,6 @@ void keyboard_callback(unsigned char, int, int);
 void keyboard_special_callback(int key, int x, int y);
 void mouse_callback(int button, int state, int x, int y);
 GLdouble* expande(Matrix3x3& rot);
+Vector3 mulQuatVec(Quaternion q, Vector3 vec);
 
 #endif /* UTILS_H */

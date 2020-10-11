@@ -5,7 +5,8 @@
 #include <vector>
 #include "gObject.h"
 #include "obstaculos.h"
-#include "boid.h"
+#include "boidLider.h"
+#include "boidComum.h"
 
 class Bando : public GameObject{
     public:

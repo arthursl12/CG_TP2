@@ -17,7 +17,7 @@ GLfloat angle, fAspect;
  * 
  * Adaptado de: https://www.inf.pucrs.br/~manssour/OpenGL/Iluminacao.html
 **/
-void initIluminação(){
+void initIluminacao(){
 	GLfloat luzAmbiente[4]={0.2,0.2,0.2,1.0}; 
 	GLfloat luzDifusa[4]={0.7,0.7,0.7,1.0};	        // "cor" 
 	GLfloat luzEspecular[4]={1.0, 1.0, 1.0, 1.0};   // "brilho" 
@@ -63,7 +63,7 @@ void initFog(){
 
 void init(){
 	angle = 45; 	// FOV inicial
-	initIluminação();
+	initIluminacao();
 	initFog();
 }
 
