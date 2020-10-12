@@ -230,27 +230,8 @@ Vector3 Bando::manterDistanciaOutros(Boid& b){
  * Adaptado de:
  * http://www.kfish.org/boids/pseudocode.html
  */
-Vector3 Bando::tenderPara(Boid& b, Vector3& _pos){
+Vector3 Bando::tenderPara(Boid& b, Vector3 _pos){
     return (_pos - b.pos) * fatLider;
-}
-
-/**
- * Evitar um obstáculo é não tender a um obstáculo, então basta adicionar
- * um fator de velocidade afastando o boid de cada obstáculo, proporcional
- * à distância entre eles
- * 
- * Inspirado em:
- * http://www.kfish.org/boids/pseudocode.html
-**/
-Vector3 Bando::evitarObstaculos(Boid& b){
-    std::vector<std::shared_ptr<Obstaculo>>::iterator it;
-    Vector3 v = Vector3::Zero();
-    for (it = obstaculos.begin(); it != obstaculos.end(); it++){
-        if ((*it)->proximo(b.pos)){
-            v += -20000 * tenderPara(b, (*it)->pos);
-        }
-    }
-    return v;
 }
 
 void Bando::update(){
@@ -258,7 +239,7 @@ void Bando::update(){
     std::vector<std::shared_ptr<BoidComum>>::iterator it;
     for (it = bando.begin(); it != bando.end(); it++){
         std::srand(time(NULL));
-        Vector3 v1, v2, v3, v4, v5, v6;
+        Vector3 v1, v2, v3, v4, v5, v6, v7;
         std::shared_ptr<BoidComum> bAtual = *it;
         
         std::vector<std::shared_ptr<Obstaculo>>::iterator it1;
@@ -267,7 +248,7 @@ void Bando::update(){
         for (it1 = obstaculos.begin(); it1 != obstaculos.end(); it1++){
             if ((*it1)->proximo(bAtual->pos)){
                 flagObst = true;
-                v1 += -0.0001 * tenderPara(*bAtual, (*it)->pos);
+                v7 += -100 * tenderPara(*bAtual, (*it1)->maisProximo(bAtual->pos) );
             }
         }
 
@@ -276,15 +257,10 @@ void Bando::update(){
             v2 = manterDistanciaOutros(*bAtual);    // Separação
             v3 = velocidadesSimilares(*bAtual);     // Alinhamento
             v4 = tenderPara(*bAtual, lider->pos);
-            v5 = evitarObstaculos(*bAtual);
             v6 = manterLimites(*bAtual);
-            
-            Vector3 soma = v1 + v2 + v3 + v4 + v5 + v6;
-            bAtual->addVelocity(soma);
-        }else{
-            bAtual->fugir(v1);
         }
-
+        Vector3 soma = v1 + v2 + v3 + v4 + v5 + v6 + v7;
+        bAtual->addVelocity(soma);
 
     }
     // std::cout << "CV:" << campoVisao << ", VLoc: " << fatVelLoc << ", Sepa: " << fatSeparar << std::endl;

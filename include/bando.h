@@ -47,8 +47,7 @@ class Bando : public GameObject{
         Vector3 manterDistanciaOutros(Boid& b);
         Vector3 velocidadesSimilares(Boid& b);
         Vector3 manterLimites(Boid& b);
-        Vector3 tenderPara(Boid& b, Vector3& liderPos);
-        Vector3 evitarObstaculos(Boid& b);
+        Vector3 tenderPara(Boid& b, Vector3 liderPos);
 };
 
 #endif

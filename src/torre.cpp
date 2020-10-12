@@ -5,10 +5,36 @@
 #include "utils.h"
 #include "torre.h"
 
-Torre::Torre(Vector3 _pos, double _height, double _radius){
-    pos = _pos;
-    height = _height;
+Torre::Torre(Vector3 _pos, double _height, double _radius):   
+    Obstaculo(_pos)
+{
+    cylH = _height;
+    conH = _height/1.5;
+    totalHeight = height + height/1.5;
     radius = _radius;
+    conRad = radius*1.5;
+}
+
+/**
+ * @return True, se o objeto está próximo do obstáculo;
+ * False, do contrário
+**/
+bool Torre::proximo(Vector3 ponto){
+    Vector3 distVec = maisProximo(ponto) - ponto;
+    double dist = Vector3::Magnitude(distVec);
+    if (dist <= radius * 2){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+Vector3 Torre::maisProximo(Vector3 ponto){
+    if (ponto.Y >= pos.Y + height){
+        return pos + Vector3(0,totalHeight,0);
+    }else{
+        return pos + Vector3(0,ponto.Y,0);
+    }
 }
 
 
@@ -25,7 +51,7 @@ void Torre::draw(){
     gluCylinder(quadratic,
                 radius,     // Raio da base
                 radius,     // Raio do topo
-                height,     // Altura
+                cylH,     // Altura
                 32,         // Slices
                 32);        // Stacks
     glPopMatrix();
@@ -35,19 +61,17 @@ void Torre::draw(){
     qx = Quaternion::FromAngleAxis(-M_PI/2,Vector3(1,0,0));
     m1 = Matrix3x3::FromQuaternion(qx);
     glMultMatrixd(expande(m1));
-    glTranslatef(0,0,height);
+    glTranslatef(0,0,cylH);
 
     glColor3f(0.8,0.1,0.3);
     quadratic = gluNewQuadric();
     gluCylinder(quadratic,
-                radius*1.5,     // Raio da base
+                conRad,     // Raio da base
                 0,     // Raio do topo
-                height/1.5,     // Altura
+                conH,     // Altura
                 32,         // Slices
                 32);        // Stacks
     glPopMatrix();
-
-
 }
 
 void Torre::update(){

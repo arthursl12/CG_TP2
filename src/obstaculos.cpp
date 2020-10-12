@@ -13,7 +13,6 @@ void Esfera::draw(){
     GLUquadricObj *quadratic;
     quadratic = gluNewQuadric();
     gluSphere(quadratic, raio, 30,30);
-
     glPopMatrix();
 }
 
@@ -21,11 +20,15 @@ bool Esfera::proximo(Vector3 ponto){
     Vector3 distVec = pos - ponto;
     double dist = Vector3::Magnitude(distVec);
 
-    if (dist <= raio * 1.5){
+    if (dist <= raio * 2){
         return true;
     }else{
         return false;
     }
+}
+
+Vector3 Esfera::maisProximo(Vector3 ponto){
+    return pos;
 }
 
 void Obstaculo::update(){

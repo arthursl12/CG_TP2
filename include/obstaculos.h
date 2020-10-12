@@ -11,6 +11,7 @@ class Obstaculo : public GameObject{
         void draw() = 0;
         void update();
         virtual bool proximo(Vector3 ponto) = 0;
+        virtual Vector3 maisProximo(Vector3 ponto) = 0;
 };
 
 class Esfera : public Obstaculo{
