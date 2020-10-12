@@ -18,7 +18,7 @@ World::World(){
 
     bando = std::make_shared<Bando>(Vector3(15,150,150));
     bando->addBoid();
-    obstaculos.push_back(std::make_shared<Esfera>(Vector3(100,150,-150)));
+    obstaculos.push_back(std::make_shared<Esfera>(Vector3(500,150,150)));
     bando->addObstaculo(obstaculos[0]);
 
     fogEnabled = false;

@@ -267,7 +267,7 @@ void Bando::update(){
         for (it1 = obstaculos.begin(); it1 != obstaculos.end(); it1++){
             if ((*it1)->proximo(bAtual->pos)){
                 flagObst = true;
-                v1 += -10000 * tenderPara(*bAtual, (*it)->pos);
+                v1 += -0.0001 * tenderPara(*bAtual, (*it)->pos);
             }
         }
 

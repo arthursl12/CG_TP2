@@ -21,7 +21,7 @@ bool Esfera::proximo(Vector3 ponto){
     Vector3 distVec = pos - ponto;
     double dist = Vector3::Magnitude(distVec);
 
-    if (dist <= raio * 2.5){
+    if (dist <= raio * 1.5){
         return true;
     }else{
         return false;
