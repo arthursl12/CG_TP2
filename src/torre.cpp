@@ -10,7 +10,7 @@ Torre::Torre(Vector3 _pos, double _height, double _radius):
 {
     cylH = _height;
     conH = _height/1.5;
-    totalHeight = height + height/1.5;
+    totalHeight = _height + _height/1.5;
     radius = _radius;
     conRad = radius*1.5;
 }
@@ -30,7 +30,7 @@ bool Torre::proximo(Vector3 ponto){
 }
 
 Vector3 Torre::maisProximo(Vector3 ponto){
-    if (ponto.Y >= pos.Y + height){
+    if (ponto.Y >= pos.Y + totalHeight){
         return pos + Vector3(0,totalHeight,0);
     }else{
         return pos + Vector3(0,ponto.Y,0);

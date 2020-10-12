@@ -19,7 +19,9 @@ World::World(){
     bando = std::make_shared<Bando>(Vector3(15,150,150));
     bando->addBoid();
     obstaculos.push_back(std::make_shared<Esfera>(Vector3(500,150,150)));
+    obstaculos.push_back(std::make_shared<Torre>(Vector3(0,0,0), 500, 100));
     bando->addObstaculo(obstaculos[0]);
+    bando->addObstaculo(obstaculos[1]);
 
     fogEnabled = false;
     cameraAtual = AltoTorre;
@@ -125,9 +127,6 @@ void World::draw(){
     // Draw something, i.e. cube
     bando->draw();
     glPopMatrix();
-
-    Torre t1(Vector3(0,0,0), 500, 100);
-    t1.draw();
 
     std::vector<std::shared_ptr<Obstaculo>>::iterator it;
     for (it = obstaculos.begin(); it != obstaculos.end(); it++){
