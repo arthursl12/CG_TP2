@@ -19,16 +19,13 @@
 class World{
     public:
         World();
-        World(const World& old);
         void draw();
         void update();
         void view();
 
         void moveObservador(int frente, int direita, int cima);
         void changeCamera(Camera newC);
-
         void toggleFog();
-        void reset();
 
         void addBoid();
         void removeBoid();
@@ -52,7 +49,6 @@ class World{
         std::vector<std::shared_ptr<Obstaculo>> obstaculos;
         bool fogEnabled;
         
-
         void drawGeradores();
         void drawChao();
         void drawParedes();

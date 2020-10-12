@@ -131,7 +131,7 @@ Vector3 Bando::velocidadesSimilares(Boid& b){
  * Manter os boids dentro da "caixa", evitar que saiam de onde conseguimos
  * vê-los
  *
- * Adaptado de:
+ * Adaptado de: <br> 
  * https://github.com/beneater/boids/blob/86b4cb9896f43d598867b7d58986210ba21f03de/boids.js#L51
  */
 Vector3 Bando::manterLimites(Boid& b){
@@ -242,6 +242,7 @@ void Bando::update(){
         Vector3 v1, v2, v3, v4, v5, v6, v7;
         std::shared_ptr<BoidComum> bAtual = *it;
         
+        // Evitar obstáculos, se estiver perto o suficiente
         std::vector<std::shared_ptr<Obstaculo>>::iterator it1;
         bool flagObst = false;
         Vector3 v = Vector3::Zero();

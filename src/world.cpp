@@ -14,7 +14,9 @@
 extern GLfloat angle;
 
 World::World(){
-    this->reset();
+    this->observador = Vector3(500, 250, 1000);
+    this->alvo = Vector3(300, 150 ,0);
+    this->normalObsvd = Vector3(0, 1, 0);
 
     bando = std::make_shared<Bando>(Vector3(15,150,150));
     bando->addBoid();
@@ -26,15 +28,6 @@ World::World(){
     fogEnabled = false;
     cameraAtual = AltoTorre;
     zoomFactor = 1;
-}
-
-World::World(const World& old){
-    this->alvo = old.alvo;
-    this->observador = old.observador;
-    this->normalObsvd = old.normalObsvd;
-    this->bando = old.bando;
-    fogEnabled = false;
-    cameraAtual = AltoTorre;
 }
 
 void World::drawGeradores(){
@@ -105,26 +98,13 @@ void World::drawCeu(){ }
 void World::draw(){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glColor3f(1,1,1);
-    // glutSolidTeapot(50.0f);
-    // glutWireCube(80.0f);
+
     drawGeradores();
     drawChao();
     drawParedes();
     drawCeu();
-    // bando->draw();
 
     glPushMatrix();
-    // Quaternion qx = Quaternion::FromAngleAxis(0,Vector3(1,0,0));
-    // Quaternion qy = Quaternion::FromAngleAxis(-M_PI/3,Vector3(0,1,0));
-    // Quaternion qz = Quaternion::FromAngleAxis(-M_PI/3,Vector3(0,1,0));
-    // Quaternion q = qx * qz *qy;
-    // Matrix3x3 m1 = Matrix3x3::FromQuaternion(q);
-    
-    // glMultMatrixd(expande(m1));
-    // Some other transformations
-    
-
-    // Draw something, i.e. cube
     bando->draw();
     glPopMatrix();
 
@@ -228,24 +208,14 @@ void World::moveObservador(int frente, int direita, int cima){
 void World::liderYawEsq(){
     bando->liderYawEsq();
 }
-
 void World::liderYawDir(){
     bando->liderYawDir();
 }
-
 void World::liderPitchUp(){
     bando->liderPitchUp();
 }
 void World::liderPitchDown(){
     bando->liderPitchDown();
-}
-
-
-void World::reset(){
-    // this->observador = vec3(1500, 1000, 2500);
-    this->observador = Vector3(500, 250, 1000);
-    this->alvo = Vector3(300, 150 ,0);
-    this->normalObsvd = Vector3(0, 1, 0);
 }
 
 void World::toggleFog(){
@@ -263,7 +233,6 @@ void World::toggleFog(){
 void World::addBoid(){
     bando->addBoid();
 }
-
 void World::removeBoid(){
     bando->removeBoid();
 }

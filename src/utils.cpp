@@ -23,7 +23,6 @@ void display_callback(){
 	world.update();
 	world.draw();
 
-
 	glutSwapBuffers();
 	view_callback();
 	glutPostRedisplay();
@@ -63,14 +62,6 @@ void keyboard_callback(unsigned char key, int, int){
 		}
 		case 'f':{
 			world.toggleFog();
-			break;
-		}
-		case 'r':{
-			glClearColor(0.0f, 0.0f, 0.0f, 1.0f );
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			world.reset();
-			view_callback();
-			glutPostRedisplay();
 			break;
 		}
 	}
