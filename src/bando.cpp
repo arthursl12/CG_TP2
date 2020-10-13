@@ -281,9 +281,9 @@ void Bando::addBoid(){
     std::srand(time(NULL));
     Vector3 newPos = Vector3::Zero();
     if (bando.size() == 0){
-        newPos.X += std::rand() % 40;
-        newPos.Y += std::rand() % 20;
-        newPos.Z += std::rand() % 40;
+        newPos.X += std::rand() % 400 + 100;
+        newPos.Y += std::rand() % 800 + 400;
+        newPos.Z += std::rand() % 400 + 100;
     }else{
         std::vector<std::shared_ptr<BoidComum>>::iterator randIt = bando.begin();
         std::advance(randIt, std::rand() % bando.size());

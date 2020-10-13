@@ -4,7 +4,7 @@
 Esfera::Esfera(Vector3 _pos):
     Obstaculo(_pos)
 {
-    raio = 35;
+    raio = 100;
 }
 
 void Esfera::draw(){

@@ -6,9 +6,9 @@
 #define WINDOW_H 800
 #define WINDOW_W 900
 
-#define FLOOR_SIZE 1500
+#define FLOOR_SIZE 50000
 #define DRAW_DISTANCE 30000
-#define SKY_HEIGHT 1000
+#define SKY_HEIGHT 5000
 
 // Câmeras
 enum Camera {AltoTorre, Chase, ChaseLateral};

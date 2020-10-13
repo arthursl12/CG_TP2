@@ -17,13 +17,14 @@ Boid::Boid(Vector3 _pos){
 }
 
 void Boid::update(){
-    double passo = BOID_PASSO;
-    if (DBG) passo = passo;
-    pos += velocity * passo;
+    pos += velocity * BOID_PASSO;
     flapTimer += 1;
 
     if (flapTimer >= WING_FLAP_INTERVAL){
         flapTimer = 0;
+    }
+    if (Vector3::Magnitude(velocity) <= BOID_MAX_VEL/1.3){
+        velocity *= 1.05;
     }
 }
 

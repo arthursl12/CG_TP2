@@ -16,10 +16,10 @@ extern GLfloat angle;
 World::World(){
 
 
-    bando = std::make_shared<Bando>(Vector3(15,150,150));
+    bando = std::make_shared<Bando>(Vector3(15,500,150));
     bando->addBoid();
     obstaculos.push_back(std::make_shared<Esfera>(Vector3(200,150,150)));
-    double towerH = 200;
+    double towerH = 500;
     obstaculos.push_back(std::make_shared<Torre>(Vector3(0,0,0), towerH, 100));
     bando->addObstaculo(obstaculos[0]);
     bando->addObstaculo(obstaculos[1]);
@@ -62,7 +62,7 @@ void World::drawGeradores(){
 }
 
 void World::drawChao(){ 
-    glColor3f(1,1,1);
+    glColor3f(0,0.65,0.41);
     glBegin(GL_QUADS); 
         glNormal3f(0.0, 1.0, 0.0); 
         glVertex3f(-FLOOR_SIZE/2,-1,-FLOOR_SIZE/2);
@@ -72,39 +72,12 @@ void World::drawChao(){
     glEnd();
 }
 
-void World::drawParedes(){
-    glColor3f(0,0,1);
-    glBegin(GL_QUADS);
-        glNormal3f(1.0, 0.0, 0.0); 
-        glVertex3f(-FLOOR_SIZE/2,-1,-FLOOR_SIZE/2);
-        glVertex3f(-FLOOR_SIZE/2,-1,+FLOOR_SIZE/2);
-        glVertex3f(-FLOOR_SIZE/2,SKY_HEIGHT,+FLOOR_SIZE/2);
-        glVertex3f(-FLOOR_SIZE/2,SKY_HEIGHT,-FLOOR_SIZE/2);
-
-        // glVertex3f(+FLOOR_SIZE/2,-1,+FLOOR_SIZE/2);
-        // glVertex3f(+FLOOR_SIZE/2,-1,-FLOOR_SIZE/2);
-    glEnd();
-
-    glColor3f(0,0,1);
-    glBegin(GL_QUADS);
-        glNormal3f(0.0, 0.0, 1.0); 
-        glVertex3f(+FLOOR_SIZE/2,-1,-FLOOR_SIZE/2);
-        glVertex3f(-FLOOR_SIZE/2,-1,-FLOOR_SIZE/2);
-        glVertex3f(-FLOOR_SIZE/2,SKY_HEIGHT,-FLOOR_SIZE/2);
-        glVertex3f(+FLOOR_SIZE/2,SKY_HEIGHT,-FLOOR_SIZE/2);
-    glEnd();
-}
-void World::drawCeu(){ }
-
-
 void World::draw(){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glColor3f(1,1,1);
+    glClearColor(0.529, 0.808, 0.922, 1);
 
     drawGeradores();
     drawChao();
-    drawParedes();
-    drawCeu();
 
     glPushMatrix();
     bando->draw();

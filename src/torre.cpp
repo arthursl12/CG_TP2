@@ -69,7 +69,7 @@ void Torre::draw(){
                 conRad,     // Raio da base
                 0,     // Raio do topo
                 conH,     // Altura
-                32,         // Slices
+                64,         // Slices
                 32);        // Stacks
     glPopMatrix();
 }

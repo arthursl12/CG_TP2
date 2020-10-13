@@ -18,7 +18,8 @@ extern GLfloat angle, fAspect;
 void display_callback(){
     glClearDepth(10.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glColor3f(0.0f, 0.0f, 1.0f);
+	// glColor3f(0.0f, 0.0f, 1.0f);
+	glColor3f(0.529, 0.808, 0.922);
 
 	world.update();
 	world.draw();
