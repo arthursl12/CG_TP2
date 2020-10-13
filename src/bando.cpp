@@ -170,7 +170,8 @@ Vector3 Bando::manterLimites(Boid& b){
  * COESÃO :
  * Um boid tende a ficar junto com os boids em seu campo de visão. Isso pode 
  * ser modelado somando à sua velocidade um fator que tende ao "centro de massa"
- * dos boids ao redor dele. 
+ * dos boids ao redor dele, sendo que ele não é incluído para o cálculo desse
+ * "centro de massa". 
  *
  * Adaptado de:
  * https://github.com/beneater/boids/blob/86b4cb9896f43d598867b7d58986210ba21f03de/boids.js#L71
@@ -309,4 +310,21 @@ void Bando::removeBoid(){
         std::advance(randIt, std::rand() % bando.size());
         bando.erase(randIt);
     }
+}
+
+/**
+ * Calcula o centro do bando de Boids, considerando o líder também
+ * @return Ponto do centro do bando
+ */
+Vector3 Bando::getCentroBando(){
+    Vector3 centro = Vector3::Zero();
+    std::vector<std::shared_ptr<BoidComum>>::iterator it;
+    for (it = bando.begin(); it != bando.end(); it++){
+        centro += (*it)->pos;
+    }
+    centro += lider->pos;
+
+    int totalBoids = bando.size() + 1;
+    centro = centro / totalBoids;
+    return centro;
 }

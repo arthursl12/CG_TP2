@@ -40,7 +40,6 @@ class World{
         void liderPitchDown();
     private:
         Vector3 observador;
-        double zoomFactor;
         Vector3 alvo;
         Vector3 normalObsvd;
         Camera cameraAtual;

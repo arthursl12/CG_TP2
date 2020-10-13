@@ -14,20 +14,22 @@
 extern GLfloat angle;
 
 World::World(){
-    this->observador = Vector3(500, 250, 1000);
-    this->alvo = Vector3(300, 150 ,0);
-    this->normalObsvd = Vector3(0, 1, 0);
+
 
     bando = std::make_shared<Bando>(Vector3(15,150,150));
     bando->addBoid();
-    obstaculos.push_back(std::make_shared<Esfera>(Vector3(500,150,150)));
-    obstaculos.push_back(std::make_shared<Torre>(Vector3(0,0,0), 500, 100));
+    obstaculos.push_back(std::make_shared<Esfera>(Vector3(200,150,150)));
+    double towerH = 200;
+    obstaculos.push_back(std::make_shared<Torre>(Vector3(0,0,0), towerH, 100));
     bando->addObstaculo(obstaculos[0]);
     bando->addObstaculo(obstaculos[1]);
 
     fogEnabled = false;
     cameraAtual = AltoTorre;
-    zoomFactor = 1;
+
+    this->observador = Vector3(0, towerH + towerH/1.5 + 50, 0);
+    this->alvo = bando->getCentroBando();
+    this->normalObsvd = Vector3(0, 1, 0);
 }
 
 void World::drawGeradores(){
@@ -146,9 +148,9 @@ void World::view(){
             Vector3 normal = Vector3::Normalized(bando->getLiderNor());
             obs += FATOR_LIDER_CAM_OFFSET_VERT * normal;
 
-            gluLookAt(obs.X, obs.Y, obs.Z,
-                        posLider.X,   posLider.Y,   posLider.Z,
-                    normal.X,   normal.Y,   normal.Z);
+            gluLookAt(     obs.X,      obs.Y,      obs.Z,       // Pos. Observ.
+                      posLider.X, posLider.Y, posLider.Z,       // Pos. Alvo
+                        normal.X,   normal.Y,   normal.Z);      // Normal Obsv.
             break;
         }case ChaseLateral:{
             Vector3 posLider = bando->getLiderPos();
@@ -157,14 +159,15 @@ void World::view(){
             Vector3 esquerda = Vector3::Cross(normal, vel);
             Vector3 obs = posLider + FATOR_LIDER_CAM_OFFSET_HORZ * esquerda;
 
-            gluLookAt(obs.X, obs.Y, obs.Z,
-                        posLider.X,   posLider.Y,   posLider.Z,
-                    normal.X,   normal.Y,   normal.Z);
+            gluLookAt(     obs.X,      obs.Y,      obs.Z,       // Pos. Observ.
+                      posLider.X, posLider.Y, posLider.Z,       // Pos. Alvo
+                        normal.X,   normal.Y,   normal.Z);      // Normal Obsv.
             break;
         }case AltoTorre:{
-            gluLookAt(observador.X, observador.Y, observador.Z,
-                    alvo.X,       alvo.Y,       alvo.Z,
-             normalObsvd.X,   normalObsvd.Y,   normalObsvd.Z);
+            alvo = bando->getCentroBando();
+            gluLookAt( observador.X,  observador.Y,  observador.Z,  // Pos. Observ.
+                             alvo.X,        alvo.Y,        alvo.Z,  // Pos. Alvo
+                      normalObsvd.X, normalObsvd.Y, normalObsvd.Z); // Normal Obsv.
             break;
         }
     }

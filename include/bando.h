@@ -16,6 +16,7 @@ class Bando : public GameObject{
 
         void addBoid();
         void removeBoid();
+        Vector3 getCentroBando();
         void addSeparacao(double delta);
         void addVelLocal(double delta);
         void addCampoVisao(double delta);
