@@ -8,6 +8,7 @@ class BoidLider : public Boid{
     public:
         BoidLider(Vector3 _pos);
         void draw();
+        void update() override;
 
         void yawEsq();
         void yawDir();

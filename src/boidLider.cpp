@@ -16,6 +16,22 @@ void BoidLider::atualizaEixos(Quaternion q){
     totalRotation = q * totalRotation;
 }
 
+void BoidLider::update(){
+    pos += velocity * BOID_PASSO;
+    flapTimer += 1;
+
+    if (flapTimer >= WING_FLAP_INTERVAL){
+        flapTimer = 0;
+    }
+    if (Vector3::Magnitude(velocity) <= BOID_MAX_VEL/1.3){
+        velocity *= 1.05;
+    }
+
+    if (pos.Y <= LIDER_MIN_Y){
+        pos.Y = LIDER_MIN_Y;
+    }
+}
+
 void BoidLider::yawEsq(){
     Quaternion q = Quaternion::FromAngleAxis(YAW_ANGLE,cima);
     atualizaEixos(q);

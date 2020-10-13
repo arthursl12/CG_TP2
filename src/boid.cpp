@@ -23,9 +23,6 @@ void Boid::update(){
     if (flapTimer >= WING_FLAP_INTERVAL){
         flapTimer = 0;
     }
-    if (Vector3::Magnitude(velocity) <= BOID_MAX_VEL/1.3){
-        velocity *= 1.05;
-    }
 }
 
 bool Boid::operator!=(Boid& outro){

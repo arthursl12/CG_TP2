@@ -19,6 +19,7 @@ enum Camera {AltoTorre, Chase, ChaseLateral};
 // Movimento do líder
 #define YAW_ANGLE M_PI/20
 #define PITCH_ANGLE M_PI/20
+#define LIDER_MIN_Y 100
 
 // addBoid
 #define MIN_DIST_BOID 5
