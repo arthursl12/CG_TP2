@@ -14,22 +14,46 @@
 extern GLfloat angle;
 
 World::World(){
-
-
-    bando = std::make_shared<Bando>(Vector3(15,500,150));
+    bando = std::make_shared<Bando>(Vector3(15,700,150));
     bando->addBoid();
-    obstaculos.push_back(std::make_shared<Esfera>(Vector3(200,150,150)));
-    double towerH = 500;
-    obstaculos.push_back(std::make_shared<Torre>(Vector3(0,0,0), towerH, 100));
-    bando->addObstaculo(obstaculos[0]);
-    bando->addObstaculo(obstaculos[1]);
+    createObstaculos();
 
     fogEnabled = false;
     cameraAtual = AltoTorre;
 
+    double towerH = 500;
     this->observador = Vector3(0, towerH + towerH/1.5 + 50, 0);
     this->alvo = bando->getCentroBando();
     this->normalObsvd = Vector3(0, 1, 0);
+}
+
+void World::createObstaculos(){
+    double towerH = 500;
+    obstaculos.push_back(std::make_shared<Torre>(Vector3(0,0,0), towerH, 100));
+
+    obstaculos.push_back(std::make_shared<Torre>(Vector3(700,0,700), 300, 50));
+    obstaculos.push_back(std::make_shared<Torre>(Vector3(700,0,800), 300, 50));
+    obstaculos.push_back(std::make_shared<Torre>(Vector3(700,0,900), 300, 50));
+    obstaculos.push_back(std::make_shared<Torre>(Vector3(700,0,1000), 300, 50));
+    obstaculos.push_back(std::make_shared<Torre>(Vector3(700,0,1100), 300, 50));
+
+    obstaculos.push_back(std::make_shared<Esfera>(Vector3(-1500,600,700)));
+    obstaculos.push_back(std::make_shared<Esfera>(Vector3(-1400,400,800)));
+    obstaculos.push_back(std::make_shared<Esfera>(Vector3(-1300,600,900)));
+    obstaculos.push_back(std::make_shared<Esfera>(Vector3(-1200,400,1000)));
+    obstaculos.push_back(std::make_shared<Esfera>(Vector3(-1100,600,1100)));
+
+    obstaculos.push_back(std::make_shared<Torre>(Vector3(1250,0,700), 200, 40));
+    obstaculos.push_back(std::make_shared<Torre>(Vector3(600,0,1700), 200, 40));
+    obstaculos.push_back(std::make_shared<Torre>(Vector3(1600,0,1700), 200, 40));
+    obstaculos.push_back(std::make_shared<Torre>(Vector3(-1600,0,-700), 200, 40));
+    obstaculos.push_back(std::make_shared<Torre>(Vector3(-1900,0,-100), 200, 40));
+    obstaculos.push_back(std::make_shared<Torre>(Vector3(-400,0,-700), 200, 40));
+
+    std::vector<std::shared_ptr<Obstaculo>>::iterator it;
+    for (it = obstaculos.begin(); it != obstaculos.end(); it++){
+        bando->addObstaculo(*it);
+    }
 }
 
 void World::drawGeradores(){

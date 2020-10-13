@@ -43,8 +43,9 @@ void Torre::draw(){
     glPushMatrix();
     Quaternion qx = Quaternion::FromAngleAxis(-M_PI/2,Vector3(1,0,0));
     Matrix3x3 m1 = Matrix3x3::FromQuaternion(qx);
+    glTranslatef(pos.X, pos.Y, pos.Z);
     glMultMatrixd(expande(m1));
-
+    
     glColor3f(1,1,102/255);
     GLUquadricObj *quadratic;
     quadratic = gluNewQuadric();
@@ -60,9 +61,10 @@ void Torre::draw(){
     glPushMatrix();
     qx = Quaternion::FromAngleAxis(-M_PI/2,Vector3(1,0,0));
     m1 = Matrix3x3::FromQuaternion(qx);
+    glTranslatef(pos.X, pos.Y, pos.Z);
     glMultMatrixd(expande(m1));
     glTranslatef(0,0,cylH);
-
+    
     glColor3f(0.8,0.1,0.3);
     quadratic = gluNewQuadric();
     gluCylinder(quadratic,

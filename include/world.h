@@ -50,6 +50,7 @@ class World{
         
         void drawGeradores();
         void drawChao();
+        void createObstaculos();
 };
 
 #endif /* WORLD_H */
