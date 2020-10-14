@@ -96,10 +96,18 @@ void World::drawChao(){
     glEnd();
 }
 
+void World::drawCeu(){
+    if (fogEnabled){
+        glClearColor(0.5, 0.5, 0.5, 1);
+    }else{
+        glClearColor(0.529, 0.808, 0.922, 1);
+    }
+}
+
 void World::draw(){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glClearColor(0.529, 0.808, 0.922, 1);
-
+    
+    drawCeu();
     drawGeradores();
     drawChao();
 

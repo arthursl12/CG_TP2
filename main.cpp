@@ -55,10 +55,10 @@ void initFog(){
 	GLfloat fogColor[4] = {0.5, 0.5, 0.5, 1.0};
 	glFogi(GL_FOG_MODE, GL_LINEAR);
 	glFogfv(GL_FOG_COLOR, fogColor);
-	glFogf(GL_FOG_DENSITY, 0.35);
+	glFogf(GL_FOG_DENSITY, 0.5);
 	glHint(GL_FOG_HINT, GL_DONT_CARE);
 	glFogf(GL_FOG_START, 1.0);
-	glFogf(GL_FOG_END, 3000);
+	glFogf(GL_FOG_END, 2000);
 }
 
 void init(){
