@@ -13,6 +13,7 @@ void BoidLider::atualizaEixos(Quaternion q){
     velocity = mulQuatVec(q, velocity);
     cima = mulQuatVec(q, cima);
     esq = mulQuatVec(q, esq);
+    frente = mulQuatVec(q, frente);
     totalRotation = q * totalRotation;
 }
 
