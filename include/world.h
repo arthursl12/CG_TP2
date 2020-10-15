@@ -38,6 +38,8 @@ class World{
         void liderYawDir();
         void liderPitchUp();
         void liderPitchDown();
+        void liderRollEsq();
+        void liderRollDir();
     private:
         Vector3 observador;
         Vector3 alvo;

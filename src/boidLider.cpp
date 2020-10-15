@@ -48,6 +48,14 @@ void BoidLider::pitchDown(){
     Quaternion q = Quaternion::FromAngleAxis(PITCH_ANGLE,esq);
     atualizaEixos(q);
 }
+void BoidLider::rollEsq(){
+    Quaternion q = Quaternion::FromAngleAxis(-M_PI/20,velocity);
+    atualizaEixos(q);
+}
+void BoidLider::rollDir(){
+    Quaternion q = Quaternion::FromAngleAxis(M_PI/20,velocity);
+    atualizaEixos(q);
+}
 
 void BoidLider::draw(){
     glPushMatrix();

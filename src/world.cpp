@@ -225,6 +225,12 @@ void World::liderPitchUp(){
 void World::liderPitchDown(){
     bando->liderPitchDown();
 }
+void World::liderRollEsq(){
+    bando->liderRollEsq();
+}
+void World::liderRollDir(){
+    bando->liderRollDir();
+}
 
 void World::toggleFog(){
     if (fogEnabled){

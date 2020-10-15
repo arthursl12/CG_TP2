@@ -45,6 +45,12 @@ void keyboard_callback(unsigned char key, int, int){
 		case 's':
 			world.liderPitchDown();
 			break;
+		case 'a':
+			world.liderRollEsq();
+			break;
+		case 'd':
+			world.liderRollDir();
+			break;
 	}
 
 	// Outros controles

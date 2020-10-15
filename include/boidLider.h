@@ -14,6 +14,8 @@ class BoidLider : public Boid{
         void yawDir();
         void pitchUp();
         void pitchDown();
+        void rollEsq();
+        void rollDir();
     private:
         Quaternion totalRotation;
 

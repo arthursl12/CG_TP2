@@ -30,6 +30,8 @@ class Bando : public GameObject{
         void liderYawDir();
         void liderPitchUp();
         void liderPitchDown();
+        void liderRollEsq();
+        void liderRollDir();
     private:
         Vector3 centroBando;
 

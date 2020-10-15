@@ -37,6 +37,12 @@ void Bando::liderPitchUp(){
 void Bando::liderPitchDown(){
     lider->pitchDown();
 }
+void Bando::liderRollEsq(){
+    lider->rollEsq();
+}
+void Bando::liderRollDir(){
+    lider->rollDir();
+}
 
 void drawVector(Vector3 vec, Vector3 origem){
     Vector3 copy = vec;
