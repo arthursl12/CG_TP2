@@ -49,11 +49,11 @@ void BoidLider::pitchDown(){
     atualizaEixos(q);
 }
 void BoidLider::rollEsq(){
-    Quaternion q = Quaternion::FromAngleAxis(-M_PI/20,velocity);
+    Quaternion q = Quaternion::FromAngleAxis(-ROLL_ANGLE,velocity);
     atualizaEixos(q);
 }
 void BoidLider::rollDir(){
-    Quaternion q = Quaternion::FromAngleAxis(M_PI/20,velocity);
+    Quaternion q = Quaternion::FromAngleAxis(ROLL_ANGLE,velocity);
     atualizaEixos(q);
 }
 
