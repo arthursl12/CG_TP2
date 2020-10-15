@@ -96,7 +96,7 @@ void keyboard_callback(unsigned char key, int, int){
 
 	// Mudança em fatores
 	switch (key){
-		// Altera fator de curva
+		// Altera campo de visão
 		case 't':{
 			world.addCampoVisao(+20);
 			break;
