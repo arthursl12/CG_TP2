@@ -26,6 +26,7 @@ class World{
         void moveObservador(int frente, int direita, int cima);
         void changeCamera(Camera newC);
         void toggleFog();
+        void toggleDebug();
 
         void addBoid();
         void removeBoid();
@@ -49,6 +50,7 @@ class World{
         std::shared_ptr<Bando> bando;
         std::vector<std::shared_ptr<Obstaculo>> obstaculos;
         bool fogEnabled;
+        bool debugEnabled;
         
         void drawGeradores();
         void drawChao();

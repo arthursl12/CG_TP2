@@ -7,6 +7,8 @@ Bando::Bando(Vector3 _posleader){
     pos = _posleader;
     lider = std::make_shared<BoidLider>(_posleader);
 
+    debugEnabled = false;
+
     fatCentro = FATOR_CENTRALIZAR_INI;
     fatCurva = FATOR_CURVA_INI;
     fatVelLoc = FATOR_VEL_LOCAL_INI;
@@ -57,25 +59,29 @@ void drawVector(Vector3 vec, Vector3 origem){
 
 void Bando::draw(){
     lider->draw();
-    glColor3f(1,1,0);
-    drawVector(lider->cima, lider->pos + Vector3(30,0,0));
-    glColor3f(1,0,0);
-    drawVector(lider->velocity, lider->pos + Vector3(30,0,0));
-    glColor3f(0,0.5,1);
-    drawVector(lider->esq, lider->pos + Vector3(30,0,0));
-
-    glColor3f(1,0,1);
-    drawVector(lider->frente, lider->pos + Vector3(30,30,0));
+    if (debugEnabled){
+        glColor3f(1,1,0);
+        drawVector(lider->cima, lider->pos + Vector3(30,0,0));
+        glColor3f(1,0,0);
+        drawVector(lider->velocity, lider->pos + Vector3(30,0,0));
+        glColor3f(0,0.5,1);
+        drawVector(lider->esq, lider->pos + Vector3(30,0,0));
+    }
 
     std::vector<std::shared_ptr<BoidComum>>::iterator it;
     for (it = bando.begin(); it != bando.end(); it++){
         (*it)->draw();
-        drawVector((*it)->velocity, (*it)->pos + Vector3(30,0,0));
-        drawVector((*it)->cima, (*it)->pos + Vector3(30,0,0));
+        if (debugEnabled){
+            drawVector((*it)->velocity, (*it)->pos + Vector3(30,0,0));
+            drawVector((*it)->cima, (*it)->pos + Vector3(30,0,0));
+        }
     }
 }
 
 void Bando::addSeparacao(double delta){
+    if (!debugEnabled)
+        return;
+    
     fatSeparar += delta;
     if (fatSeparar <= FATOR_SEPARACAO_MIN){
         fatSeparar = FATOR_SEPARACAO_MIN;
@@ -84,6 +90,9 @@ void Bando::addSeparacao(double delta){
     }
 }
 void Bando::addVelLocal(double delta){
+    if (!debugEnabled)
+        return;
+    
     fatVelLoc += delta;
     if (fatVelLoc <= FATOR_VEL_LOCAL_MIN){
         fatVelLoc = FATOR_VEL_LOCAL_MIN;
@@ -92,6 +101,9 @@ void Bando::addVelLocal(double delta){
     }
 }
 void Bando::addCampoVisao(double delta){
+    if (!debugEnabled)
+        return;
+    
     campoVisao += delta;
     if (campoVisao <= 0){
         campoVisao = 0;
@@ -271,7 +283,10 @@ void Bando::update(){
         bAtual->addVelocity(soma);
 
     }
-    // std::cout << "CV:" << campoVisao << ", VLoc: " << fatVelLoc << ", Sepa: " << fatSeparar << std::endl;
+    if (debugEnabled){
+        std::cout << "CampoVis:" << campoVisao << ", VelLoc: " << fatVelLoc << ", Separ: " << fatSeparar << std::endl;
+    }   
+    
 
     // Muda a posição de cada boid
     lider->update();
@@ -333,4 +348,8 @@ Vector3 Bando::getCentroBando(){
     int totalBoids = bando.size() + 1;
     centro = centro / totalBoids;
     return centro;
+}
+
+void Bando::toggleDebug(){
+    debugEnabled = !debugEnabled;
 }

@@ -71,6 +71,10 @@ void keyboard_callback(unsigned char key, int, int){
 			world.toggleFog();
 			break;
 		}
+		case 'p':{
+			world.toggleDebug();
+			break;
+		}
 	}
 
 	// Quantidade de Boids

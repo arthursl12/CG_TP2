@@ -17,6 +17,7 @@ class Bando : public GameObject{
         void addBoid();
         void removeBoid();
         Vector3 getCentroBando();
+        void toggleDebug();
         void addSeparacao(double delta);
         void addVelLocal(double delta);
         void addCampoVisao(double delta);
@@ -45,6 +46,8 @@ class Bando : public GameObject{
         double fatSeparar;
         double fatLider;
         double campoVisao;
+
+        bool debugEnabled;
         
         Vector3 voarParaCentro(Boid& b);
         Vector3 manterDistanciaOutros(Boid& b);

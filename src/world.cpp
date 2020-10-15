@@ -19,6 +19,7 @@ World::World(){
     createObstaculos();
 
     fogEnabled = false;
+    debugEnabled = false;
     cameraAtual = AltoTorre;
 
     double towerH = 500;
@@ -242,6 +243,12 @@ void World::toggleFog(){
         glClearColor(0.5, 0.5, 0.5, 1.0);  /* fog color */
         glEnable(GL_FOG);
     }
+}
+
+void World::toggleDebug(){
+    debugEnabled = !debugEnabled;
+    bando->toggleDebug();
+    std::cout << "====//====" << std::endl;
 }
 
 void World::addBoid(){
